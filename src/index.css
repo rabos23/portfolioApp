@@ -1,0 +1,66 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.a-card {
+margin:20px;
+}
+.a-card-img {
+  border-radius: 10px;
+  width:300px;
+  height: 480px;
+  box-shadow: 0px 0px 5px 1px #ccc;
+
+}
+.a-card-info {
+margin-top: 10px;
+min-height: 100px;
+}
+.a-card-title {
+  font-size: 24px;
+  margin:0px;
+}
+.a-card-subtitle {
+  font-size: 16px;
+  margin: 0px;
+}
+
+.success-msg{
+  color: #57a773;
+  padding: 10px 15px;
+}
+
+.error-msg{
+  color: #EE6352;
+  padding: 10px 15px;
+}
+
+/* The animation code */
+
+@keyframes example2 {
+  0%   {opacity:0;}
+  100%  {opcaity:1;}
+ 
+}
+#root {
+animation-duration: 1s;
+animation-name: example2;
+}
+/* The element to apply the animation to */
+.line {
+  background-color: black;
+  margin-top:50%;
+  animation-name: example;
+  animation-duration: 3s;
+
+}
