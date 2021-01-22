@@ -10,7 +10,7 @@ function PriceHero(props) {
       <Row className="ml-5 display-2">{props.crypto}/</Row>
       <Container className="justify-content">
         <Row md={8}>
-          <Col>
+           <Col>
             Prices
             <Price currency={"EUR"} crypto={props.crypto} />
             <Price currency={"USDT"} crypto={props.crypto} />
@@ -19,9 +19,9 @@ function PriceHero(props) {
             Change
             <PriceChange currency={"EUR"} crypto={props.crypto} />
             <PriceChange currency={"USDT"} crypto={props.crypto} />
-          </Col>
+          </Col> 
           <Col>
-            <Graph />
+            { <Graph />}
           </Col>
         </Row>
       </Container>

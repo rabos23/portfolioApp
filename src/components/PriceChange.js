@@ -16,7 +16,7 @@ if (parseFloat(products.priceChangePercent) > 1){
 };
 return (<>
    
-    <Row className={className} style={{color:color}} > {props.currency } {loading ? 'loading...' : parseFloat(products.priceChange).toFixed(2)} / {parseFloat(products.priceChangePercent).toFixed(2) } </Row>
+    <Row className={className} style={{color:color}} > {props.currency } {loading ? 'loading...' : parseFloat(products.priceChange).toFixed(2)} / {parseFloat(products.priceChangePercent).toFixed(2) }% 24h. price</Row>
     
     </>);
 }
