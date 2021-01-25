@@ -23,11 +23,12 @@ const url = "https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_MONTHLY
 
  
   return (
-    <div>
-    {loading ? 'loading...' : Object.keys(products["Time Series (Digital Currency Monthly)"])
+    <div> 
+    {
+    loading ? 'loading...' : Object.keys(products["Time Series (Digital Currency Monthly)"])
     .map(el => setDataset(products["Time Series (Digital Currency Monthly)"][el]["4a. close (EUR)"]))  
     
-    }
+    } 
   
 <Line data={data}/>
   
