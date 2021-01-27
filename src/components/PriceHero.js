@@ -20,9 +20,11 @@ function PriceHero(props) {
             <PriceChange currency={"EUR"} crypto={props.crypto} />
             <PriceChange currency={"USDT"} crypto={props.crypto} />
           </Col> 
+          <Row>
           <Col>
-            { <Graph />}
+            <Graph />
           </Col>
+          </Row>
         </Row>
       </Container>
     </Jumbotron>

@@ -7,10 +7,10 @@ function Actualprice(props) {
     <div>
       
       <PriceHero title={props.title} subTitle={props.subTitle} text={props.text} crypto={"BTC"}/>
-    <PriceHero title={props.title} subTitle={props.subTitle} text={props.text} crypto={"ETH"}/>
+     <PriceHero title={props.title} subTitle={props.subTitle} text={props.text} crypto={"ETH"}/>
       <PriceHero title={props.title} subTitle={props.subTitle} text={props.text} crypto={"ADA"}/>
       <PriceHero title={props.title} subTitle={props.subTitle} text={props.text} crypto={"DOT"}/>
-      
+       
     </div>
   );
 };
