@@ -9,6 +9,7 @@ import Homepage from "./pages/Homepage";
 import Actualprice from "./pages/Actualprice";
 import Contactpage from "./pages/Contactpage";
 import Loginpage from "./pages/Loginpage";
+import { AuthProvider } from "./contexts/AuthContext";
 class App extends Component {
   state = {
     title: "Some title",
@@ -37,13 +38,14 @@ class App extends Component {
       title: "Log in",
       subTitle: "Let's see",
       text: "<3",
-      size: 3,
+      size: 4,
     },
   };
 
   render() {
     return (
       <Router>
+        <AuthProvider>
         <Container className="p-5" fluid={false}>
           <Navbar className="border-bottom" bg="transparent" expand="lg">
             <Navbar.Brand>World of Automatization</Navbar.Brand>
@@ -115,6 +117,7 @@ class App extends Component {
           />
           <Footer></Footer>
         </Container>
+        </AuthProvider>
       </Router>
     );
   }

@@ -8,7 +8,6 @@ function Graph(props) {
     labels: [],
     datasets: [
      {
-     
       lineTension: 0.3,
       backgroundColor: "rgba(75,192,192,0.4)",
       borderColor: "rgba(75,192,192,1)",
@@ -34,7 +33,7 @@ function Graph(props) {
   }  
 /*   const url = 'https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_MONTHLY&symbol='+props.crypto+'&market=EUR&apikey=Q2SOTR60XPBOWUDG';
  */  
-const url = "https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_MONTHLY&symbol=ETH&market=EUR&apikey=Q2SOTR60XPBOWUDG";
+const url = "https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_MONTHLY&symbol=BTC&market=EUR&apikey=Q2SOTR60XPBOWUDG";
   const { loading, products } = useFetch(url)
   console.log(products)
 
@@ -52,7 +51,16 @@ const url = "https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_MONTHLY
   return (
 
 <Line data={data} options={{
-            legend: false
+            legend: false,
+             scales: {
+              
+              xAxes: [{
+                  ticks: {
+                    reverse: true,
+                    beginAtZero: false
+                  }
+              }] 
+          } 
           }} />
       
   

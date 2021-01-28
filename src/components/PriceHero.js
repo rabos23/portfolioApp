@@ -15,7 +15,7 @@ function PriceHero(props) {
             <Price currency={"EUR"} crypto={props.crypto} />
             <Price currency={"USDT"} crypto={props.crypto} />
           </Col>
-          <Col xs={6}>
+          <Col xs={4}>
             Change
             <PriceChange currency={"EUR"} crypto={props.crypto} />
             <PriceChange currency={"USDT"} crypto={props.crypto} />
