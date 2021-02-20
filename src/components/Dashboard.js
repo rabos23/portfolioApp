@@ -4,6 +4,8 @@ import Content from "../components/Content";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import Hero from "../components/Hero";
+import Cryptolist from "../components/Cryptolist";
+
 export default function Dashboard() {
   const { currentUser, logout } = useAuth();
   const [error, setError] = useState("");
