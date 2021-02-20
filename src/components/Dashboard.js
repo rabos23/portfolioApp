@@ -25,6 +25,14 @@ export default function Dashboard() {
           <h2 className="text-center mt-4">Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <strong>Email: {currentUser.email}</strong>
+          <br />
+          <strong>Cryptocurrencies list</strong>
+          <br />
+          <strong>{currentUser.email}</strong>
+          <strong>{currentUser.email}</strong>
+          <strong>{currentUser.email}</strong>
+          <strong>{currentUser.email}</strong>
+
           <Link to="/update-profile" className="btn btn-primary w-100">
             update profile
           </Link>

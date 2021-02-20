@@ -13,6 +13,8 @@ import Signup from "./components/Signup";
 import { AuthProvider } from "./contexts/AuthContext";
 import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
+import ForgotPassword from "./components/ForgotPassword";
+import UpdateProfile from "./components/UpdateProfile";
 
 class App extends Component {
   state = {
@@ -39,7 +41,7 @@ class App extends Component {
       size: 2,
     },
     login: {
-      title: "Log in",
+      title: "Login",
       subTitle: "Let's see",
       text: "<3",
       size: 4,
@@ -68,7 +70,8 @@ class App extends Component {
                   <Link className="nav-link" to="/contact">
                     Contact
                   </Link>
-                  <Link className="nav-link" to="/signup">
+
+                  <Link className="nav-link" to="/login">
                     Log in
                   </Link>
                 </Nav>
@@ -111,7 +114,13 @@ class App extends Component {
             <Switch>
               <Route path="/signup" component={Signup} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute
+                exact
+                path="/update-profile"
+                component={UpdateProfile}
+              />
               <Route path="/login" component={Login} />
+              <Route path="/forgotPassword" component={ForgotPassword} />
             </Switch>
             <Footer></Footer>
           </Container>

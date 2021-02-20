@@ -3,45 +3,40 @@ import { Form, Button, Card, Container, Alert } from "react-bootstrap";
 import Content from "../components/Content";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
-import { Redirect, Route } from "react-router-dom";
 
 export default function Login(props) {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { login, currentUser } = useAuth();
+  const { resetPassword } = useAuth();
   const [error, setError] = useState("");
+  const [msg, setMsg] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-  const [passForgot, setPassForgot] = useState(1);
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
+      setMsg("");
       setError("");
       setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
-      history.push("/dashboard");
+      await resetPassword(emailRef.current.value);
+      setMsg("Password has been succesfully reseted");
     } catch {
-      setError("Failed to login");
+      setError("Failed to reset password");
     }
     setLoading(false);
   }
 
   return (
     <>
-      {currentUser && <Redirect to="/dashboard" />}
       <Content size={props.size}>
         {error && <Alert variant="danger">{error}</Alert>}
+        {msg && <Alert variant="success">{msg}</Alert>}
         <Form onSubmit={handleSubmit} style={{ alignItems: "center" }}>
           <Form.Group id="email">
-            <Form.Label>Login</Form.Label>
+            <Form.Label>Email</Form.Label>
             <Form.Control type="email" ref={emailRef} required />
-          </Form.Group>
-
-          <Form.Group id="password">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" ref={passwordRef} required />
           </Form.Group>
 
           <Button
@@ -51,14 +46,13 @@ export default function Login(props) {
             variant="primary"
             type="submit"
           >
-            LOG IN
+            Reset Password
           </Button>
-          <div className="text-center mt-2">
-            Need an account? <Link to="/signup"> Sign up</Link>
-          </div>
-          <div className="text-center mt-2">
-            Forgot password? <Link to="/ForgotPassword"> Reset password</Link>
-          </div>
+          {msg && (
+            <div className="text-center mt-2">
+              <Link to="/login"> Log in</Link>
+            </div>
+          )}
         </Form>
       </Content>
     </>
