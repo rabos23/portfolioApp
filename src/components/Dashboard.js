@@ -24,30 +24,13 @@ export default function Dashboard() {
       <Card className="">
         <Card.Body>
           <h2 className="text-center ">Profile</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <strong>Email: {currentUser.email}</strong>
-          <br />
-          <strong>Cryptocurrencies list</strong>
-          <br />
-          <strong>{currentUser.email}</strong>
-          <strong>{currentUser.email}</strong>
-          <strong>{currentUser.email}</strong>
-          <strong>{currentUser.email}</strong>
-
-          <Link to="/update-profile" className="btn btn-primary w-100">
-            update profile
-          </Link>
         </Card.Body>
         <Card.Body>
           <h2 className="text-center mt-4">Crypto </h2>
 
-          <strong>{currentUser.email}</strong>
-          <strong>{currentUser.email}</strong>
-          <strong>{currentUser.email}</strong>
-          <strong>{currentUser.email}</strong>
-
-          <Link to="/update-profile" className="btn btn-primary w-100">
-            update profile
+          <Link to="/update-profile" className="btn btn-primary">
+            <Cryptolist />
+            UPDATE
           </Link>
         </Card.Body>
       </Card>
