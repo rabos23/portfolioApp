@@ -5,12 +5,21 @@ import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import Hero from "../components/Hero";
 import Cryptolist from "../components/Cryptolist";
+import Updateprofile from "../components/UpdateProfile";
 
 export default function Dashboard() {
   const { currentUser, logout } = useAuth();
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [button, setButton] = useState(false);
   const history = useHistory();
+  const [UpdateProfile, setUpdateProfile] = useState(0);
 
+  function handleUpdate(e) {
+    e.preventDefault();
+    setError("");
+    setUpdateProfile(true);
+  }
   async function handleLogout() {
     setError("");
     try {
@@ -26,20 +35,31 @@ export default function Dashboard() {
       <Card className="">
         <Card.Body>
           <h2 className="text-center ">Profile</h2>
+          <b>
+            {UpdateProfile ? (
+              <Updateprofile />
+            ) : (
+              <Button
+                variant="link"
+                onClick={handleUpdate}
+                disabled={button}
+                style={{ alignItems: "center" }}
+                className=""
+                variant="primary"
+                type="submit"
+              >
+                Update profile
+              </Button>
+            )}
+          </b>
         </Card.Body>
+
         <Card.Body>
           <h2 className="text-center mt-4">Crypto </h2>
-
-          <Link to="/update-profile" className="btn btn-primary">
-            <Cryptolist />
-            UPDATE
-          </Link>
         </Card.Body>
       </Card>
       <div className="text-center mt-2">
-        <Button variant="link" onClick={handleLogout}>
-          Log out
-        </Button>
+        <Button variant="link">Log out</Button>
       </div>
     </div>
   );
