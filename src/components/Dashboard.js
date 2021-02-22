@@ -32,10 +32,10 @@ export default function Dashboard() {
   return (
     <div>
       <Hero title="Dashboard" text={currentUser.email} />
-      <Card className="">
-        <Card.Body>
+      <Card className="justify-content-center">
+        <Card.Body className="justify-content-center">
           <h2 className="text-center ">Profile</h2>
-          <b>
+          
             {UpdateProfile ? (
               <Updateprofile />
             ) : (
@@ -44,22 +44,24 @@ export default function Dashboard() {
                 onClick={handleUpdate}
                 disabled={button}
                 style={{ alignItems: "center" }}
-                className=""
+                className="center w-100"
                 variant="primary"
                 type="submit"
               >
-                Update profile
+                Edit profile
               </Button>
             )}
-          </b>
-        </Card.Body>
-
+          
+        
+          </Card.Body>
         <Card.Body>
           <h2 className="text-center mt-4">Crypto </h2>
+          
         </Card.Body>
+        
       </Card>
       <div className="text-center mt-2">
-        <Button variant="link">Log out</Button>
+        <Button variant="link" onClick={handleLogout}>Log out</Button>
       </div>
     </div>
   );

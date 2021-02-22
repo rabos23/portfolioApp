@@ -5,6 +5,12 @@ import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 
 export default function Updateprofile() {
+  const emailRef = useRef();
+  const oPassRef = useRef();
+  const nPassRef = useRef();
+  const nrPassRef = useRef();
+
+  const passwordRef = useRef();
   return (
     <Form style={{ alignItems: "center" }}>
       <Form.Group id="email">
@@ -12,14 +18,16 @@ export default function Updateprofile() {
         <Form.Control
           type="email"
           required
+          ref={emailRef}
           placeholder="Leave blank for remain same"
         />
       </Form.Group>
-      <Form.Group id="email">
+      <Form.Group id="old_password">
         <Form.Label>Old Password</Form.Label>
         <Form.Control
-          type="email"
+          type="password"
           required
+          ref={oPassRef}
           placeholder="Leave blank for remain same"
         />
       </Form.Group>
@@ -29,6 +37,7 @@ export default function Updateprofile() {
         <Form.Control
           type="password"
           required
+          ref={nPassRef}
           placeholder="Leave blank for remain same"
         />
       </Form.Group>
@@ -37,26 +46,30 @@ export default function Updateprofile() {
         <Form.Control
           type="password"
           required
+          ref={nrPassRef}
           placeholder="Leave blank for remain same"
         />
-      </Form.Group>
-
+      
+<br />
       <Button
         style={{ alignItems: "center" }}
-        className="d-inline-block center"
+        className="d-inline-block center w-100"
         variant="primary"
         type="submit"
       >
         Update profile
       </Button>
-
+      <div style={{textAlign: "center"}}>
       <Link
-        className="ml-2 d-inline-block center"
-        style={{ alignItems: "center" }}
+     
         to="/login"
       >
         Hide
       </Link>
+      </div>
+      
+      
+      </Form.Group>
     </Form>
   );
 }

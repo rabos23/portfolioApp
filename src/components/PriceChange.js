@@ -7,7 +7,7 @@ function PriceChange(props) {
     
   const { loading, products } = useFetch(url) 
   console.log(products)
-  let className = "ml-5 lead font-weight-light";
+  let className = " lead font-weight-light";
   let color="black";
 if (parseFloat(products.priceChangePercent) > 1){
   color="green";
@@ -15,7 +15,6 @@ if (parseFloat(products.priceChangePercent) > 1){
   color="red";
 };
 return (<>
-   
     <Row className={className} style={{color:color}} > {props.currency } {loading ? 'loading...' : parseFloat(products.priceChange).toFixed(2)} / {parseFloat(products.priceChangePercent).toFixed(2) }% 24h. price</Row>
     
     </>);

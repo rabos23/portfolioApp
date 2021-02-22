@@ -12,7 +12,7 @@ function Price(props) {
   console.log(products);
   return (
     <>
-      <Row className="ml-5 lead font-weight-light">
+      <Row className="lead font-weight-light">
         {" "}
         {props.currency}{" "}
         {loading ? "loading..." : parseFloat(products.lastPrice).toFixed(2)}
