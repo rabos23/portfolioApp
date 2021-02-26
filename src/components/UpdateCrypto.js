@@ -1,5 +1,5 @@
 import React, { Component, useState, useRef } from "react";
-import { Form, Button, Card, Container, Alert } from "react-bootstrap";
+import { Form, Button, Card, Container, Alert, Dropdown } from "react-bootstrap";
 import Content from "../components/Content";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
@@ -12,8 +12,17 @@ export default function UpdateCrypto(props) {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const [msg, setMsg] = useState("")
+  const [currency, setCurrency] = useState("")
+  const [crypto, setCrypto] = useState("")
   const history = useHistory()
-
+  const style = {
+    background: "none",
+    color: "inherit", 
+    border:"none", 
+    padding: 0, 
+    textAlign: "left"
+  
+  }
   function handleSubmit(e) {
     e.preventDefault()
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
@@ -45,7 +54,7 @@ export default function UpdateCrypto(props) {
 
   return (
     <>
-   - Edit Crypto
+   
       <Card.Body>
         {error && <Alert variant="danger">{error}</Alert> }
         {msg && <Alert variant="success">{msg}</Alert> }
@@ -53,32 +62,35 @@ export default function UpdateCrypto(props) {
         
         <Form onSubmit={handleSubmit}>
           <Form.Group id="email">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
-              ref={emailRef}
-              required
-              defaultValue={currentUser.email}
-            />
-          </Form.Group>
-          <Form.Group id="password">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              ref={passwordRef}
-              placeholder="Leave blank to keep the same"
-            />
-          </Form.Group>
-          <Form.Group id="password-confirm">
-            <Form.Label>Password Confirmation</Form.Label>
-            <Form.Control
-              type="password"
-              ref={passwordConfirmRef}
-              placeholder="Leave blank to keep the same"
-            />
-          </Form.Group>
-          <Button disabled={loading} className="w-100" type="submit">
-            Update
+            <Form.Label>Update Crypto list</Form.Label>
+            <Dropdown style={style}>
+              <Dropdown.Toggle style={style} id="dropdown-basic">
+                Select crypto currency
+              </Dropdown.Toggle>
+              <Dropdown.Menu >
+                <Dropdown.Item href="#/action-1">BTC </Dropdown.Item>
+                <Dropdown.Item href="#/action-2">ETH</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">ADA</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">DOGE</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">XRP</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown >
+         </Form.Group>
+         <Form.Group id="email">
+            <Form.Label>Update Crypto list</Form.Label>
+            <Dropdown style={style}>
+              <Dropdown.Toggle style={style} id="dropdown-basic">
+                Select FIAT currency
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">EUR </Dropdown.Item>
+                <Dropdown.Item href="#/action-2">USD</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">CZK</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+         </Form.Group>
+         <Button disabled={loading} className="primary" type="submit">
+            +ADD
           </Button>
         </Form>
       </Card.Body>

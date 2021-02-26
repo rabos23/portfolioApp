@@ -50,7 +50,7 @@ export default function Updateprofile(props) {
 
   return (
     <>
-    - Edit Profile
+  
       <Card.Body>
         {error && <Alert variant="danger">{error}</Alert> }
         {msg && <Alert variant="success">{msg}</Alert> }
