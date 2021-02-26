@@ -4,10 +4,10 @@ import Content from "../components/Content";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 
-export default function Updateprofile(props) {
-  const emailRef = useRef()
-  const passwordRef = useRef()
-  const passwordConfirmRef = useRef()
+export default function UpdateCrypto(props) {
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
   const { currentUser, updatePassword, updateEmail } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
@@ -19,12 +19,9 @@ export default function Updateprofile(props) {
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match")
     }
-
     const promises = []
     setLoading(true)
     setError("")
-  
-
     if (emailRef.current.value !== currentUser.email) {
       promises.push(updateEmail(emailRef.current.value))
     }
@@ -42,15 +39,13 @@ export default function Updateprofile(props) {
       })
       .finally(() => {
         setLoading(false)
-             
-        
       })
   }
 
 
   return (
     <>
-    - Edit Profile
+   - Edit Crypto
       <Card.Body>
         {error && <Alert variant="danger">{error}</Alert> }
         {msg && <Alert variant="success">{msg}</Alert> }

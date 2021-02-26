@@ -6,6 +6,8 @@ import { Link, useHistory } from "react-router-dom";
 import Hero from "../components/Hero";
 import Cryptolist from "../components/Cryptolist";
 import Updateprofile from "../components/UpdateProfile";
+import Cryptoprofile from "../components/UpdateCrypto";
+
 
 export default function Dashboard() {
   const { currentUser, logout } = useAuth();
@@ -13,14 +15,29 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(false);
   const [button, setButton] = useState(false);
   const history = useHistory();
-  const [UpdateProfile, setUpdateProfile] = useState(0);
+  const [showProf, setShowProf] = useState(false);
+  const [showCrypt, setShowCrypt] = useState(false);
 
-  function handleUpdate(e) {
-    e.preventDefault();
-    setError("");
-    setUpdateProfile(true);
-  }
-  async function handleLogout() {
+const style = {
+  background: "none", color: "inherit", border:"none", padding: 0, textAlign: "left"
+
+}
+
+function handleShow(input){
+switch (input) {
+  case 1:
+    return setShowProf(true)
+    break;
+    case 2:
+      return setShowCrypt(true)
+      break;
+  default:
+    setShowProf(false)
+    setShowProf(false)
+    break;
+}
+}
+    async function handleLogout() {
     setError("");
     try {
       await logout();
@@ -35,29 +52,14 @@ export default function Dashboard() {
       <Card className="justify-content-center">
         <Card.Body className="justify-content-center">
           <h2 className="text-center ">Profile</h2>
-          
-            {UpdateProfile ? (
-              <Updateprofile />
-            ) : (
-              <Button
-                variant="link"
-                onClick={handleUpdate}
-                disabled={button}
-                style={{ alignItems: "center" }}
-                className="center w-100"
-                variant="primary"
-                type="submit"
-              >
-                Edit profile
-              </Button>
-            )}
-          
         
+        {showProf ? <Updateprofile show={show}/> : <Button style={style} onClick={() => handleShow(1)}>+ Edit Profile</Button> }
           </Card.Body>
-        <Card.Body>
+        {/* <Card.Body>
           <h2 className="text-center mt-4">Crypto </h2>
-          
-        </Card.Body>
+         
+          {showCrypt ? <Cryptoprofile /> : <Button style={style} onClick={() => handleShow(2)}>+ Edit Crypto</Button> }
+        </Card.Body> */}
         
       </Card>
       <div className="text-center mt-2">
