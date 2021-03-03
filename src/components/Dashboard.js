@@ -46,12 +46,14 @@ export default function Dashboard() {
       <Card className="justify-content-center">
         <Card.Body className="justify-content-center">
           <h2 className="text-center ">Profile</h2>
-        
+        <p>
+          Logged user: {currentUser.email} <br />
+          Role: "Role"
+        </p>
         
           </Card.Body>
           <Card.Body className="justify-content-center">
-          <h2 className="text-center ">Profile</h2>
-        
+               
         <Button style={style} onClick={() => setToggle(toggled => !toggled)}>{toggled ? "-": "+"} Edit Profile</Button> 
         {toggled && <Updateprofile />} <br/>
         <Button style={style} onClick={() => setToggle1(toggled1 => !toggled1)}>{toggled1 ? "-": "+"} Edit Crypto</Button> 

@@ -3,6 +3,8 @@ import { Form, Button, Card, Container, Alert, Dropdown } from "react-bootstrap"
 import Content from "../components/Content";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
+import DropdownList from 'react-widgets/lib/DropdownList'
+import { useFetch } from './useFetch'
 
 export default function UpdateCrypto(props) {
   const emailRef = useRef();
@@ -10,11 +12,23 @@ export default function UpdateCrypto(props) {
   const passwordConfirmRef = useRef();
   const { currentUser, updatePassword, updateEmail } = useAuth()
   const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
+  const [load, setLoad] = useState(false)
   const [msg, setMsg] = useState("")
   const [currency, setCurrency] = useState("")
   const [crypto, setCrypto] = useState("")
-  const history = useHistory()
+  const history = useHistory();
+  
+  const url = "https://api.coingecko.com/api/v3/coins/list?include_platform=false"
+  const { loading, products } = useFetch(url) 
+  /* 
+  if (loading == true){
+    console.log("loading")
+  }else{
+   const data = Object.keys(products)
+    console.log(data)
+     data.datasets[0].data = Object.keys(products["prices"]).map(el => products["prices"][el]["1"]) 
+    console.log(data.datasets[0].data)  
+  } */ 
   const style = {
     background: "none",
     color: "inherit", 
@@ -25,18 +39,11 @@ export default function UpdateCrypto(props) {
   }
   function handleSubmit(e) {
     e.preventDefault()
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords do not match")
-    }
+
     const promises = []
-    setLoading(true)
+    setLoad(true)
     setError("")
-    if (emailRef.current.value !== currentUser.email) {
-      promises.push(updateEmail(emailRef.current.value))
-    }
-    if (passwordRef.current.value) {
-      promises.push(updatePassword(passwordRef.current.value))
-    }
+    
 
     Promise.all(promises)
       .then(() => {
@@ -47,7 +54,7 @@ export default function UpdateCrypto(props) {
         setError(""+error)
       })
       .finally(() => {
-        setLoading(false)
+        setLoad(false)
       })
   }
 
@@ -60,39 +67,14 @@ export default function UpdateCrypto(props) {
         {msg && <Alert variant="success">{msg}</Alert> }
         
         
-        <Form onSubmit={handleSubmit}>
-          <Form.Group id="email">
-            <Form.Label>Update Crypto list</Form.Label>
-            <Dropdown style={style}>
-              <Dropdown.Toggle style={style} id="dropdown-basic">
-                Select crypto currency
-              </Dropdown.Toggle>
-              <Dropdown.Menu >
-                <Dropdown.Item href="#/action-1">BTC </Dropdown.Item>
-                <Dropdown.Item href="#/action-2">ETH</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">ADA</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">DOGE</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">XRP</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown >
-         </Form.Group>
-         <Form.Group id="email">
-            <Form.Label>Update Crypto list</Form.Label>
-            <Dropdown style={style}>
-              <Dropdown.Toggle style={style} id="dropdown-basic">
-                Select FIAT currency
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">EUR </Dropdown.Item>
-                <Dropdown.Item href="#/action-2">USD</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">CZK</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-         </Form.Group>
-         <Button disabled={loading} className="primary" type="submit">
-            +ADD
-          </Button>
-        </Form>
+        <DropdownList busy 
+      data = {
+        "BTC","ETH","ADA","BNB","DOT","USDT","XRP","LTC","LINK","XLM","UNI","DOGE","EOS"
+      }
+     
+     
+    />
+        
       </Card.Body>
    
     
