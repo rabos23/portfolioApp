@@ -31,9 +31,13 @@ export default function Login(props) {
   return (
     <>
       <Content size={props.size}>
-        {error && <Alert variant="danger">{error}</Alert>}
-        {msg && <Alert variant="success">{msg}</Alert>}
-        <Form onSubmit={handleSubmit} style={{ alignItems: "center" }}>
+        <Form
+          onSubmit={handleSubmit}
+          style={{ alignItems: "center" }}
+          className="mt-4"
+        >
+          {error && <Alert variant="danger">{error}</Alert>}
+          {msg && <Alert variant="success">{msg}</Alert>}
           <Form.Group id="email">
             <Form.Label>Email</Form.Label>
             <Form.Control type="email" ref={emailRef} required />
@@ -42,7 +46,7 @@ export default function Login(props) {
           <Button
             disabled={loading}
             style={{ alignItems: "center" }}
-            className="d-inline-block center w-100"
+            className="d-inline-block center w-100 "
             variant="primary"
             type="submit"
           >

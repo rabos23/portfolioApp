@@ -4,91 +4,51 @@ import Content from "../components/Content";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 
-export default function Updateprofile(props) {
-  const emailRef = useRef()
-  const passwordRef = useRef()
-  const passwordConfirmRef = useRef()
-  const { currentUser, updatePassword, updateEmail } = useAuth()
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
-  const [msg, setMsg] = useState("")
-  const history = useHistory()
-
-  function handleSubmit(e) {
-    e.preventDefault()
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords do not match")
-    }
-
-    const promises = []
-    setLoading(true)
-    setError("")
-  
-
-    if (emailRef.current.value !== currentUser.email) {
-      promises.push(updateEmail(emailRef.current.value))
-    }
-    if (passwordRef.current.value) {
-      promises.push(updatePassword(passwordRef.current.value))
-    }
-
-    Promise.all(promises)
-      .then(() => {
-        setMsg("Profile updated")
-        history.push("/dashboard")
-      })
-      .catch(error => {
-        setError(""+error)
-      })
-      .finally(() => {
-        setLoading(false)
-             
-        
-      })
-  }
-
-
+export default function Updateprofile() {
   return (
-    <>
-  
-      <Card.Body>
-        {error && <Alert variant="danger">{error}</Alert> }
-        {msg && <Alert variant="success">{msg}</Alert> }
-        
-        
-        <Form onSubmit={handleSubmit}>
-          <Form.Group id="email">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
-              ref={emailRef}
-              required
-              defaultValue={currentUser.email}
-            />
-          </Form.Group>
-          <Form.Group id="password">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              ref={passwordRef}
-              placeholder="Leave blank to keep the same"
-            />
-          </Form.Group>
-          <Form.Group id="password-confirm">
-            <Form.Label>Password Confirmation</Form.Label>
-            <Form.Control
-              type="password"
-              ref={passwordConfirmRef}
-              placeholder="Leave blank to keep the same"
-            />
-          </Form.Group>
-          <Button disabled={loading} className="w-100" type="submit">
-            Update
-          </Button>
-        </Form>
-      </Card.Body>
-   
-    
-  </>
+    <Form style={{ alignItems: "center" }}>
+      <Form.Group id="email">
+        <Form.Label>New email</Form.Label>
+        <Form.Control
+          type="email"
+          required
+          placeholder="Leave blank for remain same"
+        />
+      </Form.Group>
+      <Form.Group id="email">
+        <Form.Label>Old Password</Form.Label>
+        <Form.Control
+          type="email"
+          required
+          placeholder="Leave blank for remain same"
+        />
+      </Form.Group>
+
+      <Form.Group id="password">
+        <Form.Label>New Password</Form.Label>
+        <Form.Control
+          type="password"
+          required
+          placeholder="Leave blank for remain same"
+        />
+      </Form.Group>
+      <Form.Group id="password">
+        <Form.Label>Repeat new password</Form.Label>
+        <Form.Control
+          type="password"
+          required
+          placeholder="Leave blank for remain same"
+        />
+      </Form.Group>
+
+      <Button
+        style={{ alignItems: "center" }}
+        className="d-inline-block center"
+        variant="primary"
+        type="submit"
+      >
+        Update profile
+      </Button>
+    </Form>
   );
 }
