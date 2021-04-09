@@ -1,4 +1,7 @@
 import React, { Component, useState, useRef } from "react";
+import { ListBox } from 'primereact/listbox';
+
+
 import {
   Form,
   Button,
@@ -21,6 +24,7 @@ export default function UpdateCrypto(props) {
   const [error, setError] = useState("");
   const [load, setLoad] = useState(false);
   const [msg, setMsg] = useState("");
+  const [car, setCar] = useState("");
   const [currency, setCurrency] = useState("");
   const [crypto, setCrypto] = useState("");
   const history = useHistory();
@@ -66,29 +70,7 @@ export default function UpdateCrypto(props) {
 
   return (
     <>
-      <Card.Body>
-        {error && <Alert variant="danger">{error}</Alert>}
-        {msg && <Alert variant="success">{msg}</Alert>}
-
-        <DropdownList
-          busy
-          data={
-            ("BTC",
-            "ETH",
-            "ADA",
-            "BNB",
-            "DOT",
-            "USDT",
-            "XRP",
-            "LTC",
-            "LINK",
-            "XLM",
-            "UNI",
-            "DOGE",
-            "EOS")
-          }
-        />
-      </Card.Body>
+    
     </>
   );
 }
