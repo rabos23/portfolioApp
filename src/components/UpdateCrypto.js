@@ -22,27 +22,23 @@ const { Option } = Select;
 export default function UpdateCrypto() {
   const { Option } = Select;
   const { Title } = Typography;
-
+  const [selected, setSelected] = useState([]);
   function handleChange(value) {
-    console.log(`selected ${value}`);
+    setSelected([value]);
+    console.log(selected);
+    /* ulozeni do State */
   }
 
   const url = "https://api.pro.coinbase.com/currencies";
   const { loading, products } = useFetch(url);
 
   let array = [];
-  const data = [];
-  if (loading == true) {
-    console.log("loading");
-  } else {
-    products.map((c) => console.log(c.name));
-  }
+
+  let data = [];
 
   return (
-    <div style={{ height: "200px" }}>
-      <Divider />
-
-      <Title level={5}> Choose from {data.length} crypto currencies </Title>
+    <div style={{ height: "200px", marginTop: "10px" }}>
+      <Title level={5}> Choose crypto currencies </Title>
       <Select
         mode="multiple"
         style={{ width: "100%" }}
@@ -50,12 +46,36 @@ export default function UpdateCrypto() {
         onChange={handleChange}
         optionLabelProp="label"
       >
-        {products.map((c) => (
-          <Option value={c.id} label={c.name}>
-            {c.name}
-          </Option>
-        ))}
+        {products.map((c) =>
+          c.details.type == "crypto" ? (
+            <Option key={c.id} value={c.id} label={c.name}>
+              {c.name}
+            </Option>
+          ) : null
+        )}
+      </Select>
+      <Divider />
+
+      <Title level={5}> Choose fiat currencies </Title>
+      <Select
+        mode="multiple"
+        style={{ width: "100%" }}
+        placeholder="Select currency"
+        onChange={handleChange}
+        optionLabelProp="label"
+      >
+        {products.map((c) =>
+          c.details.type == "fiat" ? (
+            <Option key={c.id} value={c.id} label={c.name}>
+              {c.name}
+            </Option>
+          ) : null
+        )}
       </Select>
     </div>
   );
 }
+/* TODO - > Default values of listboxes -> 
+fetch from DB <-> passing to DB 
+DB connection
+*/

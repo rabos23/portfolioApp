@@ -42,6 +42,7 @@ function Graph(props) {
       (el) => products["prices"][el]["1"]
     );
     console.log(data.datasets[0].data);
+    console.log(data.labels);
   }
 
   /* console.log(getCurrentDate()) */
