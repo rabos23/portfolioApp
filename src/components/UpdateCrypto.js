@@ -1,70 +1,34 @@
 import React, { Component, useState, useRef } from "react";
-
-import {
-  Form,
-  Button,
-  Card,
-  Container,
-  Alert,
-  Dropdown,
-} from "react-bootstrap";
+import { Form, Button, Card, Container, Alert } from "react-bootstrap";
 import Content from "../components/Content";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
-import DropdownList from "react-widgets/lib/DropdownList";
-import { useFetch } from "./useFetch";
+import { Select } from "antd";
 
-export default function UpdateCrypto(props) {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const passwordConfirmRef = useRef();
-  const { currentUser, updatePassword, updateEmail } = useAuth();
-  const [error, setError] = useState("");
-  const [load, setLoad] = useState(false);
-  const [msg, setMsg] = useState("");
-  const [car, setCar] = useState("");
-  const [currency, setCurrency] = useState("");
-  const [crypto, setCrypto] = useState("");
-  const history = useHistory();
 
-  const url =
-    "https://api.coingecko.com/api/v3/coins/list?include_platform=false";
-  const { loading, products } = useFetch(url);
-  /* 
-  if (loading == true){
-    console.log("loading")
-  }else{
-   const data = Object.keys(products)
-    console.log(data)
-     data.datasets[0].data = Object.keys(products["prices"]).map(el => products["prices"][el]["1"]) 
-    console.log(data.datasets[0].data)  
-  } */
-  const style = {
-    background: "none",
-    color: "inherit",
-    border: "none",
-    padding: 0,
-    textAlign: "left",
-  };
-  function handleSubmit(e) {
-    e.preventDefault();
+export default function UpdateCrypto(){
+  const { Option } = Select;
 
-    const promises = [];
-    setLoad(true);
-    setError("");
-
-    Promise.all(promises)
-      .then(() => {
-        setMsg("Profile updated");
-        history.push("/dashboard");
-      })
-      .catch((error) => {
-        setError("" + error);
-      })
-      .finally(() => {
-        setLoad(false);
-      });
-  }
-
-  return <></>;
+handleChange(value) {
+  console.log(`selected ${value}`);
+}
+render(
+  <Select
+    mode="multiple"
+    style={{ width: "100%" }}
+    placeholder="select one country"
+    defaultValue={["china"]}
+    onChange={handleChange}
+    optionLabelProp="label"
+  >
+    <Option value="china" label="China">
+      <div className="demo-option-label-item">
+        <span role="img" aria-label="China">
+          🇨🇳
+        </span>
+        China (中国)
+      </div>
+    </Option>
+  </Select>
+);
 }
