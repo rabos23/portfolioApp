@@ -9,7 +9,6 @@ import Updateprofile from "../components/UpdateProfile";
 import Cryptoprofile from "../components/UpdateCrypto";
 import UpdateCrypto from "../components/UpdateCrypto";
 
-
 export default function Dashboard() {
   const { currentUser, logout } = useAuth();
   const [error, setError] = useState("");
@@ -18,20 +17,18 @@ export default function Dashboard() {
   const history = useHistory();
   const [showProf, setShowProf] = useState(false);
   const [showCrypt, setShowCrypt] = useState(false);
-  const [toggled, setToggle] = useState(false)
-  const [toggled1, setToggle1] = useState(false)
-  
+  const [toggled, setToggle] = useState(false);
+  const [toggled1, setToggle1] = useState(false);
+
   const style = {
-  background: "none",
-  color: "inherit", 
-  border:"none", 
-  padding: 0, 
-  textAlign: "left"
+    background: "none",
+    color: "inherit",
+    border: "none",
+    padding: 0,
+    textAlign: "left",
+  };
 
-}
-
-
-    async function handleLogout() {
+  async function handleLogout() {
     setError("");
     try {
       await logout();
@@ -42,28 +39,37 @@ export default function Dashboard() {
   }
   return (
     <div>
-      <Hero title="Dashboard"  />
+      <Hero title="Dashboard" />
       <Card className="justify-content-center">
         <Card.Body className="justify-content-center">
           <h2 className="text-center ">Profile</h2>
-        <p>
-          Logged user: {currentUser.email} <br />
-          Role: "Role"
-        </p>
-        
-          </Card.Body>
-          <Card.Body className="justify-content-center">
-               
-        <Button style={style} onClick={() => setToggle(toggled => !toggled)}>{toggled ? "-": "+"} Edit Profile</Button> 
-        {toggled && <Updateprofile />} <br/>
-        <Button style={style} onClick={() => setToggle1(toggled1 => !toggled1)}>{toggled1 ? "-": "+"} Edit Crypto</Button> 
-        {toggled1 && <UpdateCrypto />}
-          </Card.Body>
-        
+          <p>
+            Logged user: {currentUser.email} <br />
+            Role: "Role"
+          </p>
+        </Card.Body>
+        <Card.Body className="justify-content-center">
+          <Button
+            style={style}
+            onClick={() => setToggle((toggled) => !toggled)}
+          >
+            {toggled ? "-" : "+"} Edit Profile
+          </Button>
+          {toggled && <Updateprofile />} <br />
+          <Button
+            style={style}
+            onClick={() => setToggle1((toggled1) => !toggled1)}
+          >
+            {toggled1 ? "-" : "+"} Edit Crypto
+          </Button>
+          {toggled1 && <UpdateCrypto style={{ marginTop: "150px" }} />}
+        </Card.Body>
       </Card>
-      
+
       <div className="text-center mt-2">
-        <Button variant="link" onClick={handleLogout}>Log out</Button>
+        <Button variant="link" onClick={handleLogout}>
+          Log out
+        </Button>
       </div>
     </div>
   );

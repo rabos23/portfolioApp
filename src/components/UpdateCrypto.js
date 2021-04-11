@@ -1,34 +1,61 @@
-import React, { Component, useState, useRef } from "react";
-import { Form, Button, Card, Container, Alert } from "react-bootstrap";
+import React, {
+  Component,
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+} from "react";
+import { Select, Typography, Divider } from "antd";
+import { useFetch } from "./useFetch2";
+import {
+  Form,
+  Button,
+  Card,
+  Container,
+  Alert,
+  Dropdown,
+} from "react-bootstrap";
 import Content from "../components/Content";
 import { useAuth } from "../contexts/AuthContext";
-import { Link, useHistory } from "react-router-dom";
-import { Select } from "antd";
+const { Option } = Select;
 
-
-export default function UpdateCrypto(){
+export default function UpdateCrypto() {
   const { Option } = Select;
+  const { Title } = Typography;
 
-handleChange(value) {
-  console.log(`selected ${value}`);
-}
-render(
-  <Select
-    mode="multiple"
-    style={{ width: "100%" }}
-    placeholder="select one country"
-    defaultValue={["china"]}
-    onChange={handleChange}
-    optionLabelProp="label"
-  >
-    <Option value="china" label="China">
-      <div className="demo-option-label-item">
-        <span role="img" aria-label="China">
-          🇨🇳
-        </span>
-        China (中国)
-      </div>
-    </Option>
-  </Select>
-);
+  function handleChange(value) {
+    console.log(`selected ${value}`);
+  }
+
+  const url = "https://api.pro.coinbase.com/currencies";
+  const { loading, products } = useFetch(url);
+
+  let array = [];
+  const data = [];
+  if (loading == true) {
+    console.log("loading");
+  } else {
+    products.map((c) => console.log(c.name));
+  }
+
+  return (
+    <div style={{ height: "200px" }}>
+      <Divider />
+
+      <Title level={5}> Choose from {data.length} crypto currencies </Title>
+      <Select
+        mode="multiple"
+        style={{ width: "100%" }}
+        placeholder="Select currency"
+        onChange={handleChange}
+        optionLabelProp="label"
+      >
+        {products.map((c) => (
+          <Option value={c.id} label={c.name}>
+            {c.name}
+          </Option>
+        ))}
+      </Select>
+    </div>
+  );
 }

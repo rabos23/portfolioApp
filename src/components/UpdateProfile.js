@@ -6,7 +6,7 @@ import { Link, useHistory } from "react-router-dom";
 
 export default function Updateprofile() {
   return (
-    <Form style={{ alignItems: "center" }}>
+    <Form style={{ alignItems: "center", marginTop: "10px" }}>
       <Form.Group id="email">
         <Form.Label>New email</Form.Label>
         <Form.Control
