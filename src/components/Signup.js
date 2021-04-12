@@ -1,7 +1,7 @@
 import React, { Component, useState, useRef } from "react";
 import { Form, Button, Card, Container, Alert } from "react-bootstrap";
 import Content from "../components/Content";
-import { useAuth } from "../contexts/AuthContext";
+import { generateUserDocument, useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 
 export default function Signup(props) {
@@ -17,6 +17,7 @@ export default function Signup(props) {
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       signup(emailRef.current.value, passwordRef.current.value);
+
       return setError("Password do not match");
     }
     try {

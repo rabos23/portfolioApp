@@ -24,28 +24,28 @@ export default function UpdateCrypto() {
   const { Title } = Typography;
   const [selectedC, setSelectedC] = useState([]);
   const [selectedF, setSelectedF] = useState([]);
-  function handleChange(value) {
+
+  function handleChangeC(value) {
     setSelectedC(value);
-   
-    console.log(selectedC);
-    
+    /* ulozeni do State */
+  }
+  function handleChangeF(value) {
+    setSelectedF(value);
     /* ulozeni do State */
   }
 
   const url = "https://api.pro.coinbase.com/currencies";
   const { loading, products } = useFetch(url);
 
- 
-    
-  
   return (
     <div style={{ height: "200px", marginTop: "10px" }}>
       <Title level={5}> Choose crypto currencies </Title>
       <Select
         mode="multiple"
         style={{ width: "100%" }}
+        defaultValue={selectedC}
         placeholder="Select currency"
-        onChange={handleChange}
+        onChange={handleChangeC}
         optionLabelProp="label"
       >
         {products.map((c) =>
@@ -55,8 +55,8 @@ export default function UpdateCrypto() {
             </Option>
           ) : null
         )}
-        
       </Select>
+
       <Divider />
 
       <Title level={5}> Choose fiat currencies </Title>
@@ -64,12 +64,11 @@ export default function UpdateCrypto() {
         mode="multiple"
         style={{ width: "100%" }}
         placeholder="Select currency"
-        onChange={handleChange}
+        onChange={handleChangeF}
         optionLabelProp="label"
       >
         {products.map((c) =>
           c.details.type == "fiat" ? (
-            
             <Option key={c.id} value={c.id} label={c.name}>
               {c.name}
             </Option>
