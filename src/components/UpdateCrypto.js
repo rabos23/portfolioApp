@@ -22,20 +22,22 @@ const { Option } = Select;
 export default function UpdateCrypto() {
   const { Option } = Select;
   const { Title } = Typography;
-  const [selected, setSelected] = useState([]);
+  const [selectedC, setSelectedC] = useState([]);
+  const [selectedF, setSelectedF] = useState([]);
   function handleChange(value) {
-    setSelected([value]);
-    console.log(selected);
+    setSelectedC(value);
+   
+    console.log(selectedC);
+    
     /* ulozeni do State */
   }
 
   const url = "https://api.pro.coinbase.com/currencies";
   const { loading, products } = useFetch(url);
 
-  let array = [];
-
-  let data = [];
-
+ 
+    
+  
   return (
     <div style={{ height: "200px", marginTop: "10px" }}>
       <Title level={5}> Choose crypto currencies </Title>
@@ -53,6 +55,7 @@ export default function UpdateCrypto() {
             </Option>
           ) : null
         )}
+        
       </Select>
       <Divider />
 
@@ -66,6 +69,7 @@ export default function UpdateCrypto() {
       >
         {products.map((c) =>
           c.details.type == "fiat" ? (
+            
             <Option key={c.id} value={c.id} label={c.name}>
               {c.name}
             </Option>

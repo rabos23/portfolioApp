@@ -39,7 +39,7 @@ export default function Dashboard() {
   }
   return (
     <div>
-      <Hero title="Dashboard" />
+      
       <Card className="justify-content-center">
         <Card.Body className="justify-content-center">
           <h2 className="text-center ">Profile</h2>

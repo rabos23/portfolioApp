@@ -6,6 +6,9 @@ import { Link, useHistory } from "react-router-dom";
 
 export default function Updateprofile() {
   return (
+    /* 
+    CHANGE NOT WORKING PROPERLY : Emain same not working, while changing credentials automatically logout and login -> redirect to login page
+    */
     <Form style={{ alignItems: "center", marginTop: "10px" }}>
       <Form.Group id="email">
         <Form.Label>New email</Form.Label>
@@ -15,10 +18,10 @@ export default function Updateprofile() {
           placeholder="Leave blank for remain same"
         />
       </Form.Group>
-      <Form.Group id="email">
+      <Form.Group id="password">
         <Form.Label>Old Password</Form.Label>
         <Form.Control
-          type="email"
+          type="password"
           required
           placeholder="Leave blank for remain same"
         />
@@ -44,7 +47,7 @@ export default function Updateprofile() {
       <Button
         style={{ alignItems: "center" }}
         className="d-inline-block center"
-        variant="primary"
+        variant="outline-secondary"
         type="submit"
       >
         Update profile

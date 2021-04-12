@@ -10,6 +10,7 @@ export const useFetch = (url) => {
       .then((json) => setProducts(json));
 
     setLoading(false);
+
   }, [url]);
 
   useEffect(() => {
