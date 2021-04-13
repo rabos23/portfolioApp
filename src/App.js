@@ -11,6 +11,7 @@ import Contactpage from "./pages/Contactpage";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import { AuthProvider } from "./contexts/AuthContext";
+
 import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import ForgotPassword from "./components/ForgotPassword";
