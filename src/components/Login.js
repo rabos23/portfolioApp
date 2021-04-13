@@ -12,7 +12,6 @@ export default function Login(props) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-  const [passForgot, setPassForgot] = useState(1);
 
   async function handleSubmit(e) {
     e.preventDefault();

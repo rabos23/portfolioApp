@@ -6,7 +6,7 @@ export function useAuth() {
   return useContext(AuthContext);
 }
 
-export const generateUserDocument = async (user, additionalData) => {
+export async function generateUserDocument (user, additionalData) {
   if (!user) return;
   const userRef = firestore.doc(`users/${user.uid}`);
   const snapshot = await userRef.get();
@@ -25,7 +25,8 @@ export const generateUserDocument = async (user, additionalData) => {
   }
   return getUserDocument(user.uid);
 };
-const getUserDocument = async (uid) => {
+
+export async function getUserDocument(uid) {
   if (!uid) return null;
   try {
     const userDocument = await firestore.doc(`users/${uid}`).get();
@@ -43,7 +44,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   function signup(email, password) {
-    return auth.createUserWithEmailAndPassword(email, password);
+    return [auth.createUserWithEmailAndPassword(email, password), generateUserDocument(email)]
   }
 
   function login(email, password) {

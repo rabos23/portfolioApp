@@ -45,7 +45,7 @@ export default function Dashboard() {
           <h2 className="text-center ">Profile</h2>
           <p>
             Logged user: {currentUser.email} <br />
-            Role: "Role"
+            Role: "Role" {}
           </p>
         </Card.Body>
         <Card.Body className="justify-content-center">
