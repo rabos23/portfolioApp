@@ -8,7 +8,7 @@ import Cryptolist from "../components/Cryptolist";
 import Updateprofile from "../components/UpdateProfile";
 import Cryptoprofile from "../components/UpdateCrypto";
 import UpdateCrypto from "../components/UpdateCrypto";
-
+import UpdatePassword from "../components/UpdatePassword";
 export default function Dashboard() {
   const { currentUser, logout } = useAuth();
   const [error, setError] = useState("");
@@ -19,7 +19,7 @@ export default function Dashboard() {
   const [showCrypt, setShowCrypt] = useState(false);
   const [toggled, setToggle] = useState(false);
   const [toggled1, setToggle1] = useState(false);
-
+  const [toggled3, setToggle3] = useState(false);
   const style = {
     background: "none",
     color: "inherit",
@@ -27,7 +27,33 @@ export default function Dashboard() {
     padding: 0,
     textAlign: "left",
   };
-
+/*     export async function generateUserDocument(currentUser, additionalData) {
+      if (!user) return;
+      const userRef = firestore.doc(`users/${user.uid}`);
+      const snapshot = await userRef.get();
+      if (!snapshot.exists) {
+        const { email, displayName, photoURL } = user;
+        try {
+          await userRef.set({ email });
+        } catch (error) {
+          console.error("Error creating user document", error);
+        }
+      }
+      return getUserDocument(user.uid);
+    }
+    
+    export async function getUserDocument(uid) {
+      if (!uid) return null;
+      try {
+        const userDocument = await firestore.doc(`users/${uid}`).get();
+        return {
+          uid,
+          ...userDocument.data(),
+        };
+      } catch (error) {
+        console.error("Error fetching user", error);
+      }
+    } */ 
   async function handleLogout() {
     setError("");
     try {
@@ -36,15 +62,20 @@ export default function Dashboard() {
     } catch {
       setError("Failed to logout");
     }
-  }
+    }
   return (
     <div>
       <Card className="justify-content-center">
+        
         <Card.Body className="justify-content-center">
           <h2 className="text-center ">Profile</h2>
           <p>
             Logged user: {currentUser.email} <br />
-            Role: "Role" {}
+           
+          
+            FullName: "Full name" <br />
+        
+            Role: "Role" <br />
           </p>
         </Card.Body>
         <Card.Body className="justify-content-center">
@@ -55,6 +86,13 @@ export default function Dashboard() {
             {toggled ? "-" : "+"} Edit Profile
           </Button>
           {toggled && <Updateprofile />} <br />
+          <Button
+            style={style}
+            onClick={() => setToggle3((toggled3) => !toggled3)}
+          >
+            {toggled3 ? "-" : "+"} Edit Password
+          </Button>
+          {toggled3 && <UpdatePassword />} <br />
           <Button
             style={style}
             onClick={() => setToggle1((toggled1) => !toggled1)}

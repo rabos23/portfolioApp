@@ -14,34 +14,7 @@ export default function Signup(props) {
   const history = useHistory();
   async function handleSubmit(e) {
     e.preventDefault();
-    /* 
-    export async function generateUserDocument(user, additionalData) {
-      if (!user) return;
-      const userRef = firestore.doc(`users/${user.uid}`);
-      const snapshot = await userRef.get();
-      if (!snapshot.exists) {
-        const { email, displayName, photoURL } = user;
-        try {
-          await userRef.set({ email });
-        } catch (error) {
-          console.error("Error creating user document", error);
-        }
-      }
-      return getUserDocument(user.uid);
-    }
     
-    export async function getUserDocument(uid) {
-      if (!uid) return null;
-      try {
-        const userDocument = await firestore.doc(`users/${uid}`).get();
-        return {
-          uid,
-          ...userDocument.data(),
-        };
-      } catch (error) {
-        console.error("Error fetching user", error);
-      }
-    } */
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Password do not match");
     }
