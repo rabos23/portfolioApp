@@ -1,22 +1,11 @@
 import React, {
-  Component,
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
+  useState
 } from "react";
 import { Select, Typography, Divider } from "antd";
 import { useFetch } from "./useFetch2";
 import {
   Form,
-  Button,
-  Card,
-  Container,
-  Alert,
-  Dropdown,
 } from "react-bootstrap";
-import Content from "../components/Content";
-import { useAuth } from "../contexts/AuthContext";
 const { Option } = Select;
 
 export default function UpdateCrypto(props) {

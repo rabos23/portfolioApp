@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
 import CardInfo from "../components/Cardinfo";
-import Image from "react-bootstrap/Image";
 function Card(props) {
   return (
     <div className="d-inline-block" onClick={(e) => props.click(props.items)}>
