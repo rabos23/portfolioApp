@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import React, { Component, useState } from "react";
+import { BrowserRouter as Router, Route, Link, Switch, useHistory } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import "./App.css";
 import { Navbar, NavDropdown, NavItem } from "react-bootstrap";
@@ -10,49 +10,53 @@ import Actualprice from "./pages/Actualprice";
 import Contactpage from "./pages/Contactpage";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
 import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import ForgotPassword from "./components/ForgotPassword";
 import UpdateProfile from "./components/UpdateProfile";
 
-class App extends Component {
-  state = {
-    title: "Some title",
-    headerLinks: [
-      { title: "Home", path: "/" },
-      { title: "Actualprice", path: "/actualprice" },
-      { title: "Contact", path: "/contact" },
-    ],
-    home: {
+
+export default function App(){
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+  async function handleLogout() {
+    setError("");
+    try {
+      await logout();
+      history.push("/login");
+    } catch {
+      setError("Failed to logout");
+    }
+    }
+    const home = {
       title: "Bla",
       subTitle: "Ble",
       text: "Bruh",
-    },
-    actualprice: {
+    };
+    const actualprice = {
       title: "Price",
       subTitle: "Some kind of subtitle",
       text: "Some kind of text on Aboutscreen",
-    },
-    contact: {
+    };
+    const contact = {
       title: "Let's talk",
       subTitle: "Some kind of subtitle",
       text: "Some kind of text on Contactscreen",
       size: 2,
-    },
-    login: {
+    };
+    const login = {
       title: "Login",
       subTitle: "Let's see",
       text: "<3",
       size: 4,
-    },
-  };
-
-  render() {
+    };
+    const { currentUser, logout } = useAuth();
     return (
       <Router>
-        <AuthProvider>
+        
           <Container className="p-5" fluid={false}>
             <Navbar className="border-bottom" bg="transparent" expand="lg">
               <Navbar.Brand>World of Automatization</Navbar.Brand>
@@ -73,7 +77,7 @@ class App extends Component {
                   </Link>
 
                   <Link className="nav-link" to="/login">
-                    Log in
+                    {currentUser ? "Dashboard":"Login"}
                   </Link>
                 </Nav>
               </Navbar.Collapse>
@@ -83,9 +87,9 @@ class App extends Component {
               exact
               render={() => (
                 <Homepage
-                  title={this.state.home.title}
-                  subTitle={this.state.home.subTitle}
-                  text={this.state.home.text}
+                  title={home.title}
+                  subTitle={home.subTitle}
+                  text={home.text}
                 />
               )}
             />
@@ -94,9 +98,9 @@ class App extends Component {
               exact
               render={() => (
                 <Actualprice
-                  title={this.state.actualprice.title}
-                  subTitle={this.state.actualprice.subTitle}
-                  text={this.state.actualprice.text}
+                  title={actualprice.title}
+                  subTitle={actualprice.subTitle}
+                  text={actualprice.text}
                 />
               )}
             />
@@ -105,10 +109,10 @@ class App extends Component {
               exact
               render={() => (
                 <Contactpage
-                  title={this.state.contact.title}
-                  subTitle={this.state.contact.subTitle}
-                  text={this.state.contact.text}
-                  size={this.state.contact.size}
+                  title={contact.title}
+                  subTitle={contact.subTitle}
+                  text={contact.text}
+                  size={contact.size}
                 />
               )}
             />
@@ -125,10 +129,10 @@ class App extends Component {
             </Switch>
             <Footer></Footer>
           </Container>
-        </AuthProvider>
+       
       </Router>
     );
-  }
+  
 }
 
-export default App;
+

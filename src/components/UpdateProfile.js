@@ -35,14 +35,7 @@ export default function Updateprofile() {
           placeholder="Leave blank for remain same"
         />
       </Form.Group>
-      <Form.Group id="picture_url">
-        <Form.Label>Picture</Form.Label>
-        <Form.Control
-          type="text"
-          required
-          placeholder="Leave blank for remain same"
-        />
-      </Form.Group>
+   
 
       <Button
         style={{ alignItems: "center" }}

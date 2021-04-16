@@ -5,22 +5,28 @@ import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 
 export default function UpdatePassword() {
-  async function handleSubmit(e) {
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
+  const oldPasswordRef = useRef();
+  const { login, currentUser } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  /* async function handleSubmit(e) {
     e.preventDefault();
-    
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Password do not match");
     }
     try {
       setError("");
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
+      await signup(emailRef.current.value, passwordRef.current.value); 
       history.push("/login");
     } catch {
       setError("Failed to create an account");
     }
     setLoading(false);
-  }
+  } */
   return (
     /* 
     CHANGE NOT WORKING PROPERLY : Emain same not working, while changing credentials automatically logout and login -> redirect to login page
@@ -33,7 +39,7 @@ export default function UpdatePassword() {
           type="password"
           required
           placeholder="Leave blank for remain same"
-          ref={password_ref}
+          ref={oldPasswordRef}
         />
       </Form.Group>
 
@@ -43,6 +49,7 @@ export default function UpdatePassword() {
           type="password"
           required
           placeholder="Leave blank for remain same"
+          ref={passwordRef}
         />
       </Form.Group>
       <Form.Group id="new_password">
@@ -51,6 +58,7 @@ export default function UpdatePassword() {
           type="password"
           required
           placeholder="Leave blank for remain same"
+          ref={passwordConfirmRef}
         />
       </Form.Group>
 

@@ -31,7 +31,7 @@ export function AuthProvider({ children }) {
   function updatePassword(password) {
     return auth.currentUser.updatePassword(password);
   }
-  asy
+
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {

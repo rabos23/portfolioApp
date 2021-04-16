@@ -19,7 +19,7 @@ import Content from "../components/Content";
 import { useAuth } from "../contexts/AuthContext";
 const { Option } = Select;
 
-export default function UpdateCrypto() {
+export default function UpdateCrypto(props) {
   const { Option } = Select;
   const { Title } = Typography;
   const [selectedC, setSelectedC] = useState([]);
@@ -38,8 +38,12 @@ export default function UpdateCrypto() {
   const { loading, products } = useFetch(url);
 
   return (
-    <div style={{ height: "200px", marginTop: "10px" }}>
-      <Title level={5}> Choose crypto currencies </Title>
+    <div>
+    
+      
+  
+      <Form style={{ alignItems: "center", marginTop: "10px" }}>
+      <Form.Label>Choose crypto currency</Form.Label>
       <Select
         mode="multiple"
         style={{ width: "100%" }}
@@ -59,7 +63,7 @@ export default function UpdateCrypto() {
 
       <Divider />
 
-      <Title level={5}> Choose fiat currencies </Title>
+      <Form.Label>Choose fiat currency</Form.Label>
       <Select
         mode="multiple"
         style={{ width: "100%" }}
@@ -75,6 +79,9 @@ export default function UpdateCrypto() {
           ) : null
         )}
       </Select>
+    </Form>
+    
+    
     </div>
   );
 }

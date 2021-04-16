@@ -1,12 +1,11 @@
-import React, { Component, useState, useRef } from "react";
-import { Form, Button, Card, Container, Alert } from "react-bootstrap";
-import Content from "../components/Content";
+import React, { useState, useRef } from "react";
+import {  Button, Card } from "react-bootstrap";
+
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
-import Hero from "../components/Hero";
-import Cryptolist from "../components/Cryptolist";
+
 import Updateprofile from "../components/UpdateProfile";
-import Cryptoprofile from "../components/UpdateCrypto";
+import "../index.css"
 import UpdateCrypto from "../components/UpdateCrypto";
 import UpdatePassword from "../components/UpdatePassword";
 export default function Dashboard() {
@@ -19,7 +18,7 @@ export default function Dashboard() {
   const [showCrypt, setShowCrypt] = useState(false);
   const [toggled, setToggle] = useState(false);
   const [toggled1, setToggle1] = useState(false);
-  const [toggled3, setToggle3] = useState(false);
+  const [toggled2, setToggle2] = useState(false);
   const style = {
     background: "none",
     color: "inherit",
@@ -63,46 +62,77 @@ export default function Dashboard() {
       setError("Failed to logout");
     }
     }
+    const cardText = {
+      marginLeft: "1rem"
+    }
+    const cardHeader = {
+      width: '100%', backgroundColor:"white"
+      
+    }
   return (
     <div>
       <Card className="justify-content-center">
-        
         <Card.Body className="justify-content-center">
-          <h2 className="text-center ">Profile</h2>
-          <p>
+        <Card.Header border="primary" style={cardHeader}>
+          Profile
+          </Card.Header>
+          <Card.Text style={cardText}>
             Logged user: {currentUser.email} <br />
            
           
             FullName: "Full name" <br />
         
             Role: "Role" <br />
-          </p>
+          </Card.Text>
         </Card.Body>
-        <Card.Body className="justify-content-center">
+      
+        
+       <Card.Body className="justify-content-center">
+        <Card.Header border="primary" style={cardHeader}>
           <Button
             style={style}
             onClick={() => setToggle((toggled) => !toggled)}
           >
             {toggled ? "-" : "+"} Edit Profile
+            
           </Button>
-          {toggled && <Updateprofile />} <br />
-          <Button
-            style={style}
-            onClick={() => setToggle3((toggled3) => !toggled3)}
-          >
-            {toggled3 ? "-" : "+"} Edit Password
-          </Button>
-          {toggled3 && <UpdatePassword />} <br />
+          </Card.Header>
+          <Card.Text style={cardText}>
+          {toggled && <Updateprofile />} 
+          </Card.Text>
+         </Card.Body>
+         <Card.Body className="justify-content-center">
+        <Card.Header className="cardHeaderRem" border="primary" style={cardHeader}>
           <Button
             style={style}
             onClick={() => setToggle1((toggled1) => !toggled1)}
           >
-            {toggled1 ? "-" : "+"} Edit Crypto
+            {toggled1 ? "-" : "+"} Edit Password
+            
           </Button>
-          {toggled1 && <UpdateCrypto style={{ marginTop: "150px" }} />}
-        </Card.Body>
-      </Card>
-
+          </Card.Header>
+          <Card.Text style={cardText}>
+          {toggled1 && <UpdatePassword />} 
+          </Card.Text >
+         </Card.Body>
+         <Card.Body className="justify-content-center">
+        <Card.Header className="cardHeaderRem" border="primary " style={cardHeader}>
+          <Button
+            style={style}
+            onClick={() => setToggle2((toggled2) => !toggled2)}
+          >
+            {toggled2 ? "-" : "+"} Edit Cryptolist
+            
+          </Button>
+          </Card.Header>
+          <Card.Text style={cardText} className="cardText" >
+          {toggled2 && <UpdateCrypto/>} 
+          </Card.Text>
+         </Card.Body>
+          
+          </Card> 
+          
+         
       <div className="text-center mt-2">
         <Button variant="link" onClick={handleLogout}>
           Log out
