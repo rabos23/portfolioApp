@@ -20,10 +20,10 @@ export default function Updateprofile() {
           placeholder="Leave blank for remain same"
         />
       </Form.Group>
-      <Form.Group id="email">
+      <Form.Group id="fullname">
         <Form.Label>Full name</Form.Label>
         <Form.Control
-          type="email"
+          type="text"
           required
           placeholder="Leave blank for remain same"
         />
@@ -35,10 +35,10 @@ export default function Updateprofile() {
           placeholder="Leave blank for remain same"
         />
       </Form.Group>
-      <Form.Group id="password">
+      <Form.Group id="picture_url">
         <Form.Label>Picture</Form.Label>
         <Form.Control
-          type="password"
+          type="text"
           required
           placeholder="Leave blank for remain same"
         />

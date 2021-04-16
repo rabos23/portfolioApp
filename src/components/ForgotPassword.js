@@ -4,7 +4,7 @@ import Content from "../components/Content";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 
-export default function Login(props) {
+export default function ForgotPassword(props) {
   const emailRef = useRef();
   const passwordRef = useRef();
   const { resetPassword } = useAuth();
