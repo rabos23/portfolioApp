@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Line } from "react-chartjs-2";
 import { useFetch } from "./useFetch2";
-import { getCurrentDate } from "./date";
 function Graph(props) {
   const data = {
     labels: [],

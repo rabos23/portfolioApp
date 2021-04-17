@@ -1,8 +1,8 @@
 import React, { Component } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import Content from "../components/Content";
 import Hero from "../components/Hero";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 
 class Contact extends Component {
   constructor(props) {

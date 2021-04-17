@@ -5,8 +5,8 @@ function Card(props) {
     <div className="d-inline-block" onClick={(e) => props.click(props.items)}>
       <img
         className="a-card-img"
-        rounded
-        fluid
+        rounded="true"
+        fluid="true"
         src={props.item.imgSrc}
         alt={props.item.imgSrc}
       />

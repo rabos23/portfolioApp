@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import {  Button, Card } from "react-bootstrap";
-
-import { useAuth } from "../contexts/AuthContext";
+import { Button, Card } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-
-import Updateprofile from "../components/UpdateProfile";
-import "../index.css"
 import UpdateCrypto from "../components/UpdateCrypto";
 import UpdatePassword from "../components/UpdatePassword";
+import Updateprofile from "../components/UpdateProfile";
+import { useAuth } from "../contexts/AuthContext";
+import "../index.css";
+
+
 export default function Dashboard() {
   const { currentUser, logout } = useAuth();
   const [error, setError] = useState("");

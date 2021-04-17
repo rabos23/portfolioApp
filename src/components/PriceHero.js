@@ -1,9 +1,9 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import Jumbotron from "react-bootstrap/Jumbotron";
+import Graph from "../components/Graph";
 import Price from "../components/Price";
 import PriceChange from "../components/PriceChange";
-import Graph from "../components/Graph";
 function PriceHero(props) {
   return (
     <Jumbotron className="jumbotron-fluid mt-5">

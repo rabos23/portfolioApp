@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import Jumbotron from "react-bootstrap/Jumbotron";
 function Hero(props) {
   return (
