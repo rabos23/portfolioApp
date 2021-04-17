@@ -1,11 +1,11 @@
+import { Divider, Select, Typography } from "antd";
 import React, {
   useState
 } from "react";
-import { Select, Typography, Divider } from "antd";
-import { useFetch } from "./useFetch2";
 import {
-  Form,
+  Form
 } from "react-bootstrap";
+import { useFetch } from "./useFetch2";
 const { Option } = Select;
 
 export default function UpdateCrypto(props) {

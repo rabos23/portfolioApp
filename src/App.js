@@ -1,21 +1,20 @@
-import React, { Component, useState } from "react";
-import { BrowserRouter as Router, Route, Link, Switch, useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { Nav, Navbar } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
+import { BrowserRouter as Router, Link, Route, Switch, useHistory } from "react-router-dom";
 import "./App.css";
-import { Navbar, NavDropdown, NavItem } from "react-bootstrap";
-import { Nav } from "react-bootstrap";
+import Dashboard from "./components/Dashboard";
 import Footer from "./components/Footer";
-import Homepage from "./pages/Homepage";
+import ForgotPassword from "./components/ForgotPassword";
+import Login from "./components/Login";
+import PrivateRoute from "./components/PrivateRoute";
+import Signup from "./components/Signup";
+import UpdateProfile from "./components/UpdateProfile";
+import { useAuth } from "./contexts/AuthContext";
 import Actualprice from "./pages/Actualprice";
 import Contactpage from "./pages/Contactpage";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import Homepage from "./pages/Homepage";
 
-import Dashboard from "./components/Dashboard";
-import PrivateRoute from "./components/PrivateRoute";
-import ForgotPassword from "./components/ForgotPassword";
-import UpdateProfile from "./components/UpdateProfile";
 
 
 export default function App(){

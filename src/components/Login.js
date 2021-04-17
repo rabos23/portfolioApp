@@ -1,9 +1,8 @@
-import React, { Component, useState, useRef } from "react";
-import { Form, Button, Card, Container, Alert } from "react-bootstrap";
+import React, { useRef, useState } from "react";
+import { Alert, Button, Form } from "react-bootstrap";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import Content from "../components/Content";
 import { useAuth } from "../contexts/AuthContext";
-import { Link, useHistory } from "react-router-dom";
-import { Redirect, Route } from "react-router-dom";
 
 export default function Login(props) {
   const emailRef = useRef();

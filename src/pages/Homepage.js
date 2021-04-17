@@ -1,7 +1,6 @@
-import React, { Component } from "react";
-import Jumbotron from "react-bootstrap/Jumbotron";
-import Hero from "../components/Hero";
+import React from "react";
 import Carousel from "../components/Carousel";
+import Hero from "../components/Hero";
 
 function Homepage(props) {
   return (

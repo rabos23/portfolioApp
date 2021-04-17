@@ -1,7 +1,7 @@
-import React, { Component, useState, useRef } from "react";
-import { Form, Button, Card, Container, Alert } from "react-bootstrap";
+import React, { useState, useRef } from "react";
+import { Form, Button, Alert } from "react-bootstrap";
 import Content from "../components/Content";
-import { generateUserDocument, useAuth } from "../contexts/AuthContext";
+import {  useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 
 export default function Signup(props) {

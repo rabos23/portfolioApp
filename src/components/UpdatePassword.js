@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { Form, Button } from "react-bootstrap";
+import React, { useRef, useState } from "react";
+import { Button, Form } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function UpdatePassword() {

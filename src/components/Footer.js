@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import React from "react";
+import { Col, Container, Row } from "react-bootstrap";
 function Footer() {
   return (
     <footer className="mt-5">
