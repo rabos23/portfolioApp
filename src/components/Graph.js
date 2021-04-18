@@ -33,7 +33,7 @@ function Graph(props) {
   const { loading, products } = useFetch(url);
   console.log(products);
 
-  if (loading == true) {
+  if (loading === true) {
     console.log("loading");
   } else {
     data.labels = Object.keys(products["prices"]);

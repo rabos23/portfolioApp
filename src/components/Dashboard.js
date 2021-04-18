@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import UpdateCrypto from "../components/UpdateCrypto";
@@ -6,16 +6,13 @@ import UpdatePassword from "../components/UpdatePassword";
 import Updateprofile from "../components/UpdateProfile";
 import { useAuth } from "../contexts/AuthContext";
 import "../index.css";
-
+import {firestore} from "../firebase"
+import { useQueryErrorResetBoundary } from "react-query";
 
 export default function Dashboard() {
   const { currentUser, logout } = useAuth();
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [button, setButton] = useState(false);
   const history = useHistory();
-  const [showProf, setShowProf] = useState(false);
-  const [showCrypt, setShowCrypt] = useState(false);
   const [toggled, setToggle] = useState(false);
   const [toggled1, setToggle1] = useState(false);
   const [toggled2, setToggle2] = useState(false);
@@ -26,6 +23,17 @@ export default function Dashboard() {
     padding: 0,
     textAlign: "left",
   };
+
+ const createGroceryList = (user) => {
+    return firestore.collection('users').doc("")
+        .add({
+            name: user,
+                    id: useQueryErrorResetBoundary
+            
+        });
+        console.log(user);
+};
+
 /*     export async function generateUserDocument(currentUser, additionalData) {
       if (!user) return;
       const userRef = firestore.doc(`users/${user.uid}`);
@@ -63,7 +71,7 @@ export default function Dashboard() {
     }
     }
     const cardText = {
-      marginLeft: "1rem"
+      marginLeft: "2.5rem"
     }
     const cardHeader = {
       width: '100%', backgroundColor:"white"
@@ -128,6 +136,13 @@ export default function Dashboard() {
           <Card.Text style={cardText} className="cardText" >
           {toggled2 && <UpdateCrypto/>} 
           </Card.Text>
+          <Button
+            style={style}
+            onClick={() => createGroceryList(currentUser.uid)}
+          >
+             DB
+            
+          </Button>
          </Card.Body>
           
           </Card> 
