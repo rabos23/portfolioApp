@@ -7,7 +7,7 @@ import Updateprofile from "../components/UpdateProfile";
 import { useAuth } from "../contexts/AuthContext";
 import "../index.css";
 import {firestore} from "../firebase"
-import { useQueryErrorResetBoundary } from "react-query";
+
 
 export default function Dashboard() {
   const { currentUser, logout } = useAuth();
@@ -16,6 +16,7 @@ export default function Dashboard() {
   const [toggled, setToggle] = useState(false);
   const [toggled1, setToggle1] = useState(false);
   const [toggled2, setToggle2] = useState(false);
+  const [userData, setUserData] = useState();
   const style = {
     background: "none",
     color: "inherit",
@@ -23,11 +24,14 @@ export default function Dashboard() {
     padding: 0,
     textAlign: "left",
   };
+  const {photoURL, displayName, email} = currentUser;
+  console.log(currentUser.photoURL)
+  console.log(currentUser.displayName)
+  console.log(currentUser.email)
 /* 
 Alert about informing user avbout processes
 */
-
-const generateUserDocument = async (user) => {
+ const generateUserDocument = async (user) => {
   if (!user) return;
   const userRef = firestore.doc(`users/${user.uid}`);
   const snapshot = await userRef.get();
@@ -35,38 +39,44 @@ const generateUserDocument = async (user) => {
     const { email, uid} = user;
     try {
       await userRef.set({
-        email, uid
+        email, 
+        uid,
+        photoURL,
+       displayName
       });
     } catch (error) {
       console.error("Error creating user document", error);
     }
-  }else {
-    console.log("Doc already created")
-    
   }
-} 
+};
+
 const getUserDocument = async (uid) => {
   if (!uid) return null;
   try {
+    console.log(userData)
     const userDocument = await firestore.doc(`users/${uid}`).get();
-    
+    setUserData(userDocument)
     return {
-
-      uid,
+      uid,  
       ...userDocument.data()
-      
     };
     
   } catch (error) {
     console.error("Error fetching user", error);
   }
-};
-
+  
+ /*  const [restaurants, setRestaurants] = useState([])
 useEffect(() => {
- const userData  = getUserDocument(currentUser.uid) 
- console.log(userData)
-     }
-, [])
+   let data = fetchData();
+   setRestaurants(data)
+   FETCH DATA TO STATE
+      }) */
+}; 
+useEffect(() => {
+  let data = getUserDocument(currentUser.uid)
+}, [currentUser]);
+
+
   
 
 /*     export async function generateUserDocument(currentUser, additionalData) {
