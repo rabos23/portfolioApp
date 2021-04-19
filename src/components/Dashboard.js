@@ -24,10 +24,7 @@ export default function Dashboard() {
     padding: 0,
     textAlign: "left",
   };
-  const {photoURL, displayName, email} = currentUser;
-  console.log(currentUser.photoURL)
-  console.log(currentUser.displayName)
-  console.log(currentUser.email)
+
 /* 
 Alert about informing user avbout processes
 */
@@ -36,46 +33,54 @@ Alert about informing user avbout processes
   const userRef = firestore.doc(`users/${user.uid}`);
   const snapshot = await userRef.get();
   if (!snapshot.exists) {
-    const { email, uid} = user;
+    const { email, displayName, photoURL, uid } = user;
     try {
       await userRef.set({
-        email, 
-        uid,
-        photoURL,
-       displayName
+        displayName,
+        email,
+        photoURL,uid
       });
     } catch (error) {
       console.error("Error creating user document", error);
     }
   }
-};
-
-const getUserDocument = async (uid) => {
+  return getUserDocument(user.uid);
+}
+const getUserDocument = async uid => {
   if (!uid) return null;
   try {
-    console.log(userData)
-    const userDocument = await firestore.doc(`users/${uid}`).get();
-    setUserData(userDocument)
+    const userDocument = await firestore.doc(`users/${uid}`).get()
     return {
-      uid,  
+      uid,
       ...userDocument.data()
     };
-    
   } catch (error) {
     console.error("Error fetching user", error);
   }
-  
+};
+
+/*   const getProducts = useCallback(async () => {
+    await fetch(url, {})
+      .then((res) => res.json())
+      .then((json) => setProducts(json));
+
+    setLoading(false);
+
+  }, [url]); */
  /*  const [restaurants, setRestaurants] = useState([])
 useEffect(() => {
    let data = fetchData();
    setRestaurants(data)
-   FETCH DATA TO STATE
+   FETCH DATA TO ST
       }) */
-}; 
-useEffect(() => {
-  let data = getUserDocument(currentUser.uid)
-}, [currentUser]);
 
+useEffect(() => {
+  const user = generateUserDocument(currentUser);
+  setUserData(user)
+  console.log(userData)
+  
+}, [currentUser]);
+console.log(userData)
 
   
 
@@ -194,4 +199,4 @@ useEffect(() => {
       </div>
     </div>
   );
-}
+  }
