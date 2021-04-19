@@ -23,16 +23,51 @@ export default function Dashboard() {
     padding: 0,
     textAlign: "left",
   };
+/* 
+Alert about informing user avbout processes
+*/
 
- const createGroceryList = (user) => {
-    return firestore.collection('users').doc("")
-        .add({
-            name: user,
-                    id: useQueryErrorResetBoundary
-            
-        });
-        console.log(user);
+const generateUserDocument = async (user) => {
+  if (!user) return;
+  const userRef = firestore.doc(`users/${user.uid}`);
+  const snapshot = await userRef.get();
+  if (!snapshot.exists) {
+    const { email, uid} = user;
+    try {
+      await userRef.set({
+        email, uid
+      });
+    } catch (error) {
+      console.error("Error creating user document", error);
+    }
+  }else {
+    console.log("Doc already created")
+    
+  }
+} 
+const getUserDocument = async (uid) => {
+  if (!uid) return null;
+  try {
+    const userDocument = await firestore.doc(`users/${uid}`).get();
+    
+    return {
+
+      uid,
+      ...userDocument.data()
+      
+    };
+    
+  } catch (error) {
+    console.error("Error fetching user", error);
+  }
 };
+
+useEffect(() => {
+ const userData  = getUserDocument(currentUser.uid) 
+ console.log(userData)
+     }
+, [])
+  
 
 /*     export async function generateUserDocument(currentUser, additionalData) {
       if (!user) return;
@@ -136,13 +171,7 @@ export default function Dashboard() {
           <Card.Text style={cardText} className="cardText" >
           {toggled2 && <UpdateCrypto/>} 
           </Card.Text>
-          <Button
-            style={style}
-            onClick={() => createGroceryList(currentUser.uid)}
-          >
-             DB
-            
-          </Button>
+         
          </Card.Body>
           
           </Card> 
