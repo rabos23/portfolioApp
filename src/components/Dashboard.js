@@ -74,13 +74,19 @@ useEffect(() => {
    FETCH DATA TO ST
       }) */
 
-useEffect(() => {
-  const user = generateUserDocument(currentUser);
-  setUserData(user)
-  console.log(userData)
-  
-}, [currentUser]);
-console.log(userData)
+
+  useEffect(() => {
+    if (currentUser.uid) {
+      getUserDocument(currentUser.uid)
+        .then(data => {
+          
+          setUserData(data)
+        })
+        .catch(() => setError('error fetch'));
+    }
+  }, [currentUser.uid]);
+ 
+
 
   
 
