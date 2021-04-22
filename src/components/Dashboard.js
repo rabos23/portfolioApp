@@ -7,7 +7,7 @@ import Updateprofile from "../components/UpdateProfile";
 import { useAuth } from "../contexts/AuthContext";
 import "../index.css";
 import {firestore} from "../firebase"
-
+import {useData} from "./useData"
 
 export default function Dashboard() {
   const { currentUser, logout } = useAuth();
@@ -16,7 +16,7 @@ export default function Dashboard() {
   const [toggled, setToggle] = useState(false);
   const [toggled1, setToggle1] = useState(false);
   const [toggled2, setToggle2] = useState(false);
-  const [userData, setUserData] = useState();
+  const  {userData, setUserData} = useData();
   const style = {
     background: "none",
     color: "inherit",
@@ -24,7 +24,7 @@ export default function Dashboard() {
     padding: 0,
     textAlign: "left",
   };
-
+console.log(currentUser)
 /* 
 Alert about informing user avbout processes
 */
@@ -59,6 +59,7 @@ const getUserDocument = async uid => {
   }
 };
 
+console.log(userData)
 /*   const getProducts = useCallback(async () => {
     await fetch(url, {})
       .then((res) => res.json())
@@ -77,14 +78,14 @@ useEffect(() => {
 
   useEffect(() => {
     if (currentUser.uid) {
-      getUserDocument(currentUser.uid)
+      generateUserDocument(currentUser)
         .then(data => {
           
           setUserData(data)
         })
         .catch(() => setError('error fetch'));
     }
-  }, [currentUser.uid]);
+  }, []);
  
 
 

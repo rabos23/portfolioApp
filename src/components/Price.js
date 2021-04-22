@@ -1,7 +1,11 @@
 import React from "react";
 import { Row } from "react-bootstrap";
 import { useFetch } from "./useFetch";
+
+
 function Price(props) {
+
+
   const url =
     "https://www.binance.com/api/v3/ticker/24hr?symbol=" +
     props.crypto +
