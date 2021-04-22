@@ -1,38 +1,28 @@
 import React from "react";
 import PriceHero from "../components/PriceHero";
-
+import { useData } from "../components/useData"
 
 function Actualprice(props) {
+  const  {userData, setUserData} = useData();
 
-  return (
-    <div>
-     
-      <PriceHero
-        title={props.title}
-        subTitle={props.subTitle}
-        text={props.text}
-        crypto={"BTC"}
-      />
-      <PriceHero
-        title={props.title}
-        subTitle={props.subTitle}
-        text={props.text}
-        crypto={"ETH"}
-      />
-      <PriceHero
-        title={props.title}
-        subTitle={props.subTitle}
-        text={props.text}
-        crypto={"ADA"}
-      />
-      <PriceHero
-        title={props.title}
-        subTitle={props.subTitle}
-        text={props.text}
-        crypto={"DOT"}
-      />
-    </div>
-  );
+  let itemsToRender;
+  if (userData.crypto) {
+    itemsToRender = userData.crypto.map(item => {
+      return <PriceHero 
+      title={props.title}
+      subTitle={props.subTitle}
+      text={props.text}
+      key={item} 
+      crypto={item}/>;
+    });
+  }
+
+  return <div>{itemsToRender}</div>;
 }
-
 export default Actualprice;
+{/* <PriceHero
+title={props.title}
+subTitle={props.subTitle}
+text={props.text}
+crypto={crypto}
+/> */}

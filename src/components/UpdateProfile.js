@@ -1,7 +1,8 @@
 import React from "react";
 import { Button, Form } from "react-bootstrap";
-
-export default function Updateprofile() {
+import {useData} from "./useData"
+export default function Updateprofile(props) {
+  const  {userData, setUserData} = useData();
   return (
     /* 
     CHANGE NOT WORKING PROPERLY : Emain same not working, while changing credentials automatically logout and login -> redirect to login page
@@ -14,22 +15,16 @@ export default function Updateprofile() {
         <Form.Control
           type="username"
           required
-          placeholder="Leave blank for remain same"
+          placeholder={props.displayName ? props.displayName : "Put username u want" }
         />
       </Form.Group>
-      <Form.Group id="fullname">
-        <Form.Label>Full name</Form.Label>
-        <Form.Control
-          type="text"
-          required
-          placeholder="Leave blank for remain same"
-        />
-      </Form.Group><Form.Group id="email">
+      
+     <Form.Group id="email">
         <Form.Label>Email</Form.Label>
         <Form.Control
           type="email"
           required
-          placeholder="Leave blank for remain same"
+          placeholder={props.email}
         />
       </Form.Group>
    

@@ -27,10 +27,7 @@ export default function UpdateCrypto(props) {
   const { loading, products } = useFetch(url);
 
   return (
-    <div>
     
-      
-  
       <Form style={{ alignItems: "center", marginTop: "10px" }}>
       <Form.Label>Choose crypto currency</Form.Label>
       <Select
@@ -71,7 +68,7 @@ export default function UpdateCrypto(props) {
     </Form>
     
     
-    </div>
+  
   );
 }
 /* TODO - > Default values of listboxes -> 
