@@ -30,6 +30,19 @@ export const useData =  (uid) => {
       }
       return getUserDocument(user.uid);
     }
+
+    const setData = async (what) => {
+      firestore.collection("users").doc(currentUser.uid).set({
+        crypto:  what
+    })
+    .then(() => {
+        console.log("Document successfully written!");
+    })
+    .catch((error) => {
+        console.error("Error writing document: ", error);
+    });
+    }
+
     const getUserDocument = useCallback(async uid => {
         if (!uid) return null;
         try {
