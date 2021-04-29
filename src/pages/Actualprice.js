@@ -3,7 +3,7 @@ import PriceHero from "../components/PriceHero";
 import { useData } from "../components/useData"
 
 function Actualprice(props) {
-  const  {userData, setUserData} = useData();
+  const  {userData} = useData();
 
   let itemsToRender;
   if (userData.crypto) {
@@ -13,7 +13,8 @@ function Actualprice(props) {
       subTitle={props.subTitle}
       text={props.text}
       key={item} 
-      crypto={item}/>;
+      crypto={item}
+      fiat={userData.fiat}/>;
     });
   }
 

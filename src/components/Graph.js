@@ -29,7 +29,7 @@ function Graph(props) {
   /*   const url = 'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=50';
    */
   const url =
-    "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=50";
+    "https://api.coingecko.com/api/v3/coins/"+props.cryptoName+"/market_chart?vs_currency=usd&days=50";
   const { loading, products } = useFetch(url);
   console.log(products);
 

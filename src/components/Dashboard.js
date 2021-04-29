@@ -16,7 +16,7 @@ export default function Dashboard() {
   const [toggled, setToggle] = useState(false);
   const [toggled1, setToggle1] = useState(false);
   const [toggled2, setToggle2] = useState(false);
-  const  {userData} = useData();
+  const  {userData, setData} = useData();
   const style = {
     background: "none",
     color: "inherit",
@@ -98,7 +98,7 @@ export default function Dashboard() {
           </Button>
           </Card.Header>
           <Card.Text style={cardText} className="cardText" >
-          {toggled2 && <UpdateCrypto crypto={userData.crypto} fiat={userData.fiat}/>} 
+          {toggled2 && <UpdateCrypto crypto={userData.crypto} fiat={userData.fiat} />} 
           </Card.Text>
          
          </Card.Body>

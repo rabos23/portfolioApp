@@ -1,6 +1,6 @@
 import { Divider, Select, Typography } from "antd";
 import React, {
-  useState
+  useState, useEffect
 } from "react";
 import {
   Form
@@ -8,38 +8,65 @@ import {
 import { useFetch } from "./useFetch2";
 import { useAuth } from "../contexts/AuthContext"
 import {useData} from "./useData"
+import {firestore} from "../firebase"
 const { Option } = Select;
 
 export default function UpdateCrypto(props) {
   const { Option } = Select;
-  const { Title } = Typography;
-  const [selectedC, setSelectedC] = useState(["BTCBitcoin", "ETH"]);
-  const [selectedF, setSelectedF] = useState([]);
+ 
+  const [selectedC, setSelectedC] = useState(props.crypto);
+  const [selectedF, setSelectedF] = useState(props.fiat);
   const { currentUser } = useAuth();
   const { setData } = useData();
-  
+  const url = "https://api.pro.coinbase.com/currencies";
+  const { loading, products } = useFetch(url);
 
 
   function handleChangeC(value) {
     setSelectedC(value);
-    console.log(value);
-    setData(value);
-    /* ulozeni do State */
+    firestore.collection("users").doc(currentUser.uid).update({
+      crypto: value  
+  })
+  .then(() => {
+      console.log("Document successfully written!");
+  })
+  .catch((error) => {
+      console.error("Error writing document: ", error);
+  })
+  
+    /* ulozeni do State 
+    https://www.robinwieruch.de/react-derive-state-props
+    */
   }
   function handleChangeF(value) {
-    setSelectedF(value);
+    if(value.indexOf("USD"))
+    {
+      value[value.indexOf("USD")] = "USDT"
+      console.log(value)
+    }else {
+      setSelectedF(value);
+    } 
     /* ulozeni do State */
+    
+    firestore.collection("users").doc(currentUser.uid).update({
+      fiat: value  
+  })
+  .then(() => {
+      console.log("Document successfully written!");
+  })
+  .catch((error) => {
+      console.error("Error writing document: ", error);
+  })
   }
 
-  const url = "https://api.pro.coinbase.com/currencies";
-  const { loading, products } = useFetch(url);
 
-  return (
+
+return (
       <Form style={{ alignItems: "center", marginTop: "10px" }}>
       <Form.Label>Choose crypto currency</Form.Label>
       <Select
         mode="multiple"
-        labelInValue
+        
         style={{ width: "100%" }}
         defaultValue={selectedC}
         placeholder="Select currency"
@@ -49,7 +76,7 @@ export default function UpdateCrypto(props) {
       >
         {products.map((c) =>
           c.details.type == "crypto" ? (
-            <Option key={c.id} value={c.id + c.name} label={c.id}>
+            <Option key={c.id} value={c.id} label={c.id}>
               {c.name}
             </Option>
           ) : null
@@ -62,6 +89,7 @@ export default function UpdateCrypto(props) {
       <Select
         mode="multiple"
         style={{ width: "100%" }}
+        defaultValue={selectedF}
         placeholder="Select currency"
         onChange={handleChangeF}
         optionLabelProp="label"
