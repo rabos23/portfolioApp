@@ -1,9 +1,11 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, createContext } from 'react';
 import { useAuth } from "../contexts/AuthContext";
 import "../index.css";
 import {firestore} from "../firebase"
 
-export const useData =  (uid) => {
+export const DataContext = createContext();
+
+export const useData =  ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState([]);
     const [error, setError] = useState("");
@@ -49,7 +51,6 @@ export const useData =  (uid) => {
           const userDocument = await firestore.doc(`users/${uid}`).get();
           setLoading(false);
           return {
-            
             uid,
             ...userDocument.data()
           };
@@ -70,5 +71,15 @@ export const useData =  (uid) => {
           }
         }, [currentUser.uid, getUserDocument]);
       return { loading, userData };
+    return (
+<DataContext.Provider
+      value={{
+        
+      }}
+    >
+      {children}
+    </DataContext.Provider>
+
+    )
     };
     
