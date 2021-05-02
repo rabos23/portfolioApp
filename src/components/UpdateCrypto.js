@@ -1,6 +1,6 @@
 import { Divider, Select, Typography } from "antd";
 import React, {
-  useState, useEffect
+  useState, useEffect, useContext
 } from "react";
 import {
   Form
@@ -8,14 +8,16 @@ import {
 import { useFetch } from "./useFetch2";
 import { useAuth } from "../contexts/AuthContext"
 import {useData} from "./useData"
+import {UserContext} from "../contexts/DataContext"
 import {firestore} from "../firebase"
 const { Option } = Select;
 
 export default function UpdateCrypto(props) {
+  const dataContext = useContext(UserContext);
   const { Option } = Select;
  
-  const [selectedC, setSelectedC] = useState(props.crypto);
-  const [selectedF, setSelectedF] = useState(props.fiat);
+  const [selectedC, setSelectedC] = useState();
+  const [selectedF, setSelectedF] = useState();
   const { currentUser } = useAuth();
   const { setData } = useData();
   const url = "https://api.pro.coinbase.com/currencies";
@@ -42,7 +44,7 @@ export default function UpdateCrypto(props) {
     if(value.indexOf("USD"))
     {
       value[value.indexOf("USD")] = "USDT"
-      console.log(value)
+      
     }else {
       setSelectedF(value);
     } 

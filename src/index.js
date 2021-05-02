@@ -5,13 +5,11 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.css";
 import { AuthProvider } from "./contexts/AuthContext";
-import { DataProvider } from "./contexts/DataContext";
+
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
-      <DataProvider>
-       <App />
-      </DataProvider>
+     <App />  
     </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")

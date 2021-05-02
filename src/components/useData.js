@@ -1,11 +1,10 @@
-import { useState, useEffect, useCallback, createContext } from 'react';
+import React, { useState, useEffect, useCallback, createContext } from 'react';
 import { useAuth } from "../contexts/AuthContext";
 import "../index.css";
 import {firestore} from "../firebase"
 
-export const DataContext = createContext();
 
-export const useData =  ({ children }) => {
+export const useData =  () => {
     const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState([]);
     const [error, setError] = useState("");
@@ -33,17 +32,6 @@ export const useData =  ({ children }) => {
       return getUserDocument(user.uid);
     }
 
-    const setData = async (what) => {
-      firestore.collection("users").doc(currentUser.uid).set({
-        crypto:  what
-    })
-    .then(() => {
-        console.log("Document successfully written!");
-    })
-    .catch((error) => {
-        console.error("Error writing document: ", error);
-    });
-    }
 
     const getUserDocument = useCallback(async uid => {
         if (!uid) return null;
@@ -58,10 +46,10 @@ export const useData =  ({ children }) => {
         } catch (error) {
           console.error("Error fetching user", error);
         }
-      },[uid]);
+      },[currentUser]);
     
       useEffect(() => {
-        if (currentUser.uid) {
+        if (currentUser) {
             generateUserDocument(currentUser)
               .then(data => {
                 
@@ -69,17 +57,6 @@ export const useData =  ({ children }) => {
               })
               .catch(() => setError('error fetch'));
           }
-        }, [currentUser.uid, getUserDocument]);
-      return { loading, userData };
-    return (
-<DataContext.Provider
-      value={{
-        
-      }}
-    >
-      {children}
-    </DataContext.Provider>
-
-    )
-    };
-    
+        }, [currentUser, getUserDocument]);
+      return { loading, userData, currentUser };
+      }

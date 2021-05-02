@@ -1,53 +1,41 @@
 import { includes } from "lodash-es";
 import React, {useState, useEffect, useContext} from "react";
-
-import { useData } from "../components/useData"
+import { UserContext } from '../contexts/DataContext';
+import PriceHero from "../components/PriceHero";
 import { useFetch } from '../components/useFetch';
-import { DataContext } from '../contexts/DataContext';
-
-function Actualprice(props) {
-  const data = useContext(DataContext);
-  
-/* 
-  const { userData } = useData();
-let [selected, setSelected] = useState([])
-let [crypto, setCrypto] = useState([])
-const url = "https://api.pro.coinbase.com/currencies/";
-const { loading, products } = useFetch(url);
+import { useAuth } from "../contexts/AuthContext"
+import { Col, Container, Row, Jumbotron } from "react-bootstrap";
+import { Link, Redirect, useHistory } from "react-router-dom";
+const Actualprice = (props) => {
+   const {cryptoData, loading, error, defaultCrypto, defaultFiat, currentUser} = useContext(UserContext);
 
 
-useEffect(() => {
-  if (loading === true) {
-    console.log("loading");
-  } else {
-    setSelected(userData.crypto)
-    setCrypto(products)
-    let res = crypto.filter(item => !selected.includes(item));
-    console.log(res)
-  }
- 
-}, [userData.crypto, products]); 
-
-console.log(selected)
-console.log(crypto)
+/*  if(loading === true){
+  console.log("loading");
+}else {
+  data.map((item) => console.log(item))
+} */ 
 
 
-
- */
-  /* let itemsToRender;
-  if (userData.crypto) {
-    itemsToRender = userData.crypto.map(item => {
+   let itemsToRender = "hello";
+   if (!loading) {
+    let datac = cryptoData;
+    
+    itemsToRender = datac.map(item => {
       return <PriceHero 
       title={props.title}
       subTitle={props.subTitle}
       text={props.text}
-      key={item} 
+      key={item.id} 
       crypto={item}
-      fiat={userData.fiat}/>;
+      fiat={defaultFiat}
+     />;
     });
-  } */
-
-  return <div>{/* {itemsToRender} */}</div>;
+  }  
+  return <div>
+    {(defaultCrypto && currentUser) ? <Jumbotron className="jumbotron-fluid mt-3" style={{textAlign:"center", padding:"20px"}}>You did not specify crypto currencies! Go to <Link to="/dashboard" > Dashboard</Link></Jumbotron>: ""}
+    {loading ? "Loading" : itemsToRender}
+    </div>;
 }
 export default Actualprice;
 {/* <PriceHero

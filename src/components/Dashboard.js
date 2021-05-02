@@ -10,6 +10,8 @@ import {firestore} from "../firebase"
 import {useData} from "./useData"
 
 export default function Dashboard() {
+  /* HOTOVO CONTEXT -> TED IMPLEMENTACE 
+  DO OSTATNICH KOMPONENT A NAHRAZENI useDATA hooku */
   const { currentUser, logout } = useAuth();
   const [error, setError] = useState("");
   const history = useHistory();
@@ -40,7 +42,7 @@ export default function Dashboard() {
       width: '100%', backgroundColor:"white"
       
     }
-    console.log(userData)
+   
   return (
     <div>
       <Card className="justify-content-center">

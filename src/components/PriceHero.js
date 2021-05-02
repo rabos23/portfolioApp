@@ -2,18 +2,18 @@ import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Graph from "../components/Graph";
-import Price from "../components/Price";
-import PriceChange from "../components/PriceChange";
+
+
 function PriceHero(props) {
-  const url =
+  /* const url =
   "https://www.binance.com/api/v3/ticker/24hr?symbol=" +
   props.crypto +
-  props.currency;
+  props.currency; */
 
 
 return (
     <Jumbotron className="jumbotron-fluid mt-5">
-      <Row className="ml-5 display-2">{props.crypto}/</Row>
+      <Row className="ml-5 display-2">{props.crypto.id}/</Row>
       <Container className="justify-content">
         <Row md={8}>
            <Col>

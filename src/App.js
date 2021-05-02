@@ -15,7 +15,7 @@ import Actualprice from "./pages/Actualprice";
 import Contactpage from "./pages/Contactpage";
 import Homepage from "./pages/Homepage";
 
-
+import { UserProvider } from './contexts/DataContext';
 
 export default function App(){
   const [error, setError] = useState("");
@@ -54,8 +54,7 @@ export default function App(){
     };
     const { currentUser, logout } = useAuth();
     return (
-      <Router>
-        
+      <Router> 
           <Container className="p-5" fluid={false}>
             <Navbar className="border-bottom" bg="transparent" expand="lg">
               <Navbar.Brand>World of Automatization</Navbar.Brand>
@@ -81,6 +80,7 @@ export default function App(){
                 </Nav>
               </Navbar.Collapse>
             </Navbar>
+           
             <Route
               path="/"
               exact
@@ -92,16 +92,19 @@ export default function App(){
                 />
               )}
             />
+           <UserProvider>
             <Route
               path="/actualprice"
               exact
               render={() => (
+               
                 <Actualprice
                   title={actualprice.title}
                   subTitle={actualprice.subTitle}
                   text={actualprice.text}
                 />
-              )}
+              
+                )}
             />
             <Route
               path="/contact"
@@ -126,9 +129,10 @@ export default function App(){
               <Route path="/login" component={Login} />
               <Route path="/forgotPassword" component={ForgotPassword} />
             </Switch>
+            </UserProvider>
             <Footer></Footer>
+            
           </Container>
-       
       </Router>
     );
   
