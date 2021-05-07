@@ -5,20 +5,22 @@ import UpdateCrypto from "../components/UpdateCrypto";
 import UpdatePassword from "../components/UpdatePassword";
 import Updateprofile from "../components/UpdateProfile";
 import { useAuth } from "../contexts/AuthContext";
+import { useData } from "../contexts/DataContext";
 import "../index.css";
 import {firestore} from "../firebase"
-import {useData} from "./useData"
+
 
 export default function Dashboard() {
   /* HOTOVO CONTEXT -> TED IMPLEMENTACE 
   DO OSTATNICH KOMPONENT A NAHRAZENI useDATA hooku */
   const { currentUser, logout } = useAuth();
+  const { userData } = useData();
   const [error, setError] = useState("");
   const history = useHistory();
   const [toggled, setToggle] = useState(false);
   const [toggled1, setToggle1] = useState(false);
   const [toggled2, setToggle2] = useState(false);
-  const  {userData, setData} = useData();
+  
   const style = {
     background: "none",
     color: "inherit",
@@ -42,7 +44,8 @@ export default function Dashboard() {
       width: '100%', backgroundColor:"white"
       
     }
-   
+   console.log(currentUser)
+   console.log(userData)
   return (
     <div>
       <Card className="justify-content-center">
@@ -100,7 +103,7 @@ export default function Dashboard() {
           </Button>
           </Card.Header>
           <Card.Text style={cardText} className="cardText" >
-          {toggled2 && <UpdateCrypto crypto={userData.crypto} fiat={userData.fiat} />} 
+          {/* {toggled2 && <UpdateCrypto crypto={userData.crypto} fiat={userData.fiat} />}  */}
           </Card.Text>
          
          </Card.Body>

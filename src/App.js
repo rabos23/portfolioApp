@@ -92,7 +92,7 @@ export default function App(){
                 />
               )}
             />
-           <UserProvider>
+           
             <Route
               path="/actualprice"
               exact
@@ -129,7 +129,7 @@ export default function App(){
               <Route path="/login" component={Login} />
               <Route path="/forgotPassword" component={ForgotPassword} />
             </Switch>
-            </UserProvider>
+           
             <Footer></Footer>
             
           </Container>

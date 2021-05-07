@@ -7,19 +7,16 @@ import {
 } from "react-bootstrap";
 import { useFetch } from "./useFetch2";
 import { useAuth } from "../contexts/AuthContext"
-import {useData} from "./useData"
-import {UserContext} from "../contexts/DataContext"
+import { useData } from "../contexts/DataContext"
 import {firestore} from "../firebase"
-const { Option } = Select;
-
 export default function UpdateCrypto(props) {
-  const dataContext = useContext(UserContext);
+  const {userData} = useData
   const { Option } = Select;
  
   const [selectedC, setSelectedC] = useState();
   const [selectedF, setSelectedF] = useState();
   const { currentUser } = useAuth();
-  const { setData } = useData();
+
   const url = "https://api.pro.coinbase.com/currencies";
   const { loading, products } = useFetch(url);
 

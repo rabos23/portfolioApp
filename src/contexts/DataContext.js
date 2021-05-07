@@ -1,16 +1,22 @@
-import React, { useState, useEffect, useCallback, createContext, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useCallback,useContext, createContext, useLayoutEffect } from 'react';
 import { useAuth } from "../contexts/AuthContext";
 import "../index.css";
 import {firestore} from "../firebase"
 import {useFetch}
  from "../components/useFetch"
- import {useData}
- from "../components/useData"
-export const UserContext = createContext();
 
-export const UserProvider =  ({children}) => {
-    const [loading, setLoading] = useState(true);
-    const [defaultFiat,setDefaultFiat] = useState(["USD","EUR"])
+const UserContext = React.createContext();
+
+export function useData() {
+  return useContext(UserContext);
+}
+
+export function UserProvider ({children}){
+  const {currentUser} = useAuth();
+     const [loading, setLoading] = useState();
+     const [userData, setUserData] = useState();
+
+   /* const [defaultFiat,setDefaultFiat] = useState(["USD","EUR"])
     const [cryptoData, setCryptoData] = useState([]);
     const [defaultCrypto, setDefaultCrypto] = useState(false);
     const [error, setError] = useState("");
@@ -62,11 +68,19 @@ export const UserProvider =  ({children}) => {
             .catch(() => setError('error fetch2'));
           }
           setLoading(false)
-        }, [userData]);
+        }, [userData]); */
+        useEffect(() => {
+          if (!currentUser) return ;
+          const userDocument = firestore.doc(`users/${currentUser.uid}`).get();
+      
+          return {
+            ...userDocument.data()
+          };
+      }, [currentUser]);
         return (
           <UserContext.Provider
             value={{
-              loading, defaultCrypto, cryptoData, currentUser, defaultFiat
+              loading, userData
             }}
           >
             {!loading && children}
