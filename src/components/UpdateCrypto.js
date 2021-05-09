@@ -5,16 +5,20 @@ import React, {
 import {
   Form
 } from "react-bootstrap";
+
+
 import { useFetch } from "./useFetch2";
 import { useAuth } from "../contexts/AuthContext"
 import { useData } from "../contexts/DataContext"
 import {firestore} from "../firebase"
-export default function UpdateCrypto(props) {
-  const {userData} = useData
+
+
+export default function UpdateCrypto() {
+  const {userData, setData} = useData()
   const { Option } = Select;
  
-  const [selectedC, setSelectedC] = useState();
-  const [selectedF, setSelectedF] = useState();
+  const [selectedC, setSelectedC] = useState(userData.cryptoList);
+  const [selectedF, setSelectedF] = useState(userData.fiatList);
   const { currentUser } = useAuth();
 
   const url = "https://api.pro.coinbase.com/currencies";
@@ -23,39 +27,17 @@ export default function UpdateCrypto(props) {
 
   function handleChangeC(value) {
     setSelectedC(value);
-    firestore.collection("users").doc(currentUser.uid).update({
-      crypto: value  
-  })
-  .then(() => {
-      console.log("Document successfully written!");
-  })
-  .catch((error) => {
-      console.error("Error writing document: ", error);
-  })
-  
+    setData(value, "cryptoList");
     /* ulozeni do State 
     https://www.robinwieruch.de/react-derive-state-props
     */
   }
   function handleChangeF(value) {
-    if(value.indexOf("USD"))
-    {
-      value[value.indexOf("USD")] = "USDT"
-      
-    }else {
+  
       setSelectedF(value);
-    } 
+      setData(value,"fiatList");
+  
     /* ulozeni do State */
-    
-    firestore.collection("users").doc(currentUser.uid).update({
-      fiat: value  
-  })
-  .then(() => {
-      console.log("Document successfully written!");
-  })
-  .catch((error) => {
-      console.error("Error writing document: ", error);
-  })
   }
 
 

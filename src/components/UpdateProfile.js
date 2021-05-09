@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Form } from "react-bootstrap";
-import {useData} from "./useData"
+
 export default function Updateprofile(props) {
-  const  {userData, setUserData} = useData();
+
   return (
     /* 
     CHANGE NOT WORKING PROPERLY : Emain same not working, while changing credentials automatically logout and login -> redirect to login page

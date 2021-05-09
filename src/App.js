@@ -126,7 +126,7 @@ export default function App(){
                 path="/update-profile"
                 component={UpdateProfile}
               />
-              <Route path="/login" component={Login} />
+               <Route path="/login" component={Login} />
               <Route path="/forgotPassword" component={ForgotPassword} />
             </Switch>
            

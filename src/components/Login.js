@@ -14,12 +14,14 @@ export default function Login(props) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
+    setLoading(true);
     try {
       setError("");
-      setLoading(true);
+      
       await login(emailRef.current.value, passwordRef.current.value);
+      
       history.push("/dashboard");
+      
     } catch {
       setError("Failed to login");
     }
@@ -28,7 +30,7 @@ export default function Login(props) {
 
   return (
     <>
-      {currentUser && <Redirect to="/dashboard" />}
+      {currentUser ? <Redirect to="/dashboard" />: "" }
       <Content size={props.size}>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleSubmit} style={{ alignItems: "center" }}>
@@ -49,7 +51,7 @@ export default function Login(props) {
             variant="primary"
             type="submit"
           >
-            LOG IN
+           {loading ? "Logging in...": "Log in"}
           </Button>
           <div className="text-center mt-2">
             Need an account? <Link to="/signup"> Sign up</Link>

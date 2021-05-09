@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { auth } from "../firebase";
+import React, { useContext, useEffect, useState, useCallback } from "react";
+import { auth, firestore } from "../firebase";
 
 
 const AuthContext = React.createContext();
@@ -12,6 +12,7 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
+ 
 
   function signup(email, password) {
     return auth.createUserWithEmailAndPassword(email, password);
@@ -34,17 +35,68 @@ export function AuthProvider({ children }) {
   function updatePassword(password) {
     return auth.currentUser.updatePassword(password);
   }
+  function onAuthStateChange() {
+    return auth.onAuthStateChanged(user => {
+      if (user) {
+        setCurrentUser(user)
+        generateUserDocument(user)
+        setLoading(false)
+        
+        console.log("The user is logged in");
+      } else {
+        setCurrentUser(user)
+        setLoading(false)
+        console.log("The user is not logged in");
+      }
+    });
+  }
+  const generateUserDocument = async (user) => {
+    if (!user) return;
+    const userRef = firestore.doc(`users/${user.uid}`);
+    const snapshot = await userRef.get();
+    if (!snapshot.exists) {
+      const { email, displayName, photoURL, uid } = user;
+      const cryptoList = [""];
+      const fiatList= [""];
+     
+      try {
+        await userRef.set({
+          displayName,
+          email,
+          photoURL,uid,cryptoList, fiatList
+          
+        });
+      } catch (error) {
+        console.error("Error creating user document", error);
+      }
+    }
+   
+  }
+ /*  const getUserDocument = useCallback(async uid => {
+      if (!uid) return null;
+      try {
+        const userDocument = await firestore.doc(`users/${uid}`).get();
+        setLoading(false);
+        return {
+          uid,
+          ...userDocument.data()
+        };
+        
+      } catch (error) {
+        console.error("Error fetching user", error);
+      }
+    },[currentUser]); */
 
-
-  useEffect(() => {
-   return auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-      setLoading(false);
-   })
-  }, []);
+    useEffect(() => {
+      const unsubscribe = onAuthStateChange();
+      return () => {
+        unsubscribe();
+      };
+    }, []);
 
   const value = {
     currentUser,
+    loading,
     signup,
     login,
     logout,

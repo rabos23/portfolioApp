@@ -13,9 +13,11 @@ export function useData() {
 
 export function UserProvider ({children}){
   const {currentUser} = useAuth();
-     const [loading, setLoading] = useState();
+     const [loading, setLoading] = useState(false);
      const [userData, setUserData] = useState();
-
+     const [msg, setMsg] = useState();
+     const [defaultCrypto, setDefaultCrypto] = useState(false);
+    /* import generovani doc */
    /* const [defaultFiat,setDefaultFiat] = useState(["USD","EUR"])
     const [cryptoData, setCryptoData] = useState([]);
     const [defaultCrypto, setDefaultCrypto] = useState(false);
@@ -25,14 +27,7 @@ export function UserProvider ({children}){
         let data2 = userData;
        
 
-    const getData = async (crypto) => {
-        
-        const response = await fetch("https://api.pro.coinbase.com/currencies/");
-        let data = await response.json();
-        data = data.filter(item => crypto.includes(item.id))
-
-        return data 
-    }
+  
 
     useEffect(() => {
         setLoading(true)
@@ -69,18 +64,66 @@ export function UserProvider ({children}){
           }
           setLoading(false)
         }, [userData]); */
-        useEffect(() => {
-          if (!currentUser) return ;
-          const userDocument = firestore.doc(`users/${currentUser.uid}`).get();
-      
-          return {
-            ...userDocument.data()
-          };
-      }, [currentUser]);
+        const getCoinbaseData = async (crypto) => {
+        
+          const response = await fetch("https://api.pro.coinbase.com/currencies/");
+          let data = await response.json();
+          data = data.filter(item => crypto.includes(item.id))
+  
+          return data 
+      }
+       
+   const setData =  (data,type) => {
+       if(type == "cryptoList"){
+     firestore.collection("users").doc(currentUser.uid).update(
+       {
+            cryptoList: data  
+        })
+        .then(() => {
+            console.log("Document successfully written!");
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        })}
+        if(type == "fiatList"){
+          firestore.collection("users").doc(currentUser.uid).update(
+            {
+                 fiatList: data  
+             })
+             .then(() => {
+                 console.log("Document successfully written!");
+             })
+             .catch((error) => {
+                 console.error("Error writing document: ", error);
+             })}
+
+      }
+
+          useEffect(() => {
+           
+          if(currentUser){
+              setLoading(true)
+            const unsubscribe = firestore.collection(`users`).doc(`${currentUser.uid}`)
+              .onSnapshot(snapshot => {
+                if (snapshot) {
+                  // we have something
+                  setUserData(snapshot.data())
+                  console.log("userdata")
+                  setLoading(false)
+                } else {
+                  // it's empty
+                  console.log("nič")
+                  setLoading(false)
+                }
+             
+              })}
+          }, [firestore])
+
+
         return (
           <UserContext.Provider
             value={{
-              loading, userData
+              loading, userData, setData
             }}
           >
             {!loading && children}

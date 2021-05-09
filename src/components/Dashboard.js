@@ -44,8 +44,9 @@ export default function Dashboard() {
       width: '100%', backgroundColor:"white"
       
     }
-   console.log(currentUser)
+   console.log(currentUser.uid)
    console.log(userData)
+
   return (
     <div>
       <Card className="justify-content-center">
@@ -103,7 +104,7 @@ export default function Dashboard() {
           </Button>
           </Card.Header>
           <Card.Text style={cardText} className="cardText" >
-          {/* {toggled2 && <UpdateCrypto crypto={userData.crypto} fiat={userData.fiat} />}  */}
+         {toggled2 && <UpdateCrypto />}  
           </Card.Text>
          
          </Card.Body>
