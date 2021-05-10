@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useCallback,useContext, createContext, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useAuth } from "../contexts/AuthContext";
 import "../index.css";
 import {firestore} from "../firebase"
-import {useFetch}
- from "../components/useFetch"
+
 
 const UserContext = React.createContext();
 
@@ -17,6 +16,10 @@ export function UserProvider ({children}){
      const [userData, setUserData] = useState();
      const [msg, setMsg] = useState();
      const [defaultCrypto, setDefaultCrypto] = useState(false);
+
+     function logout() {
+      setUserData();
+    }
     /* import generovani doc */
    /* const [defaultFiat,setDefaultFiat] = useState(["USD","EUR"])
     const [cryptoData, setCryptoData] = useState([]);
@@ -72,7 +75,7 @@ export function UserProvider ({children}){
   
           return data 
       }
-       
+       /* UDELEJ TO ZNOVUPOUIUZIUTELNY TY BLBE! */
    const setData =  (data,type) => {
        if(type == "cryptoList"){
      firestore.collection("users").doc(currentUser.uid).update(
@@ -96,6 +99,17 @@ export function UserProvider ({children}){
              .catch((error) => {
                  console.error("Error writing document: ", error);
              })}
+             if(type == "fiatList"){
+              firestore.collection("users").doc(currentUser.uid).update(
+                {
+                     fiatList: data  
+                 })
+                 .then(() => {
+                     console.log("Document successfully written!");
+                 })
+                 .catch((error) => {
+                     console.error("Error writing document: ", error);
+                 })}
 
       }
 
@@ -117,13 +131,13 @@ export function UserProvider ({children}){
                 }
              
               })}
-          }, [firestore])
+          }, [firestore, currentUser])
 
 
         return (
           <UserContext.Provider
             value={{
-              loading, userData, setData
+              loading, userData, setData, logout
             }}
           >
             {!loading && children}

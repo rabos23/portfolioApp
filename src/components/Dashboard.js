@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import UpdateCrypto from "../components/UpdateCrypto";
 import UpdatePassword from "../components/UpdatePassword";
 import Updateprofile from "../components/UpdateProfile";
+import Logout from "../components/Logout";
 import { useAuth } from "../contexts/AuthContext";
 import { useData } from "../contexts/DataContext";
 import "../index.css";
-import {firestore} from "../firebase"
 
 
 export default function Dashboard() {
@@ -20,7 +20,7 @@ export default function Dashboard() {
   const [toggled, setToggle] = useState(false);
   const [toggled1, setToggle1] = useState(false);
   const [toggled2, setToggle2] = useState(false);
-  
+
   const style = {
     background: "none",
     color: "inherit",
@@ -28,95 +28,93 @@ export default function Dashboard() {
     padding: 0,
     textAlign: "left",
   };
-  async function handleLogout() {
-    setError("");
-    try {
-      await logout();
-      history.push("/login");
-    } catch {
-      setError("Failed to logout");
-    }
-    }
-    const cardText = {
-      marginLeft: "2.5rem"
-    }
-    const cardHeader = {
-      width: '100%', backgroundColor:"white"
-      
-    }
-   console.log(currentUser.uid)
-   console.log(userData)
+
+  const cardText = {
+    marginLeft: "2.5rem",
+    
+  };
+  const cardHeader = {
+    width: "100%",
+    backgroundColor: "white",
+  };
+  console.log(currentUser);
+  console.log(userData);
 
   return (
     <div>
       <Card className="justify-content-center">
         <Card.Body className="justify-content-center">
-        <Card.Header border="primary" style={cardHeader}>
-          Profile
+          <Card.Header border="primary" style={cardHeader}>
+            Profile
           </Card.Header>
           <Card.Text style={cardText}>
             Logged user: {currentUser.email} <br />
-           
-          
-            FullName: "Full name" <br />
-        
+            Username: {currentUser.displayName} <br />
             Role: "Role" <br />
+            {currentUser.emailVerified ? "": "Email is not verified"}
           </Card.Text>
         </Card.Body>
+
+        <Card.Body className="justify-content-center">
+          <Card.Header border="primary" style={cardHeader}>
+            <Button
+              style={style}
+              onClick={() => setToggle((toggled) => !toggled)}
+            >
+              {toggled ? "-" : "+"} Edit Profile
+            </Button>
+          </Card.Header>
+         
+          <div style={cardText}>
+          {toggled && (
+            <Updateprofile
+              displayName={currentUser.displayName}
+              email={currentUser.email}
+            />
+          )}
+          </div>
+        </Card.Body>
+
+        <Card.Body className="justify-content-center" >
+          <Card.Header
+            className="cardHeaderRem"
+            border="primary"
+            style={cardHeader}
+          >
+            <Button
+              style={style}
+              onClick={() => setToggle1((toggled1) => !toggled1)}
+            >
+              {toggled1 ? "-" : "+"} Edit Password
+            </Button>
+          </Card.Header>
+          
+          <div style={cardText}>
+          {toggled1 && <UpdatePassword />}
+          </div>
+        </Card.Body>
+
+        <Card.Body className="justify-content-center">
+          <Card.Header
+            className="cardHeaderRem"
+            border="primary "
+            style={cardHeader}
+          >
+            <Button
+              style={style}
+              onClick={() => setToggle2((toggled2) => !toggled2)}
+            >
+              {toggled2 ? "-" : "+"} Edit Cryptolist
+            </Button>
+          </Card.Header>
+          
+          <div style={cardText}>
+          {toggled2 && <UpdateCrypto />}
+          </div>
+        </Card.Body>
+      </Card>
+<Logout/>
       
-        
-       <Card.Body className="justify-content-center">
-        <Card.Header border="primary" style={cardHeader}>
-          <Button
-            style={style}
-            onClick={() => setToggle((toggled) => !toggled)}
-          >
-            {toggled ? "-" : "+"} Edit Profile
-            
-          </Button>
-          </Card.Header>
-          <Card.Text style={cardText}>
-          {toggled && <Updateprofile displayName={currentUser.displayName} email={currentUser.email} />} 
-          </Card.Text>
-         </Card.Body>
-         <Card.Body className="justify-content-center">
-        <Card.Header className="cardHeaderRem" border="primary" style={cardHeader}>
-          <Button
-            style={style}
-            onClick={() => setToggle1((toggled1) => !toggled1)}
-          >
-            {toggled1 ? "-" : "+"} Edit Password
-            
-          </Button>
-          </Card.Header>
-          <Card.Text style={cardText}>
-          {toggled1 && <UpdatePassword />} 
-          </Card.Text >
-         </Card.Body>
-         <Card.Body className="justify-content-center">
-        <Card.Header className="cardHeaderRem" border="primary " style={cardHeader}>
-          <Button
-            style={style}
-            onClick={() => setToggle2((toggled2) => !toggled2)}
-          >
-            {toggled2 ? "-" : "+"} Edit Cryptolist
-            
-          </Button>
-          </Card.Header>
-          <Card.Text style={cardText} className="cardText" >
-         {toggled2 && <UpdateCrypto />}  
-          </Card.Text>
-         
-         </Card.Body>
-          
-          </Card> 
-          
-         
-      <div className="text-center mt-2">
-        <Button variant="link" onClick={handleLogout}>
-          Log out
-        </Button>
-      </div>
     </div>
   );
-  }
+}

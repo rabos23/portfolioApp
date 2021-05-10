@@ -1,5 +1,4 @@
-import React, {useContext} from "react";
-import Carousel from "../components/Carousel";
+import React from "react"
 import Hero from "../components/Hero";
 
 

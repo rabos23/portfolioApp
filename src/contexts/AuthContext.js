@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useCallback } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { auth, firestore } from "../firebase";
 
 
@@ -35,6 +35,8 @@ export function AuthProvider({ children }) {
   function updatePassword(password) {
     return auth.currentUser.updatePassword(password);
   }
+
+
   function onAuthStateChange() {
     return auth.onAuthStateChanged(user => {
       if (user) {
@@ -92,7 +94,7 @@ export function AuthProvider({ children }) {
       return () => {
         unsubscribe();
       };
-    }, []);
+    }, [currentUser]);  
 
   const value = {
     currentUser,
@@ -102,7 +104,8 @@ export function AuthProvider({ children }) {
     logout,
     resetPassword,
     updatePassword,
-    updateEmail
+    updateEmail,
+    updateDisplayName
   
   };
 

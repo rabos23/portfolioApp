@@ -29,6 +29,7 @@ export default function UpdatePassword() {
     /* 
     CHANGE NOT WORKING PROPERLY : Emain same not working, while changing credentials automatically logout and login -> redirect to login page
     */
+    <div>
     <Form style={{ alignItems: "center", marginTop: "10px" }}>
 
       <Form.Group id="old_password">
@@ -69,5 +70,6 @@ export default function UpdatePassword() {
         Update profile
       </Button>
     </Form>
+    </div>
   );
 }

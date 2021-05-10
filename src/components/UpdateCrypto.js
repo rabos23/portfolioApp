@@ -1,6 +1,6 @@
-import { Divider, Select, Typography } from "antd";
+import { Divider, Select } from "antd";
 import React, {
-  useState, useEffect, useContext
+  useState
 } from "react";
 import {
   Form
@@ -10,7 +10,7 @@ import {
 import { useFetch } from "./useFetch2";
 import { useAuth } from "../contexts/AuthContext"
 import { useData } from "../contexts/DataContext"
-import {firestore} from "../firebase"
+
 
 
 export default function UpdateCrypto() {
@@ -43,6 +43,7 @@ export default function UpdateCrypto() {
 
 
 return (
+  <div>
       <Form style={{ alignItems: "center", marginTop: "10px" }}>
       <Form.Label>Choose crypto currency</Form.Label>
       <Select
@@ -84,12 +85,8 @@ return (
         )}
       </Select>
     </Form>
-    
+    </div>
     
   
   );
 }
-/* TODO - > Default values of listboxes -> 
-fetch from DB <-> passing to DB 
-DB connection
-*/

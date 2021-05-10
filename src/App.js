@@ -54,6 +54,7 @@ export default function App(){
     };
     const { currentUser, logout } = useAuth();
     return (
+      <div>
       <Router> 
           <Container className="p-5" fluid={false}>
             <Navbar className="border-bottom" bg="transparent" expand="lg">
@@ -134,6 +135,7 @@ export default function App(){
             
           </Container>
       </Router>
+      </div>
     );
   
 }
