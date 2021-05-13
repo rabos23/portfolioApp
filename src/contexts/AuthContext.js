@@ -59,8 +59,8 @@ export function AuthProvider({ children }) {
     const snapshot = await userRef.get();
     if (!snapshot.exists) {
       const { email, displayName, photoURL, uid } = user;
-      const cryptoList = [""];
-      const fiatList= [""];
+      const cryptoList = [];
+      const fiatList= [];
      
       try {
         await userRef.set({

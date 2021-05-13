@@ -3,7 +3,6 @@ import { useAuth } from "../contexts/AuthContext";
 import "../index.css";
 import {firestore} from "../firebase"
 
-
 const UserContext = React.createContext();
 
 export function useData() {
@@ -11,12 +10,12 @@ export function useData() {
 }
 
 export function UserProvider ({children}){
-      const {currentUser} = useAuth();
+  const {currentUser} = useAuth();
      const [loading, setLoading] = useState(false);
      const [userData, setUserData] = useState();
      const [msg, setMsg] = useState();
      const [defaultCrypto, setDefaultCrypto] = useState(false);
-
+   
      function logout() {
       setUserData();
     }
@@ -75,8 +74,8 @@ export function UserProvider ({children}){
   
           return data 
       }
-       /* UDELEJ */
-   const setData = async (data,type) => {
+       
+   const setData =  async (data,type) => {
     const cityRef = firestore.collection('users').doc(currentUser.uid);
 
     // Set the 'capital' field of the city
@@ -88,44 +87,12 @@ export function UserProvider ({children}){
       case "fiatList":
          await cityRef.update({fiatList: data});
         break;
+        case "displayName":
+         await cityRef.update({displayName: data});
+        break;
       default:
         console.log("default")
-    } 
-      /*  if(type == "cryptoList"){
-     firestore.collection("users").doc(currentUser.uid).update(
-       {
-            cryptoList: data  
-        })
-        .then(() => {
-            console.log("Document successfully written!");
-        })
-        .catch((error) => {
-            console.error("Error writing document: ", error);
-        })}
-        if(type == "fiatList"){
-          firestore.collection("users").doc(currentUser.uid).update(
-            {
-                 fiatList: data  
-             })
-             .then(() => {
-                 console.log("Document successfully written!");
-             })
-             .catch((error) => {
-                 console.error("Error writing document: ", error);
-             })}
-             if(type == "fiatList"){
-              firestore.collection("users").doc(currentUser.uid).update(
-                {
-                     fiatList: data  
-                 })
-                 .then(() => {
-                     console.log("Document successfully written!");
-                 })
-                 .catch((error) => {
-                     console.error("Error writing document: ", error);
-                 })} */
-
-      }
+    } }
 
           useEffect(() => {
            
@@ -134,10 +101,9 @@ export function UserProvider ({children}){
             const unsubscribe = firestore.collection(`users`).doc(`${currentUser.uid}`)
               .onSnapshot(snapshot => {
                 if (snapshot) {
-                  setLoading(true)
                   // we have something
                   setUserData(snapshot.data())
-                  console.log("userdata")
+                  
                   setLoading(false)
                 } else {
                   // it's empty
@@ -145,7 +111,6 @@ export function UserProvider ({children}){
                   console.log("nič")
                   setLoading(false)
                 }
-                setLoading(false)
              
               })}
           }, [firestore, currentUser])

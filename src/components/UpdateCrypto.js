@@ -27,6 +27,7 @@ export default function UpdateCrypto() {
 
 
   function handleChangeC(value) {
+    
     setSelectedC(value);
     setData(value, "cryptoList");
     /* ulozeni do State 

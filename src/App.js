@@ -15,7 +15,6 @@ import Actualprice from "./pages/Actualprice";
 import Contactpage from "./pages/Contactpage";
 import Homepage from "./pages/Homepage";
 
-import { UserProvider } from './contexts/DataContext';
 
 export default function App(){
   const [error, setError] = useState("");

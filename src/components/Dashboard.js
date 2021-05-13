@@ -14,13 +14,12 @@ export default function Dashboard() {
   /* HOTOVO CONTEXT -> TED IMPLEMENTACE 
   DO OSTATNICH KOMPONENT A NAHRAZENI useDATA hooku */
   const { currentUser, logout } = useAuth();
-  const { userData, loading } = useData()
+  const { userData } = useData();
   const [error, setError] = useState("");
   const history = useHistory();
   const [toggled, setToggle] = useState(false);
   const [toggled1, setToggle1] = useState(false);
   const [toggled2, setToggle2] = useState(false);
-
 
   const style = {
     background: "none",
@@ -38,8 +37,8 @@ export default function Dashboard() {
     width: "100%",
     backgroundColor: "white",
   };
- 
- console.log(userData)
+  console.log(currentUser);
+  console.log(userData);
 
   return (
     <div>
@@ -50,7 +49,7 @@ export default function Dashboard() {
           </Card.Header>
           <Card.Text style={cardText}>
             Logged user: {currentUser.email} <br />
-            Username: {currentUser.displayName}<br />
+            Username: {currentUser.displayName} <br />
             Role: "Role" <br />
             {currentUser.emailVerified ? "": "Email is not verified"}
           </Card.Text>
@@ -60,9 +59,8 @@ export default function Dashboard() {
           <Card.Header border="primary" style={cardHeader}>
             <Button
               style={style}
-            onClick={() => setToggle((toggled) => !toggled)}
-            onClick={( ) => setToggle((toggled) => !toggled)}
-          >
+              onClick={() => setToggle((toggled) => !toggled)}
+            >
               {toggled ? "-" : "+"} Edit Profile
             </Button>
           </Card.Header>

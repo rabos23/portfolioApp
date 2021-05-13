@@ -6,23 +6,24 @@ export default function Updateprofile(props) {
   const { currentUser, updateDisplayName } = useAuth();
   const { setData } = useData();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const emailRef = useRef();
-  const username = useState(props.username)
+  
   const usernameRef = useRef();
 
-   async function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    
+    setLoading(true);
     try {
+      setError("");
       
-     
-      await setData(usernameRef.current.value,"displayName"); 
-     
+      await setData(usernameRef.current.value, "displayName");
+      
     } catch {
-     
+      setError("Failed to login");
     }
     setLoading(false);
-  } 
+  }
 
   console.log(currentUser.displayName)
 
@@ -32,13 +33,13 @@ export default function Updateprofile(props) {
     Data store provider -> if !exists then create default -> also default prices
     */
    <div>
-    <Form OnSubmit={handleSubmit} style={{ alignItems: "center", marginTop: "10px" }}>
+    <Form onChange={handleSubmit} style={{ alignItems: "center", marginTop: "10px" }}>
       
       <Form.Group id="username">
         <Form.Label>Username</Form.Label>
         <Form.Control
           type="username"
-          required
+          
           placeholder={currentUser.displayName ? currentUser.displayName : "Put username u want" }
           ref={usernameRef}
           
@@ -55,14 +56,7 @@ export default function Updateprofile(props) {
         />
       </Form.Group> */}
     
-      <Button
-        style={{ alignItems: "center" }}
-        className="d-inline-block center"
-        variant="outline-secondary"
-        type="submit"
-      >
-        Update profile
-      </Button>
+    
       
     </Form>
     </div>
