@@ -11,7 +11,7 @@ export function useData() {
 }
 
 export function UserProvider ({children}){
-  const {currentUser} = useAuth();
+      const {currentUser} = useAuth();
      const [loading, setLoading] = useState(false);
      const [userData, setUserData] = useState();
      const [msg, setMsg] = useState();
@@ -75,9 +75,23 @@ export function UserProvider ({children}){
   
           return data 
       }
-       /* UDELEJ TO ZNOVUPOUIUZIUTELNY TY BLBE! */
-   const setData =  (data,type) => {
-       if(type == "cryptoList"){
+       /* UDELEJ */
+   const setData = async (data,type) => {
+    const cityRef = firestore.collection('users').doc(currentUser.uid);
+
+    // Set the 'capital' field of the city
+
+    switch(type) {
+      case "cryptoList":
+         await cityRef.update({cryptoList: data});
+        break;
+      case "fiatList":
+         await cityRef.update({fiatList: data});
+        break;
+      default:
+        console.log("default")
+    } 
+      /*  if(type == "cryptoList"){
      firestore.collection("users").doc(currentUser.uid).update(
        {
             cryptoList: data  
@@ -109,7 +123,7 @@ export function UserProvider ({children}){
                  })
                  .catch((error) => {
                      console.error("Error writing document: ", error);
-                 })}
+                 })} */
 
       }
 
@@ -120,15 +134,18 @@ export function UserProvider ({children}){
             const unsubscribe = firestore.collection(`users`).doc(`${currentUser.uid}`)
               .onSnapshot(snapshot => {
                 if (snapshot) {
+                  setLoading(true)
                   // we have something
                   setUserData(snapshot.data())
                   console.log("userdata")
                   setLoading(false)
                 } else {
                   // it's empty
+                  
                   console.log("nič")
                   setLoading(false)
                 }
+                setLoading(false)
              
               })}
           }, [firestore, currentUser])

@@ -1,26 +1,29 @@
 import React, {useRef, useState} from "react";
 import { Button, Form } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
-
+import { useData } from "../contexts/DataContext";
 export default function Updateprofile(props) {
   const { currentUser, updateDisplayName } = useAuth();
+  const { setData } = useData();
   const [loading, setLoading] = useState(false);
   const emailRef = useRef();
   const username = useState(props.username)
   const usernameRef = useRef();
 
-  async function handleSubmit(e) {
+   async function handleSubmit(e) {
     e.preventDefault();
-    setLoading(true);
+    
     try {
- 
-      await updateDisplayName(usernameRef.current.value);
-
+      
+     
+      await setData(usernameRef.current.value,"displayName"); 
+     
     } catch {
-  
+     
     }
     setLoading(false);
-  }
+  } 
+
   console.log(currentUser.displayName)
 
   return (
@@ -29,7 +32,7 @@ export default function Updateprofile(props) {
     Data store provider -> if !exists then create default -> also default prices
     */
    <div>
-    <Form onChange={handleSubmit} style={{ alignItems: "center", marginTop: "10px" }}>
+    <Form OnSubmit={handleSubmit} style={{ alignItems: "center", marginTop: "10px" }}>
       
       <Form.Group id="username">
         <Form.Label>Username</Form.Label>
@@ -38,10 +41,11 @@ export default function Updateprofile(props) {
           required
           placeholder={currentUser.displayName ? currentUser.displayName : "Put username u want" }
           ref={usernameRef}
+          
         />
       </Form.Group>
- {/*      
-     <Form.Group id="email">
+       
+    {/*  <Form.Group id="email">
         <Form.Label>Email</Form.Label>
         <Form.Control
           type="email"
@@ -49,9 +53,16 @@ export default function Updateprofile(props) {
           placeholder={props.email}
           ref={emailRef}
         />
-      </Form.Group>
-    */}
-
+      </Form.Group> */}
+    
+      <Button
+        style={{ alignItems: "center" }}
+        className="d-inline-block center"
+        variant="outline-secondary"
+        type="submit"
+      >
+        Update profile
+      </Button>
       
     </Form>
     </div>

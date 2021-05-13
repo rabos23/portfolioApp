@@ -35,6 +35,7 @@ export function AuthProvider({ children }) {
   function updatePassword(password) {
     return auth.currentUser.updatePassword(password);
   }
+  
 
 
   function onAuthStateChange() {
@@ -104,8 +105,7 @@ export function AuthProvider({ children }) {
     logout,
     resetPassword,
     updatePassword,
-    updateEmail,
-    updateDisplayName
+    updateEmail
   
   };
 

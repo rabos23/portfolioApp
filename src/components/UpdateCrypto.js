@@ -20,6 +20,7 @@ export default function UpdateCrypto() {
   const [selectedC, setSelectedC] = useState(userData.cryptoList);
   const [selectedF, setSelectedF] = useState(userData.fiatList);
   const { currentUser } = useAuth();
+  
 
   const url = "https://api.pro.coinbase.com/currencies";
   const { loading, products } = useFetch(url);
