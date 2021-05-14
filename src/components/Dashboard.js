@@ -19,7 +19,7 @@ export default function Dashboard() {
   const history = useHistory();
   const [toggled, setToggle] = useState(false);
   const [toggled1, setToggle1] = useState(false);
-
+ 
 
   const style = {
     background: "none",
@@ -39,6 +39,7 @@ export default function Dashboard() {
   };
   console.log(currentUser);
   console.log(userData);
+  console.log(userData.displayName);
 
   return (
     <div>
