@@ -7,24 +7,28 @@ export default function UpdatePassword() {
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
   const oldPasswordRef = useRef();
-  const { login, currentUser } = useAuth();
+  const { login, currentUser, reauth } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  /* async function handleSubmit(e) {
+  /* 
+  async function handleSubmit(e) {
     e.preventDefault();
+    
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Password do not match");
     }
     try {
       setError("");
       setLoading(true);
+      await reauth(emailRef.current.value)
       await signup(emailRef.current.value, passwordRef.current.value); 
       history.push("/login");
     } catch {
       setError("Failed to create an account");
     }
     setLoading(false);
-  } */
+  }
+   */
   return (
     /* 
     CHANGE NOT WORKING PROPERLY : Emain same not working, while changing credentials automatically logout and login -> redirect to login page

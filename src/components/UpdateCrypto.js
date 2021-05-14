@@ -1,46 +1,7 @@
-import { Divider, Select } from "antd";
-import React, {
-  useState
-} from "react";
-import {
-  Form
-} from "react-bootstrap";
 
 
-import { useFetch } from "./useFetch2";
-import { useAuth } from "../contexts/AuthContext"
-import { useData } from "../contexts/DataContext"
-
-
-
-export default function UpdateCrypto() {
+export default function UpdateProfile() {
   const {userData, setData} = useData()
-  const { Option } = Select;
- 
-  const [selectedC, setSelectedC] = useState(userData.cryptoList);
-  const [selectedF, setSelectedF] = useState(userData.fiatList);
-  const { currentUser } = useAuth();
-  
-
-  const url = "https://api.pro.coinbase.com/currencies";
-  const { loading, products } = useFetch(url);
-
-
-  function handleChangeC(value) {
-    
-    setSelectedC(value);
-    setData(value, "cryptoList");
-    /* ulozeni do State 
-    https://www.robinwieruch.de/react-derive-state-props
-    */
-  }
-  function handleChangeF(value) {
-  
-      setSelectedF(value);
-      setData(value,"fiatList");
-  
-    /* ulozeni do State */
-  }
 
 
 

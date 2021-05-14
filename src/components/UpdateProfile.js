@@ -1,14 +1,48 @@
 import React, {useRef, useState} from "react";
 import { Button, Form } from "react-bootstrap";
-import { useAuth } from "../contexts/AuthContext";
-import { useData } from "../contexts/DataContext";
+
+import { Divider, Select } from "antd";
+
+
+
+
+import { useFetch } from "./useFetch2";
+import { useAuth } from "../contexts/AuthContext"
+import { useData } from "../contexts/DataContext"
+
+
 export default function Updateprofile(props) {
-  const { currentUser, updateDisplayName } = useAuth();
-  const { setData } = useData();
+  const { currentUser } = useAuth();
+  const { setData, userData } = useData();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const emailRef = useRef();
+  const { Option } = Select;
+ 
+  const [selectedC, setSelectedC] = useState(userData.cryptoList);
+  const [selectedF, setSelectedF] = useState(userData.fiatList);
+
+
+  const url = "https://api.pro.coinbase.com/currencies";
+  const fetch = useFetch(url);
+
+
+  function handleChangeC(value) {
+    
+    setSelectedC(value);
+    setData(value, "cryptoList");
+    /* ulozeni do State 
+    https://www.robinwieruch.de/react-derive-state-props
+    */
+  }
+  function handleChangeF(value) {
   
+      setSelectedF(value);
+      setData(value,"fiatList");
+  
+    /* ulozeni do State */
+  }
+
   const usernameRef = useRef();
 
   async function handleSubmit(e) {
@@ -40,12 +74,12 @@ export default function Updateprofile(props) {
         <Form.Control
           type="username"
           
-          placeholder={currentUser.displayName ? currentUser.displayName : "Put username u want" }
+          placeholder={userData.displayName ? userData.displayName : "Put username u want" }
           ref={usernameRef}
           
         />
       </Form.Group>
-       
+      <Divider />
     {/*  <Form.Group id="email">
         <Form.Label>Email</Form.Label>
         <Form.Control
@@ -55,10 +89,53 @@ export default function Updateprofile(props) {
           ref={emailRef}
         />
       </Form.Group> */}
-    
-    
+
+     
       
     </Form>
-    </div>
+
+    
+    <Form style={{ alignItems: "center", marginTop: "10px" }}>
+    <Form.Label>Choose crypto currency</Form.Label>
+    <Select
+      mode="multiple"
+      
+      style={{ width: "100%" }}
+      defaultValue={selectedC}
+      placeholder="Select currency"
+      onChange={handleChangeC}
+      optionLabelProp="label"
+     
+    >
+      {fetch.products.map((c) =>
+        c.details.type == "crypto" ? (
+          <Option key={c.id} value={c.id} label={c.id}>
+            {c.name}
+          </Option>
+        ) : null
+      )}
+    </Select>
+
+    <Divider />
+
+    <Form.Label>Choose fiat currency</Form.Label>
+    <Select
+      mode="multiple"
+      style={{ width: "100%" }}
+      defaultValue={selectedF}
+      placeholder="Select currency"
+      onChange={handleChangeF}
+      optionLabelProp="label"
+    >
+      {fetch.products.map((c) =>
+        c.details.type == "fiat" ? (
+          <Option key={c.id} value={c.id} label={c.id}>
+            {c.name}
+          </Option>
+        ) : null
+      )}
+    </Select>
+  </Form>
+  </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import UpdateCrypto from "../components/UpdateCrypto";
+import UpdateProfile from "../components/UpdateProfile";
 import UpdatePassword from "../components/UpdatePassword";
 import Updateprofile from "../components/UpdateProfile";
 import Logout from "../components/Logout";
@@ -19,7 +19,7 @@ export default function Dashboard() {
   const history = useHistory();
   const [toggled, setToggle] = useState(false);
   const [toggled1, setToggle1] = useState(false);
-  const [toggled2, setToggle2] = useState(false);
+
 
   const style = {
     background: "none",
@@ -49,7 +49,7 @@ export default function Dashboard() {
           </Card.Header>
           <Card.Text style={cardText}>
             Logged user: {currentUser.email} <br />
-            Username: {currentUser.displayName} <br />
+            Username: {userData.displayName} <br />
             Role: "Role" <br />
             {currentUser.emailVerified ? "": "Email is not verified"}
           </Card.Text>
@@ -94,24 +94,7 @@ export default function Dashboard() {
           </div>
         </Card.Body>
 
-        <Card.Body className="justify-content-center">
-          <Card.Header
-            className="cardHeaderRem"
-            border="primary "
-            style={cardHeader}
-          >
-            <Button
-              style={style}
-              onClick={() => setToggle2((toggled2) => !toggled2)}
-            >
-              {toggled2 ? "-" : "+"} Edit Cryptolist
-            </Button>
-          </Card.Header>
-          
-          <div style={cardText}>
-          {toggled2 && <UpdateCrypto />}
-          </div>
-        </Card.Body>
+       
       </Card>
 <Logout/>
       

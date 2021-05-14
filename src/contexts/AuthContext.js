@@ -36,6 +36,7 @@ export function AuthProvider({ children }) {
     return auth.currentUser.updatePassword(password);
   }
   
+  
 
 
   function onAuthStateChange() {
