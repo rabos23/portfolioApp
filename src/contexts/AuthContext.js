@@ -11,7 +11,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
  
 
   function signup(email, password) {
@@ -40,24 +40,25 @@ export function AuthProvider({ children }) {
 
 
   function onAuthStateChange() {
-    return auth.onAuthStateChanged(user => {
+    return auth.onAuthStateChanged(async user => {
       if (user) {
         setCurrentUser(user)
         generateUserDocument(user)
-        setLoading(false)
+  
         
-        console.log("The user is logged in");
+        console.log("AuthContext:The user is logged in");
       } else {
-        setCurrentUser(user)
-        setLoading(false)
-        console.log("The user is not logged in");
+        setCurrentUser(null)
+        
+        console.log("AuthContext:The user is not logged in");
       }
+      setLoading(false)
     });
   }
   const generateUserDocument = async (user) => {
     if (!user) return;
     const userRef = firestore.doc(`users/${user.uid}`);
-    const snapshot = await userRef.get();
+    const snapshot =  await userRef.get();
     if (!snapshot.exists) {
       const { email, displayName, photoURL, uid } = user;
       const cryptoList = [];
@@ -106,7 +107,8 @@ export function AuthProvider({ children }) {
     logout,
     resetPassword,
     updatePassword,
-    updateEmail
+    updateEmail,
+    generateUserDocument
   
   };
 

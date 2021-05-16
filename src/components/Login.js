@@ -8,12 +8,10 @@ export default function Login(props) {
   const emailRef = useRef();
   const passwordRef = useRef();
   const { userData } = useData();
-  const { login, currentUser } = useAuth();
+  const { login, currentUser, generateUserDocument } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-
-console.log(userData)
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
@@ -21,7 +19,7 @@ console.log(userData)
       setError("");
       
       await login(emailRef.current.value, passwordRef.current.value);
-      
+    
       history.push("/dashboard");
       
     } catch {

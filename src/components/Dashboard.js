@@ -14,7 +14,7 @@ export default function Dashboard() {
   /* HOTOVO CONTEXT -> TED IMPLEMENTACE 
   DO OSTATNICH KOMPONENT A NAHRAZENI useDATA hooku */
   const { currentUser, logout } = useAuth();
-  const { userData } = useData();
+  const { userData, loading } = useData();
   const [error, setError] = useState("");
   const history = useHistory();
   const [toggled, setToggle] = useState(false);
@@ -37,12 +37,11 @@ export default function Dashboard() {
     width: "100%",
     backgroundColor: "white",
   };
-  console.log(currentUser);
-  console.log(userData);
-  console.log(userData.displayName);
+
 
   return (
     <div>
+      
       <Card className="justify-content-center">
         <Card.Body className="justify-content-center">
           <Card.Header border="primary" style={cardHeader}>
@@ -50,7 +49,7 @@ export default function Dashboard() {
           </Card.Header>
           <Card.Text style={cardText}>
             Logged user: {currentUser.email} <br />
-            Username: {userData.displayName} <br />
+            Username:  {!loading ? userData.displayName : "loading"}<br />
             Role: "Role" <br />
             {currentUser.emailVerified ? "": "Email is not verified"}
           </Card.Text>

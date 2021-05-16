@@ -59,8 +59,6 @@ export default function Updateprofile(props) {
     setLoading(false);
   }
 
-  console.log(currentUser.displayName)
-
   return (
     /* 
     CHANGE NOT WORKING PROPERLY : Emain same not working, while changing credentials automatically logout and login -> redirect to login page

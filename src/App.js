@@ -14,21 +14,16 @@ import { useAuth } from "./contexts/AuthContext";
 import Actualprice from "./pages/Actualprice";
 import Contactpage from "./pages/Contactpage";
 import Homepage from "./pages/Homepage";
+import { UserProvider } from "./contexts/DataContext";
+
 
 
 export default function App(){
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-  async function handleLogout() {
-    setError("");
-    try {
-      await logout();
-      history.push("/login");
-    } catch {
-      setError("Failed to logout");
-    }
-    }
+  const { currentUser, logout } = useAuth();
+
     const home = {
       title: "Bla",
       subTitle: "Ble",
@@ -51,7 +46,7 @@ export default function App(){
       text: "<3",
       size: 4,
     };
-    const { currentUser, logout } = useAuth();
+   
     return (
       <div>
       <Router> 
@@ -75,7 +70,7 @@ export default function App(){
                   </Link>
 
                   <Link className="nav-link" to="/login">
-                    {currentUser ? "Dashboard":"Login"}
+                    {currentUser ? "Dashboard" : "Login"}
                   </Link>
                 </Nav>
               </Navbar.Collapse>
@@ -118,6 +113,7 @@ export default function App(){
                 />
               )}
             />
+             <UserProvider>
             <Switch>
               <Route path="/signup" component={Signup} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
@@ -129,7 +125,7 @@ export default function App(){
                <Route path="/login" component={Login} />
               <Route path="/forgotPassword" component={ForgotPassword} />
             </Switch>
-           
+            </UserProvider>
             <Footer></Footer>
             
           </Container>
