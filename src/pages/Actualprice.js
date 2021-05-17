@@ -10,7 +10,7 @@ import { Link, Redirect, useHistory } from "react-router-dom";
 
 const Actualprice = (props) => {
   const { currentUser} = useAuth();
-   const { loading,  userData, } = useData();
+   const { loading,  userData } = useData();
    const [cryptoData, setCryptoData] = useState([]);
    const [error, setError] = useState();
    const [cryptoList, setCryptoList] = useState(userData.cryptoList);
@@ -29,29 +29,30 @@ const Actualprice = (props) => {
 }
 
 
-   if(typeof cryptoList === 'undefined' || cryptoList.length === 0 ){
+   if(loading){
   
-
+console.log("loading")
 
 }else {
-  console.log("neni prazdno")}
+  console.log("neni loading")}
  
 
-/*    let itemsToRender = "hello";
+
    if (!loading) {
+
     let userData = cryptoData;
-    
-    itemsToRender = userData.cryptoList.map(item => {
+  
+  let itemsToRender = userData.cryptoList.map(item => {
       return <PriceHero 
       title={props.title}
       subTitle={props.subTitle}
       text={props.text}
       key={item.id} 
       crypto={crypto}
-      fiat={fiat}
+      fiat={fiatList}
      />; 
     });
-  }  */
+  } 
   /* useEffect(() => {
     setLoading(true)
     if (currentUser) {
@@ -93,7 +94,7 @@ const Actualprice = (props) => {
                style={{textAlign:"center", padding:"20px"}}
                >You did not specify crypto currencies! Go to <Link to="/dashboard" > Dashboard</Link>
                </Jumbotron>: ""}
-    {loading ? "Loading" : "Ble"}
+    {loading ? "Loading" : userData.displayname}
     </div>;
 }
 export default Actualprice;

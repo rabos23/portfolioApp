@@ -34,8 +34,11 @@ export function UserProvider ({children}){
          console.log("succesful")
          break;
         case "displayName":
-         await cityRef.update({displayName: data});
-         console.log("succesful")
+         await cityRef.update({displayName: data}).then(
+           console.log("data")
+           
+         )
+         
         break;
       default:
         console.log("default")
@@ -48,7 +51,7 @@ export function UserProvider ({children}){
             console.log("Loading1:"+loading)
             
           if(currentUser){
-              
+            
             const unsubscribe = firestore.collection(`users`).doc(`${currentUser.uid}`)
               .onSnapshot(snapshot => {
                 console.log("Loading2:"+loading)
@@ -58,22 +61,19 @@ export function UserProvider ({children}){
                 
              })
              
-             console.log("Loading3:"+loading)
-            }
-            if(userData){
-              setLoading(false)
-            }
             
+            }
+            setLoading(false)
           }, [currentUser, firestore])
 
           
         return (
           <UserContext.Provider
-            value={{
-              loading, userData, setData, logout
-            }}
+            value={
+        [loading, setData, logout, userData]
+            }
           >
-            {!loading && children}
+            {children}
           </UserContext.Provider>
           );
 };

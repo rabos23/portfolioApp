@@ -7,7 +7,6 @@ import { useData } from "../contexts/DataContext";
 export default function Login(props) {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { userData } = useData();
   const { login, currentUser, generateUserDocument } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -20,7 +19,7 @@ export default function Login(props) {
       
       await login(emailRef.current.value, passwordRef.current.value);
     
-      history.push("/dashboard");
+      history.push("/actualprice");
       
     } catch {
       setError("Failed to login");

@@ -10,6 +10,7 @@ export default function Signup(props) {
   const passwordConfirmRef = useRef();
   const { signup, generateUserDocument } = useAuth();
   const [error, setError] = useState("");
+  const [msg, setMsg] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   async function handleSubmit(e) {
@@ -22,8 +23,8 @@ export default function Signup(props) {
       setError("");
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value)
+      setMsg("Succesfuly registred!")
       
-      history.push("/login");
     } catch {
       setError("Failed to create an account");
     }
@@ -34,6 +35,7 @@ export default function Signup(props) {
     <>
       <Content size={props.size}>
         {error && <Alert variant="danger">{error}</Alert>}
+        {msg && <Alert variant="success">{msg}<Link to="/login">Log in</Link></Alert>}
         <Form onSubmit={handleSubmit} style={{ alignItems: "center" }}>
           <Form.Group id="email">
             <Form.Label>Login</Form.Label>
