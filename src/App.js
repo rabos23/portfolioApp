@@ -3,15 +3,17 @@ import { Nav, Navbar } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import { BrowserRouter as Router, Link, Route, Switch, useHistory } from "react-router-dom";
 import "./App.css";
-import Dashboard from "./components/Dashboard";
+
 import Footer from "./components/Footer";
 import ForgotPassword from "./components/ForgotPassword";
 import Login from "./components/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import Signup from "./components/Signup";
 import UpdateProfile from "./components/UpdateProfile";
+import Logout from "./components/Logout";
 import { useAuth } from "./contexts/AuthContext";
 import Actualprice from "./pages/Actualprice";
+import Dashboardpage from "./pages/Dashboardpage";
 import Contactpage from "./pages/Contactpage";
 import Homepage from "./pages/Homepage";
 import { UserProvider } from "./contexts/DataContext";
@@ -116,17 +118,14 @@ export default function App(){
              <UserProvider>
             <Switch>
               <Route path="/signup" component={Signup} />
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
-              <PrivateRoute
-                exact
-                path="/update-profile"
-                component={UpdateProfile}
-              />
+              <PrivateRoute exact path="/dashboard" component={Dashboardpage} />
+             
                <Route path="/login" component={Login} />
               <Route path="/forgotPassword" component={ForgotPassword} />
             </Switch>
             </UserProvider>
-            <Footer></Footer>
+           
+            <Footer></Footer> 
             
           </Container>
     

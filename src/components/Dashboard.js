@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import UpdateProfile from "../components/UpdateProfile";
@@ -19,7 +19,7 @@ export default function Dashboard() {
   const history = useHistory();
   const [toggled, setToggle] = useState(false);
   const [toggled1, setToggle1] = useState(false);
- 
+  const [username, setUsername] = useState(userData.displayName);
 
   const style = {
     background: "none",
@@ -38,6 +38,11 @@ export default function Dashboard() {
     backgroundColor: "white",
   };
 
+  useEffect(() => {
+    if(currentUser && userData){
+        setUsername(userData.displayName)
+      }      
+    }, [userData.displayName])
 
   return (
     <div>
@@ -49,7 +54,7 @@ export default function Dashboard() {
           </Card.Header>
           <Card.Text style={cardText}>
             Logged user: {currentUser.email} <br />
-            Username:  {!loading ? userData.displayName : "loading"}<br />
+            Username:  {(!loading && userData) ? username : "loading"}<br />
             Role: "Role" <br />
             {currentUser.emailVerified ? "": "Email is not verified"}
           </Card.Text>
@@ -96,7 +101,7 @@ export default function Dashboard() {
 
        
       </Card>
-<Logout/>
+
       
     </div>
   );

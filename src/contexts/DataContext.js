@@ -10,12 +10,12 @@ export function useData() {
 }
 
 export function UserProvider ({children}){
-  const {currentUser, generateUserDocument} = useAuth();
-     const [loading, setLoading] = useState(true);
+  const {currentUser} = useAuth();
+     const [loading, setLoading] = useState(false);
      const [userData, setUserData] = useState([]);
      const [msg, setMsg] = useState();
-   
-    /* V APP ODDELIT PROVIDER AUTH A PROVIDER DATACONTEXT PRAVDEPODOBNE SE TLUCOU LOADING A PAK SE NANCTOU DATA TAK JAK MAJI*/
+
+    
  
     function logout() {
       setUserData();
@@ -23,57 +23,51 @@ export function UserProvider ({children}){
 
    const setData =  async (data,type) => {
     const cityRef = firestore.collection('users').doc(currentUser.uid);
-    console.log("Data write:"+type)
+console.log("Data write:"+type)
+    // Set the 'capital' field of the city
+
     switch(type) {
       case "cryptoList":
          await cityRef.update({cryptoList: data});
-         console.log("succesful")
+         console.log("Data:"+data+" was succesful")
         break;
       case "fiatList":
          await cityRef.update({fiatList: data});
-         console.log("succesful")
-         break;
+         console.log("Data:"+data+" was succesful")
+        break;
         case "displayName":
-         await cityRef.update({displayName: data}).then(
-           console.log("data")
-           
-         )
-         
+         await cityRef.update({displayName: data});
+         console.log("Data:"+data+" was succesful")
         break;
       default:
         console.log("default")
     } }
-/*     db.collection("cities").doc("SF")
-    .onSnapshot((doc) => {
-        console.log("Current data: ", doc.data());
-    }); */
+
           useEffect(() => {
-            console.log("Loading1:"+loading)
-            
+           
           if(currentUser){
-            
+              setLoading(true)
             const unsubscribe = firestore.collection(`users`).doc(`${currentUser.uid}`)
               .onSnapshot(snapshot => {
-                console.log("Loading2:"+loading)
-                console.log("Current data: ", snapshot.data());
-                setUserData(snapshot.data())
-                
-                
+                if (snapshot) {
+                  // we have something
+                  setUserData(snapshot.data())
+                  console.log("neco")
+                  setLoading(false)
+                }
              })
-             
-            
             }
-            setLoading(false)
-          }, [currentUser, firestore])
 
-          
+          }, [firestore, currentUser])
+
+
         return (
           <UserContext.Provider
-            value={
-        [loading, setData, logout, userData]
-            }
+            value={{
+              loading, userData, setData, logout
+            }}
           >
-            {children}
+            {!loading && children}
           </UserContext.Provider>
           );
 };

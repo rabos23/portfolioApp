@@ -8,7 +8,7 @@ export default function Signup(props) {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const { signup, generateUserDocument } = useAuth();
+  const { signup } = useAuth();
   const [error, setError] = useState("");
   const [msg, setMsg] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,7 +24,7 @@ export default function Signup(props) {
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value)
       setMsg("Succesfuly registred!")
-      
+     
     } catch {
       setError("Failed to create an account");
     }

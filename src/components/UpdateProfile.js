@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useRef, useState, useEffect} from "react";
 import { Button, Form } from "react-bootstrap";
 
 import { Divider, Select } from "antd";
@@ -21,6 +21,7 @@ export default function Updateprofile(props) {
  
   const [selectedC, setSelectedC] = useState(userData.cryptoList);
   const [selectedF, setSelectedF] = useState(userData.fiatList);
+  const [username, setUsername] = useState(userData.username);
 
 
   const url = "https://api.pro.coinbase.com/currencies";
@@ -58,7 +59,18 @@ export default function Updateprofile(props) {
     }
     setLoading(false);
   }
+  
+  useEffect(() => {
+           
+    if(currentUser && userData){
+        
+        setUsername(userData.displayName)
+     
+          }
+       
+      
 
+    }, [userData.displayName])
   return (
     /* 
     CHANGE NOT WORKING PROPERLY : Emain same not working, while changing credentials automatically logout and login -> redirect to login page
@@ -72,7 +84,7 @@ export default function Updateprofile(props) {
         <Form.Control
           type="username"
           
-          placeholder={userData.displayName ? userData.displayName : "Put username u want" }
+          placeholder={username ? username : "Put username u want" }
           ref={usernameRef}
           
         />
