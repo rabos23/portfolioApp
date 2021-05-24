@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
-import UpdateProfile from "../components/UpdateProfile";
+
 import UpdatePassword from "../components/UpdatePassword";
 import Updateprofile from "../components/UpdateProfile";
-import Logout from "../components/Logout";
 import { useAuth } from "../contexts/AuthContext";
 import { useData } from "../contexts/DataContext";
 import "../index.css";
@@ -13,10 +11,10 @@ import "../index.css";
 export default function Dashboard() {
   /* HOTOVO CONTEXT -> TED IMPLEMENTACE 
   DO OSTATNICH KOMPONENT A NAHRAZENI useDATA hooku */
-  const { currentUser, logout } = useAuth();
+  const { currentUser } = useAuth();
   const { userData, loading } = useData();
-  const [error, setError] = useState("");
-  const history = useHistory();
+
+
   const [toggled, setToggle] = useState(false);
   const [toggled1, setToggle1] = useState(false);
   const [username, setUsername] = useState(userData.displayName);

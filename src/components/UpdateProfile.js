@@ -1,5 +1,5 @@
 import React, {useRef, useState, useEffect} from "react";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 import { Divider, Select } from "antd";
 
@@ -14,9 +14,9 @@ import { useData } from "../contexts/DataContext"
 export default function Updateprofile(props) {
   const { currentUser } = useAuth();
   const { setData, userData } = useData();
-  const [loading, setLoading] = useState(false);
+  
   const [error, setError] = useState("");
-  const emailRef = useRef();
+
   const { Option } = Select;
  
   const [selectedC, setSelectedC] = useState(userData.cryptoList);
@@ -48,7 +48,7 @@ export default function Updateprofile(props) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setLoading(true);
+    
     try {
       setError("");
       
@@ -57,7 +57,7 @@ export default function Updateprofile(props) {
     } catch {
       setError("Failed to login");
     }
-    setLoading(false);
+   
   }
   
   useEffect(() => {
@@ -77,6 +77,7 @@ export default function Updateprofile(props) {
     Data store provider -> if !exists then create default -> also default prices
     */
    <div>
+     {error ? error: ""}
     <Form onChange={handleSubmit} style={{ alignItems: "center", marginTop: "10px" }}>
       
       <Form.Group id="username">

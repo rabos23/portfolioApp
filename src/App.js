@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Nav, Navbar } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
-import { BrowserRouter as Router, Link, Route, Switch, useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import "./App.css";
 
 import Footer from "./components/Footer";
@@ -19,10 +19,8 @@ import { UserProvider } from "./contexts/DataContext";
 
 
 export default function App(){
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const history = useHistory();
-  const { currentUser, logout } = useAuth();
+
+  const { currentUser } = useAuth();
 
     const home = {
       title: "Bla",
@@ -39,12 +37,6 @@ export default function App(){
       subTitle: "Some kind of subtitle",
       text: "Some kind of text on Contactscreen",
       size: 2,
-    };
-    const login = {
-      title: "Login",
-      subTitle: "Let's see",
-      text: "<3",
-      size: 4,
     };
    
     return (

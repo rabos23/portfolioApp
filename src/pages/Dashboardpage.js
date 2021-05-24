@@ -7,16 +7,16 @@ import { Container, Row } from "react-bootstrap";
 import Jumbotron from "react-bootstrap/Jumbotron";
 export default function Dashboardpage(props) {
   const { currentUser } = useAuth();
-  console.log(currentUser)
+/*   console.log(currentUser)
 
-  console.log(currentUser.emailVerified)
+  */
   const [msg, setMsg] = useState("");
   const [verified, setVerified] = useState(currentUser.emailVerified)
   
   const history = useHistory();
    
   var timerStart = setInterval(() => {
-    console.log(currentUser.emailVerified)
+   /*  console.log(currentUser.emailVerified) */
     if(!currentUser.emailVerified){
       return currentUser.reload().then(() => {
         setVerified(currentUser.emailVerified)

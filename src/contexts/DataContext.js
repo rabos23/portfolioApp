@@ -13,7 +13,6 @@ export function UserProvider ({children}){
   const {currentUser} = useAuth();
      const [loading, setLoading] = useState(false);
      const [userData, setUserData] = useState([]);
-     const [msg, setMsg] = useState();
 
     
  
@@ -47,12 +46,12 @@ console.log("Data write:"+type)
            
           if(currentUser){
               setLoading(true)
-            const unsubscribe = firestore.collection(`users`).doc(`${currentUser.uid}`)
+            firestore.collection(`users`).doc(`${currentUser.uid}`)
               .onSnapshot(snapshot => {
                 if (snapshot) {
                   // we have something
                   setUserData(snapshot.data())
-                  console.log("neco")
+                  
                   setLoading(false)
                 }
              })

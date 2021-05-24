@@ -7,7 +7,7 @@ import { useAuth } from "../contexts/AuthContext";
 export default function Login(props) {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { login, currentUser, generateUserDocument } = useAuth();
+  const { login, currentUser } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();

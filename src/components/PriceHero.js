@@ -33,7 +33,7 @@ return (
           </Col> 
           
           
-           {/*  <Graph cryptoName={props.crypto.name}/> */}
+            <Graph cryptoName={props.crypto.name}/>
         </Row>
       </Container>
     </Jumbotron>
