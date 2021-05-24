@@ -52,9 +52,9 @@ export default function Dashboard() {
           </Card.Header>
           <Card.Text style={cardText}>
             Logged user: {currentUser.email} <br />
-            Username:  {(!loading && userData) ? username : "loading"}<br />
+            Username:  {!loading ? username : "default"}<br />
             Role: "Role" <br />
-            {currentUser.emailVerified ? "": "Email is not verified"}
+            {currentUser.emailVerified ? "Email is  verified": "Email is not verified"}
           </Card.Text>
         </Card.Body>
 

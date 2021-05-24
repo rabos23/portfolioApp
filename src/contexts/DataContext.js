@@ -11,7 +11,7 @@ export function useData() {
 
 export function UserProvider ({children}){
   const {currentUser} = useAuth();
-     const [loading, setLoading] = useState(false);
+     const [loading, setLoading] = useState();
      const [userData, setUserData] = useState([]);
 
     
