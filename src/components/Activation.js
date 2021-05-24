@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from "react";
-import { Col, Container, Row, Button } from "react-bootstrap";
+import React, {useState} from "react";
+import { Container, Row, Button } from "react-bootstrap";
 import Jumbotron from "react-bootstrap/Jumbotron";
 
 import { useAuth } from "../contexts/AuthContext"
 function Activation(props) {
-    const { reSendEmailVerification, currentUser } = useAuth();
+    const { reSendEmailVerification} = useAuth();
     const [loading, setLoading] = useState(false)
     const [msg, setMsg] = useState()
-    const [verified, setVerified] = useState(props.isVerified)
+    
 
 
     async function reSendEmail(e) {
@@ -15,7 +15,6 @@ function Activation(props) {
         setLoading(true);
         try {
           setMsg("");
-          
           await reSendEmailVerification()
         setMsg("Verification email was sended")
           

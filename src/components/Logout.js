@@ -27,6 +27,7 @@ export default function Logout() {
         <Button variant="link" onClick={handleLogout}>
           Log out
         </Button>
+        {error ? error: ""}
       </div>
     </>
   );

@@ -12,7 +12,7 @@ export default function Dashboardpage(props) {
   console.log(currentUser.emailVerified)
   const [msg, setMsg] = useState("");
   const [verified, setVerified] = useState(currentUser.emailVerified)
-  const [showAlert, setShowAlert] = useState()
+  
   const history = useHistory();
    
   var timerStart = setInterval(() => {
@@ -21,7 +21,7 @@ export default function Dashboardpage(props) {
       return currentUser.reload().then(() => {
         setVerified(currentUser.emailVerified)
         if(currentUser.emailVerified){
-          setShowAlert(true)
+         
           setMsg('Email successfully verified.')
           timerStop(timerStart)
           setTimeout(function(){ 
