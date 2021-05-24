@@ -1,7 +1,6 @@
-import React, { useRef, useState } from "react";
-import { Alert, Button, Form } from "react-bootstrap";
-import { Link, Redirect, useHistory } from "react-router-dom";
-import Content from "../components/Content";
+import React, { useState } from "react";
+import { Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useData } from "../contexts/DataContext";
 

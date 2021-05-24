@@ -9,8 +9,6 @@ import ForgotPassword from "./components/ForgotPassword";
 import Login from "./components/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import Signup from "./components/Signup";
-import UpdateProfile from "./components/UpdateProfile";
-import Logout from "./components/Logout";
 import { useAuth } from "./contexts/AuthContext";
 import Actualprice from "./pages/Actualprice";
 import Dashboardpage from "./pages/Dashboardpage";
@@ -70,13 +68,15 @@ export default function App(){
                   <Link className="nav-link" to="/contact">
                     Contact
                   </Link>
-
-                  <Link className="nav-link" to="/login">
-                    {currentUser ? "Dashboard" : "Login"}
-                  </Link>
+                  {currentUser ? <Link className="nav-link" to="/dashboard">
+                   Dashboard
+                   </Link> :  <Link className="nav-link" to="/login">
+                   Login
+                   </Link>}
+                 
                 </Nav>
               </Navbar.Collapse>
-            </Navbar>
+            </Navbar> 
            
             <Route
               path="/"
@@ -125,7 +125,7 @@ export default function App(){
             </Switch>
             </UserProvider>
            
-            <Footer></Footer> 
+            <Footer isLogged={currentUser}></Footer> 
             
           </Container>
     

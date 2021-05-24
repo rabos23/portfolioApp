@@ -10,6 +10,10 @@ body {
   margin-top: -2.5rem
 
 }
+.text-link {
+  color: inherit;
+  text-decoration: inherit;
+}
 .btNo{
   color: inherit;
   border: none;

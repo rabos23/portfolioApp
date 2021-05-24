@@ -20,8 +20,12 @@ export function AuthProvider({ children }) {
       auth.createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
         userCredential.user.sendEmailVerification();
+        
       })
     ]
+  }
+  function reSendEmailVerification(){
+    return auth.currentUser.sendEmailVerification()
   }
 
   
@@ -115,7 +119,8 @@ export function AuthProvider({ children }) {
     resetPassword,
     updatePassword,
     updateEmail,
-    generateUserDocument
+    generateUserDocument, 
+    reSendEmailVerification
   
   };
 

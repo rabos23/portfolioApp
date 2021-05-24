@@ -8,7 +8,7 @@ export default function Signup(props) {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const { signup } = useAuth();
+  const { signup, logout } = useAuth();
   const [error, setError] = useState("");
   const [msg, setMsg] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,6 +23,8 @@ export default function Signup(props) {
       setError("");
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value)
+      await logout()
+      history.push("/login")
       setMsg("Succesfuly registred!")
      
     } catch {

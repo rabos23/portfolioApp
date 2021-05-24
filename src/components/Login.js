@@ -20,7 +20,7 @@ export default function Login(props) {
       await login(emailRef.current.value, passwordRef.current.value);
     
       history.push("/dashboard");
-      
+       
     } catch {
       setError("Failed to login");
     }
@@ -29,7 +29,7 @@ export default function Login(props) {
 
   return (
     <>
-      
+      {currentUser ? <Redirect to="/dashboard" />: ""}
       <Content size={props.size}>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleSubmit} style={{ alignItems: "center" }}>
