@@ -23,13 +23,14 @@ export default function Signup(props) {
       setError("");
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value)
-      await logout()
-      history.push("/login")
+      
+
       setMsg("Succesfuly registred!")
      
     } catch {
       setError("Failed to create an account");
     }
+    logout();
     setLoading(false);
   }
 
@@ -48,6 +49,7 @@ export default function Signup(props) {
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" ref={passwordRef} required />
           </Form.Group>
+
           <Form.Group id="password-confirm">
             <Form.Label>Password Confirmation</Form.Label>
             <Form.Control type="password" ref={passwordConfirmRef} required />

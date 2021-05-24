@@ -13,13 +13,13 @@ const Actualprice = (props) => {
    const { loading,  userData } = useData();
    const [cryptoData, setCryptoData] = useState([]);
    const [error, setError] = useState();
-   const [cryptoList, setCryptoList] = useState(userData.cryptoList);
-   const [fiatList, setFiatList] = useState(userData.fiatList);
+   const [cryptoList, setCryptoList] = useState();
+   const [fiatList, setFiatList] = useState();
    const [defaultCrypto, setDefaultCrypto] = useState(false);
    const [defaultFiat,setDefaultFiat] = useState(["USD","EUR"])
    
   
-   const getData = async (crypto) => {
+   /* const getData = async (crypto) => {
         
     const response = await fetch("https://api.pro.coinbase.com/currencies/");
     let data = await response.json();
@@ -52,7 +52,7 @@ console.log("loading")
       fiat={fiatList}
      />; 
     });
-  } 
+  }  */
   /* useEffect(() => {
     setLoading(true)
     if (currentUser) {
@@ -95,6 +95,7 @@ console.log("loading")
                >You did not specify crypto currencies! Go to <Link to="/dashboard" > Dashboard</Link>
                </Jumbotron>: ""}
     {loading ? "Loading" : userData.displayname}
+    {cryptoList}
     </div>;
 }
 export default Actualprice;

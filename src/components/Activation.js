@@ -15,7 +15,7 @@ function Activation(props) {
         setLoading(true);
         try {
           setMsg("");
-          await reSendEmailVerification()
+          await reSendEmailVerification();
         setMsg("Verification email was sended")
           
           

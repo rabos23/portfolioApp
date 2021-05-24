@@ -21,9 +21,10 @@ export function AuthProvider({ children }) {
       .then((userCredential) => {
         userCredential.user.sendEmailVerification();
         
-      })
-    ]
+        })
+      ]
   }
+
   function reSendEmailVerification(){
     return auth.currentUser.sendEmailVerification()
   }
