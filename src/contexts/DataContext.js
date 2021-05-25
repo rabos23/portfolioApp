@@ -55,6 +55,8 @@ console.log("Data write:"+type)
                   setLoading(false)
                 }
              })
+            }else {
+              setLoading(true)
             }
 
           }, [firestore, currentUser])

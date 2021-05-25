@@ -107,7 +107,6 @@ export default function App(){
                 />
               )}
             />
-             <UserProvider>
             <Switch>
               <Route path="/signup" component={Signup} />
               <PrivateRoute exact path="/dashboard" component={Dashboardpage} />
@@ -115,7 +114,6 @@ export default function App(){
                <Route path="/login" component={Login} />
               <Route path="/forgotPassword" component={ForgotPassword} />
             </Switch>
-            </UserProvider>
            
             <Footer isLogged={currentUser}></Footer> 
             
