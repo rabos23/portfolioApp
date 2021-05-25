@@ -38,6 +38,10 @@ console.log("Data write:"+type)
          await cityRef.update({displayName: data});
          console.log("Data:"+data+" was succesful")
         break;
+        case "showMsg":
+         await cityRef.update({showMsg: data});
+         console.log("Data:"+data+" was succesful")
+        break;
       default:
         console.log("default")
     } }
@@ -56,7 +60,7 @@ console.log("Data write:"+type)
                 }
              })
             }else {
-              setLoading(true)
+              setLoading(false)
             }
 
           }, [firestore, currentUser])

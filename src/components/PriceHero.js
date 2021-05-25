@@ -13,7 +13,7 @@ function PriceHero(props) {
 
 return (
     <Jumbotron className="jumbotron-fluid mt-5">
-      <Row className="ml-5 display-2">{props.crypto.id}/</Row>
+      <Row className="ml-5 display-2">{props.crypto}/</Row>
       <Container className="justify-content">
         <Row md={8}>
            <Col>
@@ -33,7 +33,7 @@ return (
           </Col> 
           
           
-            <Graph cryptoName={props.crypto.name}/>
+            {/* <Graph cryptoName={props.crypto}/> */}
         </Row>
       </Container>
     </Jumbotron>
