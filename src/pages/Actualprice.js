@@ -17,7 +17,7 @@ const Actualprice = (props) => {
 
    const [defaultCrypto, setDefaultCrypto] = useState(["BTC","LTC","ETH","ADA"]);
    const [defaultFiat,setDefaultFiat] = useState(["USD","EUR"])
-  
+   const [crypto, setCrypto] = useState(["BTC","LTC","ETH","ADA"]);
 
     
     
@@ -31,7 +31,12 @@ const Actualprice = (props) => {
 
     return data 
 }
-console.log(loading)
+crypto.map((item) => console.log(item))
+useEffect(() => {
+  if(currentUser && userData){
+      setCrypto(userData.cryptoList)
+    }      
+  }, [userData.cryptoList])
   return <div>
     {(defaultCrypto) ? 
     <Jumbotron className="jumbotron-fluid mt-3" 
@@ -39,7 +44,7 @@ console.log(loading)
                </Jumbotron>: ""}
    
     {/* {loading ? "loading" : cryptoList.map(item => { return <PriceHero title={props.title} subTitle={props.subTitle} text={props.text} key={item.id} crypto={crypto} /> })} */}
-    {loading ? loading : "hotovo"}
+    {!loading ? crypto.map(item => <p>{item}</p>) : "default"}<br />
     </div>;
 }
 export default Actualprice;
