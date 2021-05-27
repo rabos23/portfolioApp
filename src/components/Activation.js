@@ -36,7 +36,7 @@ function Activation(props) {
           
         </Row>
         <Row className="justify-content-center">     
-            <Button variant="link" class="text-link" onClick={reSendEmail}>
+            <Button variant="link" className="text-link" onClick={reSendEmail}>
             Click for resend email 
             </Button>
         </Row>

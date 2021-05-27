@@ -18,7 +18,7 @@ const Actualprice = (props) => {
    const [fewCrypto,setFewCrypto] = useState()
    const [defaultCrypto,setDefaultCrypto] = useState()
    const [cryptoList, setCryptoList] = useState(["BTC","LTC","ETH","ADA"]);
-
+console.log(userData.showMsg)
    const getData = async (crypto) => {
     const response = await fetch("https://api.pro.coinbase.com/currencies/");
     let data = await response.json();

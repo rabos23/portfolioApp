@@ -9,32 +9,34 @@ export default function Login(props) {
   const passwordRef = useRef();
   const { login, currentUser } = useAuth();
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); 
   const history = useHistory();
+
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
     try {
       setError("");
       
-      await login(emailRef.current.value, passwordRef.current.value);
-    
-      history.push("/dashboard");
-       
+      await login(emailRef.current.value, passwordRef.current.value)
+         
+        history.push("/dashboard");
+      
     } catch {
       setError("Failed to login");
     }
     setLoading(false);
+   
   }
 
   return (
     <>
-      {currentUser ? <Redirect to="/dashboard" />: ""}
+      {currentUser ? <Redirect to="/dashboard" /> : ""}
       <Content size={props.size}>
-        {error && <Alert variant="danger">{error}</Alert>}
+        {error && <Alert variant="danger" style={{marginTop:"2%"}}>{error}</Alert>}
         <Form onSubmit={handleSubmit} style={{ alignItems: "center" }}>
           <Form.Group id="email">
-            <Form.Label>Login</Form.Label>
+            <Form.Label>Email</Form.Label>
             <Form.Control type="email" ref={emailRef} required />
           </Form.Group>
 

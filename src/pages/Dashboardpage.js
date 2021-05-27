@@ -16,8 +16,10 @@ export default function Dashboardpage(props) {
   const history = useHistory();
    
   var timerStart = setInterval(() => {
-   /*  console.log(currentUser.emailVerified) */
+    console.log(currentUser.emailVerified)
+    if(currentUser){
     if(!currentUser.emailVerified){
+      console.log(currentUser)
       return currentUser.reload().then(() => {
         setVerified(currentUser.emailVerified)
         if(currentUser.emailVerified){
@@ -30,14 +32,14 @@ export default function Dashboardpage(props) {
         }, 3000);
         timerStop(timerStart)
       }
-    })
+    })}
+
      
     } else {
-      
+      clearInterval(timerStart)
     }
   }, 2000);
-
-function timerStop(){
+ function timerStop(){
     clearInterval(timerStart);
 }
   return (

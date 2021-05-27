@@ -81,20 +81,21 @@ export default function App(){
                 />
               )}
             />
-           
+           <UserProvider>
             <Route
               path="/actualprice"
               exact
               render={() => (
-               
+                
                 <Actualprice
                   title={actualprice.title}
                   subTitle={actualprice.subTitle}
                   text={actualprice.text}
                 />
-              
+               
                 )}
-            />
+            /> 
+            </UserProvider>
             <Route
               path="/contact"
               exact
@@ -107,14 +108,14 @@ export default function App(){
                 />
               )}
             />
+            <UserProvider>
             <Switch>
               <Route path="/signup" component={Signup} />
               <PrivateRoute exact path="/dashboard" component={Dashboardpage} />
-             
-               <Route path="/login" component={Login} />
+              <Route path="/login" component={Login} />
               <Route path="/forgotPassword" component={ForgotPassword} />
             </Switch>
-           
+            </UserProvider>
             <Footer isLogged={currentUser}></Footer> 
             
           </Container>

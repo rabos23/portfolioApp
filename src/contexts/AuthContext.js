@@ -20,7 +20,7 @@ export function AuthProvider({ children }) {
       auth.createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
         userCredential.user.sendEmailVerification();
-        
+        auth.signOut()
         })
       ]
   }
@@ -52,17 +52,17 @@ export function AuthProvider({ children }) {
 
 
   function onAuthStateChange() {
-    return auth.onAuthStateChanged(async user => {
+    return auth.onAuthStateChanged( user => {
       if (user) {
         setCurrentUser(user)
         generateUserDocument(user)
-  
-        
+                
         console.log("AuthContext:The user is logged in");
       } else {
-        setCurrentUser(null)
+        setCurrentUser("")
         
         console.log("AuthContext:The user is not logged in");
+        console.log(currentUser)
       }
       setLoading(false)
     });
@@ -75,12 +75,12 @@ export function AuthProvider({ children }) {
       const { email, displayName, photoURL, uid } = user;
       const cryptoList = [];
       const fiatList= [];
-     
+      const showMsg=true;
       try {
         await userRef.set({
           displayName,
           email,
-          photoURL,uid,cryptoList, fiatList
+          photoURL,uid,cryptoList, fiatList, showMsg
           
         });
       } catch (error) {
