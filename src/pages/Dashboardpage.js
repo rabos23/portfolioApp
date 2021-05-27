@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Dashboard from "../components/Dashboard"
 import {useAuth} from "../contexts/AuthContext"
 import Activation from "../components/Activation"
@@ -15,7 +15,7 @@ export default function Dashboardpage(props) {
   
   const history = useHistory();
    
-  var timerStart = setInterval(() => {
+ /*  var timerStart = setInterval(() => {
     console.log(currentUser.emailVerified)
     if(currentUser){
     if(!currentUser.emailVerified){
@@ -35,16 +35,42 @@ export default function Dashboardpage(props) {
     })}
 
      
-    } else {
+    } 
+  }, 2000);
+  */
+
+
+useEffect(() => {
+
+  var timerStart = setInterval(() => {
+    console.log(currentUser.emailVerified)
+    console.log(currentUser.email)
+    if(currentUser){
+      if(!currentUser.emailVerified){
+      
+      return currentUser.reload().then(() => {
+        setVerified(currentUser.emailVerified)
+        if(currentUser.emailVerified){
+         
+          setMsg('Email successfully verified.')
+          
+          setTimeout(function(){ 
+            
+            setMsg("") 
+        }, 3000);
+        clearInterval(timerStart)
+      }
+    })}else {
       clearInterval(timerStart)
     }
+
+     
+    } else {clearInterval(timerStart)}
   }, 2000);
- function timerStop(){
-    clearInterval(timerStart);
-}
+  }, [currentUser])
   return (
     <div>
-      {currentUser.emailVerified === true ? clearInterval(timerStart) : ""}
+     
       {msg ? <Jumbotron className="jumbotron-fluid mt-5">
       <Container>
         <Row className="justify-content-center">

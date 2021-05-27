@@ -5,15 +5,15 @@ import { useAuth } from "../contexts/AuthContext";
 import { useData } from "../contexts/DataContext";
 
 export default function Logout() {
-    const { logout } = useAuth();
-    const data = useData();
+    const { logout, currentUser } = useAuth();
+    const {data} = useData();
     const [error, setError] = useState("");
     const history = useHistory();
 
-    async function handleLogout() {
+     function handleLogout() {
         setError("");
         try {
-          await logout();
+           logout();
             data.logout();
           history.push("/login");
         } catch {
