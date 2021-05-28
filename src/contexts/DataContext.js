@@ -13,12 +13,28 @@ export function UserProvider ({children}){
   const {currentUser} = useAuth();
      const [loading, setLoading] = useState();
      const [userData, setUserData] = useState([]);
+     const [cryptoData, setCryptoData] = useState([]);
 
     
  
     function logout() {
       setUserData();
     }
+   /*  const getData = async (crypto) => {
+      const response = await fetch("https://api.pro.coinbase.com/currencies/");
+      let data = await response.json();
+      data = data.filter((item) => crypto.includes(item.id)); 
+      return data;
+    }; */
+     async function getData() {
+      const response = await fetch("https://api.pro.coinbase.com/currencies/");
+      const data = await response.json().then((data) => {
+        setCryptoData(data)
+      })
+      /* data = data.filter((item) => crypto.includes(item.id));  */
+      
+    };
+ 
 
    const setData =  async (data,type) => {
     const cityRef = firestore.collection('users').doc(currentUser.uid);
@@ -62,14 +78,15 @@ console.log("Data write:"+type)
             }else {
               setLoading(false)
             }
+            
 
           }, [firestore, currentUser])
-
+ 
 
         return (
           <UserContext.Provider
             value={{
-              loading, userData, setData, logout
+              loading, userData, setData, logout, cryptoData, getData
             }}
           >
             {children}
