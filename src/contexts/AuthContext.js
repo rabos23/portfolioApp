@@ -16,7 +16,8 @@ export function AuthProvider({ children }) {
  
 
   function signup(email, password) {
-    return auth.createUserWithEmailAndPassword(email, password).then((user) => [user]).catch(error => [error])
+    return auth.createUserWithEmailAndPassword(email, password)
+          .then((user) => user.user.sendEmailVerification()).catch(error => [error])
           
   }
 

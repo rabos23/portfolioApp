@@ -23,8 +23,8 @@ function Activation() {
         setMsg("Verification email was sended")
           
           
-        } catch {
-          setMsg("Too many requests. Try again later or check out the previous request!");
+        } catch(error) {
+          setMsg(error.message);
         }
         setLoading(false);
       }

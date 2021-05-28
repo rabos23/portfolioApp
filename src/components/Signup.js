@@ -26,16 +26,16 @@ export default function Signup(props) {
            
        const [error] = await signup(emailRef.current.value, passwordRef.current.value)
       
-       await reSendEmailVerification();
+      
      
       /*
            PRVNE VYPNOUT TIMEOUT A UDEALT BEZ TOHO FUNKCNI LOGIN/SIGHNUP
            */
-         
-           setError("Failed to create an account: "+error.message);
+         setError(""+error)
+           
     } catch(error) {
       
-      setError("Failed to create an account: ");
+      setError("Failed to create an account:"+error);
     }   
     
   }
