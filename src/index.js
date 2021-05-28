@@ -9,7 +9,7 @@ import { UserProvider } from "./contexts/DataContext";
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
-      <UserProvider>
+    <UserProvider>
       <App />  
       </UserProvider>
       </AuthProvider>

@@ -9,6 +9,8 @@ import ForgotPassword from "./components/ForgotPassword";
 import Login from "./components/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import Signup from "./components/Signup";
+import Activation from "./components/Activation";
+import Dashboard from "./components/Dashboard";
 import { useAuth } from "./contexts/AuthContext";
 import Actualprice from "./pages/Actualprice";
 import Dashboardpage from "./pages/Dashboardpage";
@@ -106,11 +108,16 @@ export default function App(){
                 />
               )}
             />
+             
             <Switch>
+           
               <Route path="/signup" component={Signup} />
-              <PrivateRoute exact path="/dashboard" component={Dashboardpage} />
+              <PrivateRoute exact path="/activation" component={Activation} />
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/home" component={Dashboardpage} />
               <Route path="/login" component={Login} />
               <Route path="/forgotPassword" component={ForgotPassword} />
+              
             </Switch>
             <Footer isLogged={currentUser}></Footer> 
             

@@ -25,7 +25,7 @@ const Actualprice = (props) => {
 
     return data 
 }
-
+console.log(currentUser)
 async function click(e) {
   e.preventDefault();
   

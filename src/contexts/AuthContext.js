@@ -16,13 +16,8 @@ export function AuthProvider({ children }) {
  
 
   function signup(email, password) {
-    return [
-      auth.createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        userCredential.user.sendEmailVerification();
-        auth.signOut()
-        })
-      ]
+    return auth.createUserWithEmailAndPassword(email, password).then((user) => [user]).catch(error => [error])
+          
   }
 
   function reSendEmailVerification(){

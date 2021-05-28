@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
-
+import { Link, Redirect, useHistory } from "react-router-dom";
 import UpdatePassword from "../components/UpdatePassword";
 import Updateprofile from "../components/UpdateProfile";
 import { useAuth } from "../contexts/AuthContext";
@@ -43,8 +43,9 @@ export default function Dashboard() {
     }, [userData.displayName])
 
   return (
+    
     <div>
-      
+      {!currentUser.emailVerified ? <Redirect to="/activation" />: ""}
       <Card className="justify-content-center">
         <Card.Body className="justify-content-center">
           <Card.Header border="primary" style={cardHeader}>

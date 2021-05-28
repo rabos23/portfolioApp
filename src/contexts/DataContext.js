@@ -72,7 +72,7 @@ console.log("Data write:"+type)
               loading, userData, setData, logout
             }}
           >
-            {!loading && children}
+            {children}
           </UserContext.Provider>
           );
 };

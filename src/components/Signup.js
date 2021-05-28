@@ -2,14 +2,14 @@ import React, { useState, useRef } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import Content from "../components/Content";
 import {  useAuth } from "../contexts/AuthContext";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, Redirect } from "react-router-dom";
 import { set } from "lodash-es";
 
 export default function Signup(props) {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const { signup, logout } = useAuth();
+  const { currentUser, signup, logout, reSendEmailVerification } = useAuth();
   const [error, setError] = useState("");
   const [msg, setMsg] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,25 +23,30 @@ export default function Signup(props) {
       return setError("Password do not match");
     }
     try {
-      setError("");
+           
+       const [error] = await signup(emailRef.current.value, passwordRef.current.value)
       
-      await signup(emailRef.current.value, passwordRef.current.value)
-           /* setMsg("Registration succesful! Please "); 
+       await reSendEmailVerification();
+     
+      /*
            PRVNE VYPNOUT TIMEOUT A UDEALT BEZ TOHO FUNKCNI LOGIN/SIGHNUP
            */
-           
-          
-    } catch {
-      setError("Failed to create an account");
+         
+           setError("Failed to create an account: "+error.message);
+    } catch(error) {
+      
+      setError("Failed to create an account: ");
     }   
     
   }
 
   return (
     <>
+{currentUser ? <Redirect to="/home" />: ""}
       <Content size={props.size}>
         {error && <Alert variant="danger" style={{marginTop:"2%"}}>{error}</Alert>}
-        {msg && <Alert variant="success" style={{marginTop:"2%"}}>{msg}<Link to="/login">Log in</Link></Alert>}
+        {msg && <Alert variant="success" style={{marginTop:"2%"}}>{msg}</Alert>}
+        
         <Form onSubmit={handleSubmit} style={{ alignItems: "center" }}>
           <Form.Group id="email">
             <Form.Label>Email</Form.Label>
