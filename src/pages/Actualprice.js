@@ -10,22 +10,16 @@ import { Link, Redirect, useHistory } from "react-router-dom";
 
 const Actualprice = (props) => {
   const { currentUser } = useAuth();
-  const { userData, setData, cryptoData, getData } = useData();
+  const { userData, setData, getData } = useData();
 
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
   const [showMsg, setShowMsg] = useState();
   const [fewCrypto, setFewCrypto] = useState();
   const [defaultCrypto, setDefaultCrypto] = useState();
-  const [cryptoList, setCryptoList] = useState(["BTC", "LTC", "ETH", "ADA"]);
-  const [data, setCryptoData] = useState([]);
-
-   function filterData(data, crypto) {
-    let data2 = data.filter((item) => crypto.includes(item.id)); 
-    return data2;
-  };
-
-  console.log(cryptoData);
+  const [cryptoList, setCryptoList] = useState([]);
+  const [cryptoData, setCryptoData] = useState([]);
+ 
   async function click(e) {
     e.preventDefault();
 
@@ -35,7 +29,7 @@ const Actualprice = (props) => {
       setShowMsg(false);
       console.log("click");
     } catch {
-      setError("Failed to login");
+      setError("Failed");
     }
   }
  /* 
@@ -44,8 +38,13 @@ const Actualprice = (props) => {
  Bude lepsi, kdyz se rto nacte komplet v data context a v actual rpúice jen vyfiltruje
  
  */
+
    
-  
+  if(currentUser && userData){
+    
+    getData(cryptoList).then((data) => console.log(data))
+    
+  }
   useEffect(() => {
     if (currentUser && userData) {
       if (userData.cryptoList.length === 0) {
@@ -56,17 +55,26 @@ const Actualprice = (props) => {
         setShowMsg(userData.showMsg);
         setDefaultCrypto(false);
         if (userData.cryptoList.length < 3) setFewCrypto(true);
+        
       }
+      
+      
+    }else {
+      setCryptoList(["BTC", "LTC", "ETH", "ADA"]);
     }
- 
+    if(cryptoList){
+      let crypto =  getData(cryptoList).then((data) => {setCryptoData(data)})
+      console.log("data")
+      console.log(cryptoData)
+
+      console.log("data")
+    }
+    
     setLoading(false);
   }, [userData]);
 
-  useEffect(() => {
-    getData()
-    console.log(cryptoData)
-   
-  },[])
+
+
   return (
     <div>
       {defaultCrypto ? (
