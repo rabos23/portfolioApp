@@ -10,7 +10,7 @@ import { Link, Redirect, useHistory } from "react-router-dom";
 
 const Actualprice = (props) => {
   const { currentUser } = useAuth();
-  const { userData, setData, cryptoData, getData } = useData();
+  const { userData, setData } = useData();
 
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
@@ -18,12 +18,19 @@ const Actualprice = (props) => {
   const [fewCrypto, setFewCrypto] = useState();
   const [defaultCrypto, setDefaultCrypto] = useState();
   const [cryptoList, setCryptoList] = useState(["BTC", "LTC", "ETH", "ADA"]);
-  const [data, setCryptoData] = useState([]);
+  const [cryptoData, setCryptoData] = useState([]);
 
-   function filterData(data, crypto) {
-    let data2 = data.filter((item) => crypto.includes(item.id)); 
-    return data2;
-  };
+  async function getData(crypto) {
+    const response = await fetch("https://api.pro.coinbase.com/currencies/");
+    const data = await response.json().then((data) => {
+      let data2 = data.filter((item) => crypto.includes(item.id));
+      setCryptoData(data2)
+    })
+  }
+    
+
+
+
 
   console.log(cryptoData);
   async function click(e) {
@@ -63,10 +70,16 @@ const Actualprice = (props) => {
   }, [userData]);
 
   useEffect(() => {
-    getData()
-    console.log(cryptoData)
+    if(currentUser && userData)
+   { getData(cryptoList)}
+    
+    
    
-  },[])
+  },[cryptoList])
+  
+
+ 
+  
   return (
     <div>
       {defaultCrypto ? (
@@ -99,13 +112,15 @@ const Actualprice = (props) => {
       {/* {loading ? "loading" : cryptoList.map(item => { return <PriceHero title={props.title} subTitle={props.subTitle} text={props.text} key={item.id} crypto={crypto} /> })} */}
       {loading
         ? "loading"
-        : cryptoList.map((item) => (
+        : cryptoData.map((item) => (
             <PriceHero
               title={props.title}
               subTitle={props.subTitle}
               text={props.text}
-              key={item}
-              crypto={item}
+              key={item.id}
+              crypto={[item.id, item.name]}
+
+              
             />
           ))}
       <br />
