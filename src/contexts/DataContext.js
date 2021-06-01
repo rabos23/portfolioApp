@@ -22,12 +22,7 @@ export function UserProvider({ children }) {
   https://github.com/miscavage/CoinGecko-API
   
   */
-  const getData = async (crypto) => {
-    const response = await fetch("https://api.pro.coinbase.com/currencies/");
-    let data = await response.json();
-    data = data.filter((item) => crypto.includes(item.id));
-    return data;
-  };
+  
 
   const setData = async (data, type) => {
     const cityRef = firestore.collection("users").doc(currentUser.uid);

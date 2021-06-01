@@ -19,11 +19,12 @@ const Actualprice = (props) => {
   const [defaultCrypto, setDefaultCrypto] = useState();
   const [cryptoList, setCryptoList] = useState(["BTC", "LTC", "ETH", "ADA"]);
   const [cryptoData, setCryptoData] = useState([]);
-
+  
   async function getData(crypto) {
-    const response = await fetch("https://api.pro.coinbase.com/currencies/");
+    const response = await fetch("http://api.coingecko.com/api/v3/coins/");
     const data = await response.json().then((data) => {
-      let data2 = data.filter((item) => crypto.includes(item.id));
+      console.log(data)
+      let data2 = data.filter((item) => crypto.toLowerCase.includes(item.symbol));
       setCryptoData(data2)
     })
   }
@@ -70,7 +71,7 @@ const Actualprice = (props) => {
     setLoading(false);
   }, [userData]);
 
-  useEffect(() => {
+   useEffect(() => {
     if(currentUser && userData)
    { 
      getData(cryptoList)
@@ -79,7 +80,7 @@ const Actualprice = (props) => {
     
    
   },[cryptoList])
-  
+   
 
  
   
