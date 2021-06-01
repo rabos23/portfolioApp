@@ -10,18 +10,13 @@ import { Link, Redirect, useHistory } from "react-router-dom";
 
 const Actualprice = (props) => {
   const { currentUser } = useAuth();
-<<<<<<< HEAD
   const { userData, setData } = useData();
-=======
-  const { userData, setData, getData } = useData();
->>>>>>> e26fefeeb0e4136e133e776ae8f19a9989ecf9a4
 
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
   const [showMsg, setShowMsg] = useState();
   const [fewCrypto, setFewCrypto] = useState();
   const [defaultCrypto, setDefaultCrypto] = useState();
-<<<<<<< HEAD
   const [cryptoList, setCryptoList] = useState(["BTC", "LTC", "ETH", "ADA"]);
   const [cryptoData, setCryptoData] = useState([]);
 
@@ -33,16 +28,7 @@ const Actualprice = (props) => {
     })
   }
     
-
-
-
-
   console.log(cryptoData);
-=======
-  const [cryptoList, setCryptoList] = useState([]);
-  const [cryptoData, setCryptoData] = useState([]);
- 
->>>>>>> e26fefeeb0e4136e133e776ae8f19a9989ecf9a4
   async function click(e) {
     e.preventDefault();
 
@@ -62,12 +48,7 @@ const Actualprice = (props) => {
  
  */
 
-   
-  if(currentUser && userData){
-    
-    getData(cryptoList).then((data) => console.log(data))
-    
-  }
+
   useEffect(() => {
     if (currentUser && userData) {
       if (userData.cryptoList.length === 0) {
@@ -85,21 +66,15 @@ const Actualprice = (props) => {
     }else {
       setCryptoList(["BTC", "LTC", "ETH", "ADA"]);
     }
-    if(cryptoList){
-      let crypto =  getData(cryptoList).then((data) => {setCryptoData(data)})
-      console.log("data")
-      console.log(cryptoData)
-
-      console.log("data")
-    }
-    
+        
     setLoading(false);
   }, [userData]);
 
-<<<<<<< HEAD
   useEffect(() => {
     if(currentUser && userData)
-   { getData(cryptoList)}
+   { 
+     getData(cryptoList)
+  }
     
     
    
@@ -108,10 +83,6 @@ const Actualprice = (props) => {
 
  
   
-=======
-
-
->>>>>>> e26fefeeb0e4136e133e776ae8f19a9989ecf9a4
   return (
     <div>
       {defaultCrypto ? (
