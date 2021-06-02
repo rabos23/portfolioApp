@@ -58,7 +58,7 @@ export default function Updateprofile(props) {
       setError("Failed to login");
     }
   }
-
+ if(!fetch.loading){console.log(Object.getOwnPropertyNames(fetch.products[1].market_data.current_price))}
   useEffect(() => {
     if (currentUser && userData) {
       setUsername(userData.displayName);
@@ -106,13 +106,13 @@ export default function Updateprofile(props) {
           onChange={handleChangeC}
           optionLabelProp="label"
         >
-          {fetch.products.map((c) =>
+          {!fetch.loading ? fetch.products.map((c) =>
              (
               <Option key={c.id} value={c.symbol} label={c.symbol.toUpperCase()}>
                 {c.id.charAt(0).toUpperCase() + c.id.slice(1)}
               </Option>
-            )
-          )}
+            ) 
+          ) : null}
         </Select>
 
         <Divider />
@@ -126,13 +126,14 @@ export default function Updateprofile(props) {
           onChange={handleChangeF}
           optionLabelProp="label"
         >
-          {fetch.products.map((c) =>
+          { !fetch.loading ? Object.getOwnPropertyNames(fetch.products[1].market_data.current_price).map((c) =>
             (
-              <Option key={c.id} value={c.id} label={c.id}>
-                {c.id}
+              <Option key={c} value={c} label={c.toUpperCase()}>
+                {c.toUpperCase()}
               </Option>
             )
-          )}
+          ) : null
+            }
         </Select>
         <Divider />
         <Form.Label>Show msg´s</Form.Label>

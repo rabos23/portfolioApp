@@ -18,6 +18,7 @@ const Actualprice = (props) => {
   const [fewCrypto, setFewCrypto] = useState();
   const [defaultCrypto, setDefaultCrypto] = useState();
   const [cryptoList, setCryptoList] = useState(["BTC", "LTC", "ETH", "ADA"]);
+  const [fiatList, setFiatList] = useState([]);
   const [cryptoData, setCryptoData] = useState([]);
   
 
@@ -32,7 +33,9 @@ const Actualprice = (props) => {
     
     setCryptoData(data2)
     
-    /* .then((data) => {
+    /* 
+    DODELAT FIAT LIST
+    .then((data) => {
       
       let data2 = data.filter((item) => {
        sorted.includes(item.symbol)
@@ -136,6 +139,7 @@ const Actualprice = (props) => {
               text={props.text}
               key={item.id}
               crypto={item}
+              fiatList={fiatList}
               
               
             />
