@@ -20,16 +20,32 @@ const Actualprice = (props) => {
   const [cryptoList, setCryptoList] = useState(["BTC", "LTC", "ETH", "ADA"]);
   const [cryptoData, setCryptoData] = useState([]);
   
+
+  
   async function getData(crypto) {
-    const response = await fetch("http://api.coingecko.com/api/v3/coins/");
-    const data = await response.json().then((data) => {
-      console.log(data)
-      let data2 = data.filter((item) => crypto.toLowerCase.includes(item.symbol));
-      setCryptoData(data2)
-    })
-  }
     
-  console.log(cryptoData);
+  
+     const response = await fetch("http://api.coingecko.com/api/v3/coins/");
+    const data = await response.json();
+  
+    const data2 = data.filter((obj) => crypto.includes(obj.symbol))
+    
+    setCryptoData(data2)
+    
+    /* .then((data) => {
+      
+      let data2 = data.filter((item) => {
+       sorted.includes(item.symbol)
+      });
+      console.log(data2)
+      setCryptoData(data2)
+    })  */
+    
+  }
+/*     
+  const fetch = useFetch("http://api.coingecko.com/api/v3/coins/");
+  console.log(fetch.products) */
+  
   async function click(e) {
     e.preventDefault();
 
@@ -52,7 +68,7 @@ const Actualprice = (props) => {
 
   useEffect(() => {
     if (currentUser && userData) {
-      if (userData.cryptoList.length === 0) {
+      if (userData.cryptoList.length === 0 || typeof userData.cryptoList == "undefined") {
         setCryptoList(["BTC", "LTC", "ETH", "ADA"]);
         setDefaultCrypto(true);
       } else {
@@ -71,7 +87,7 @@ const Actualprice = (props) => {
     setLoading(false);
   }, [userData]);
 
-   useEffect(() => {
+    useEffect(() => {
     if(currentUser && userData)
    { 
      getData(cryptoList)
@@ -80,10 +96,7 @@ const Actualprice = (props) => {
     
    
   },[cryptoList])
-   
 
- 
-  
   return (
     <div>
       {defaultCrypto ? (
@@ -122,11 +135,12 @@ const Actualprice = (props) => {
               subTitle={props.subTitle}
               text={props.text}
               key={item.id}
-              crypto={[item.id, item.name]}
-
+              crypto={item}
+              
               
             />
           ))}
+          
       <br />
     </div>
   );

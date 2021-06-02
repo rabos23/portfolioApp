@@ -19,7 +19,7 @@ export default function Updateprofile(props) {
   const [selectedF, setSelectedF] = useState(userData.fiatList);
   const [username, setUsername] = useState(userData.username);
 
-  const url = "https://api.pro.coinbase.com/currencies";
+  const url = "http://api.coingecko.com/api/v3/coins/";
   const fetch = useFetch(url);
 
   function handleChangeC(value) {
@@ -107,11 +107,11 @@ export default function Updateprofile(props) {
           optionLabelProp="label"
         >
           {fetch.products.map((c) =>
-            c.details.type == "crypto" ? (
-              <Option key={c.id} value={c.id} label={c.id}>
-                {c.name}
+             (
+              <Option key={c.id} value={c.symbol} label={c.symbol.toUpperCase()}>
+                {c.id.charAt(0).toUpperCase() + c.id.slice(1)}
               </Option>
-            ) : null
+            )
           )}
         </Select>
 
@@ -127,11 +127,11 @@ export default function Updateprofile(props) {
           optionLabelProp="label"
         >
           {fetch.products.map((c) =>
-            c.details.type == "fiat" ? (
+            (
               <Option key={c.id} value={c.id} label={c.id}>
-                {c.name}
+                {c.id}
               </Option>
-            ) : null
+            )
           )}
         </Select>
         <Divider />
