@@ -17,6 +17,11 @@ function PriceHero(props) {
   }
   console.log(crypto);
   const [isShow, setIsShow] = useState(false);
+  const [isGreen, setIsGreen] = useState(false);
+  /* if(crypto.market_data.price_change_percentage_24h > 0){
+    setIsGreen(true);
+    console.log(isGreen)
+  } */
   function handleClick(e) {
     e.preventDefault();
    setIsShow(!isShow)
@@ -55,13 +60,15 @@ function PriceHero(props) {
             </Col>
           </Row>
           <Row>
-           {isShow ? <UpOutlined onClick={handleClick}/> : <DownOutlined onClick={handleClick}/> }
+           {isShow ? <UpOutlined onClick={handleClick} /> : <DownOutlined onClick={handleClick}/> }
+           
           </Row>
         </Container>
+        {isShow ? <div> asd </div> : "" }
       </Jumbotron>
-
+      
       <Jumbotron className="ml-2" style={{ width: "30%" }}>
-        <Graph crypto={crypto.id} />
+        <Graph crypto={crypto.id} isGreen={isGreen}/>
       </Jumbotron>
     </div>
   );
