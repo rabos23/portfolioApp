@@ -79,3 +79,20 @@ animation-name: example2;
   animation-duration: 3s;
 
 }
+
+#triangle-up {
+  width: 0;
+  height: 0;
+  border-left: 12.5px solid transparent;
+  border-right: 12.5px solid transparent;
+  border-bottom: 25px solid rgba(103, 101, 114, 0.63);
+}
+
+#triangle-down {
+  width: 0;
+  height: 0;
+  border-left: 12.5px solid transparent;
+  border-right: 12.5px solid transparent;
+  border-top: 25px solid rgba(103, 101, 114, 0.63);
+}
+
