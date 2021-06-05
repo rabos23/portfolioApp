@@ -12,12 +12,10 @@ function PriceHero(props) {
   
 
   const { crypto } = props;
-  if (crypto.market_data.price_change_percentage_24h > 0) {
-    let style = { color: "red" };
-  }
+  
   console.log(crypto);
   const [isShow, setIsShow] = useState(false);
-  const [isGreen, setIsGreen] = useState(false);
+  const [isGreen, setIsGreen] = useState();
   /* if(crypto.market_data.price_change_percentage_24h > 0){
     setIsGreen(true);
     console.log(isGreen)
@@ -26,6 +24,11 @@ function PriceHero(props) {
     e.preventDefault();
    setIsShow(!isShow)
   }
+  if (crypto.market_data.price_change_percentage_24h > 0) {
+    let style = { color: "red" };
+  }
+
+
   return (
     <div className="mt-2" style={{ display: "flex" }}>
       <Jumbotron style={{ width: "70%" }}>

@@ -17,15 +17,12 @@ const Actualprice = (props) => {
   const [showMsg, setShowMsg] = useState();
   const [fewCrypto, setFewCrypto] = useState();
   const [defaultCrypto, setDefaultCrypto] = useState();
-  const [cryptoList, setCryptoList] = useState(["BTC", "LTC", "ETH", "ADA"]);
-  const [fiatList, setFiatList] = useState([]);
+  const [cryptoList, setCryptoList] = useState([]);
   const [cryptoData, setCryptoData] = useState([]);
   
 
   
-  async function getData(crypto) {
-    
-  
+  async function getData(crypto) {  
      const response = await fetch("http://api.coingecko.com/api/v3/coins/");
     const data = await response.json();
   
@@ -33,9 +30,7 @@ const Actualprice = (props) => {
     
     setCryptoData(data2)
     
-    /* 
-    DODELAT FIAT LIST
-    .then((data) => {
+    /* .then((data) => {
       
       let data2 = data.filter((item) => {
        sorted.includes(item.symbol)
@@ -72,36 +67,49 @@ const Actualprice = (props) => {
   useEffect(() => {
     if (currentUser && userData) {
       if (userData.cryptoList.length === 0 || typeof userData.cryptoList == "undefined") {
-        setCryptoList(["BTC", "LTC", "ETH", "ADA"]);
+        console.log("userDataOK")
+        setCryptoList(["btc", "ltc", "eth", "ada"]);
         setDefaultCrypto(true);
+        
+        console.log(cryptoList)
       } else {
+        if (userData.cryptoList.length < 3) setFewCrypto(true);
         setCryptoList(userData.cryptoList);
         setShowMsg(userData.showMsg);
         setDefaultCrypto(false);
-        if (userData.cryptoList.length < 3) setFewCrypto(true);
+        
+        console.log("else"+cryptoList)
+        
         
       }
       
       
     }else {
-      setCryptoList(["BTC", "LTC", "ETH", "ADA"]);
+      setCryptoList(["btc", "ltc", "eth", "ada"]);
     }
         
     setLoading(false);
   }, [userData]);
 
-    useEffect(() => {
-    if(currentUser && userData)
-   { 
-     getData(cryptoList)
-  }
-    
-    
-   
-  },[cryptoList])
+  useEffect(() => {
+    if(cryptoList){
+      getData(cryptoList)
+    }
+  }, [userData, cryptoList]);
 
   return (
     <div>
+      {!currentUser ? (
+        <Jumbotron
+          className="jumbotron-fluid mt-3"
+          style={{ textAlign: "center", padding: "20px" }}
+        >
+          You are not logged in! For more crypto 
+          <Link to="/login"> Log in</Link>
+        </Jumbotron>
+      ) : (
+        ""
+      )}
       {defaultCrypto ? (
         <Jumbotron
           className="jumbotron-fluid mt-3"
@@ -139,7 +147,6 @@ const Actualprice = (props) => {
               text={props.text}
               key={item.id}
               crypto={item}
-              fiatList={fiatList}
               
               
             />

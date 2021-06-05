@@ -8,7 +8,7 @@ function Graph(props) {
       {
         lineTension: 0.3,
         backgroundColor: "rgb(180, 180, 180)",
-        borderColor: 'rgba(247,147,26,1)',
+        borderColor: props.isGreen ? "rgb(137,218,89)": "rgb(255, 99, 71)",
         borderJoinStyle: 'round',
         borderCapStyle: 'round',
         borderWidth: 3,
@@ -26,9 +26,7 @@ function Graph(props) {
   const { loading, products } = useFetch(url);
   /* console.log(products); */
 
-  if (loading === true) {
-    
-  } else {
+  if (!loading){
     data.labels = Object.keys(products["prices"]);
     data.datasets[0].data = Object.keys(products["prices"]).map(
       (el) => products["prices"][el]["1"]
