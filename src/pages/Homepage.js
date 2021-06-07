@@ -30,7 +30,7 @@ import {
 } from "@ant-design/icons";
 
 function Homepage(props) {
-  
+  /* DODELAT FIRESTORE DATABAZI */
   const [taskNumber, setTaskNumber] = useState();
   const [task, setTask] = useState();
   const [loading, setLoading] = useState();
