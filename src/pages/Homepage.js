@@ -32,7 +32,7 @@ import {
 function Homepage(props) {
   
   const [taskNumber, setTaskNumber] = useState();
-  
+  const [task, setTask] = useState();
   const [loading, setLoading] = useState();
   const [error, setError] = useState();
 
@@ -45,10 +45,12 @@ function Homepage(props) {
    
     const values = {
       ...fieldsValue,
-      'duedate': fieldsValue['duedate'].format('YYYY-MM-DD HH:mm')
+      'duedate': fieldsValue['duedate'].format('YYYY-MM-DD HH:mm'),
+      'status' : "todo" 
     };
     console.log('Received values of form: ', values);
-
+    console.log(values["details"])
+    setTask(values)
   };
 
  function handleSubmit(e) {
