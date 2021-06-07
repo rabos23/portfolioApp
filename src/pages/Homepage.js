@@ -43,6 +43,16 @@ const initialFormData = Object.freeze({
   rate:""
 });
 
+/*
+https://linguinecode.com/post/how-to-get-form-data-on-submit-in-reactjs 
+
+
+https://ant.design/components/form/
+
+https://www.youtube.com/watch?v=a00NRSFgHsY
+
+https://entry-cz.udemy.com/course/the-complete-web-development-bootcamp/learn/lecture/19655714#overview
+*/
   return (
     <div>
       <Jumbotron className="mt-5">TASK PLANNER</Jumbotron>
