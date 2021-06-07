@@ -46,7 +46,7 @@ export default function Dashboard() {
     
     <div>
       {!currentUser.emailVerified ? <Redirect to="/activation" />: ""}
-      <Card className="justify-content-center">
+      <Card className="justify-content-center mt-2">
         <Card.Body className="justify-content-center">
           <Card.Header border="primary" style={cardHeader}>
             Profile
