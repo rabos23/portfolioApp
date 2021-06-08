@@ -1,9 +1,13 @@
 import React, { useState, useRef } from "react";
 import Hero from "../components/Hero";
 import { Container, Image } from "react-bootstrap";
+import { useData } from "../contexts/DataContext";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import "antd/dist/antd.css";
 import "../index.css";
+import { useAuth } from "../contexts/AuthContext";
+import "../index.css";
+import { firestore } from "../firebase";
 import {
  Form,
   Select,
@@ -33,14 +37,15 @@ function Homepage(props) {
   /* DODELAT FIRESTORE DATABAZI */
   const [taskNumber, setTaskNumber] = useState();
   const [task, setTask] = useState();
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
-
+  const { userData, setData } = useData();
+  const { currentUser } = useAuth();
   const rateColor = {
     color: "#40a9ff"
   };
 
-  const onFinish = (fieldsValue) => {
+  async function onFinish (fieldsValue){
     // Should format date value before submit.
    
     const values = {
@@ -51,6 +56,9 @@ function Homepage(props) {
     console.log('Received values of form: ', values);
     console.log(values["details"])
     setTask(values)
+    const cityRef = firestore.collection("users").doc(currentUser.uid);
+    await cityRef.update({tasks : taskid})
+   
   };
 
  function handleSubmit(e) {
@@ -148,6 +156,7 @@ function Homepage(props) {
         <Divider />
         <Row>
           <Col span={8}>TODO
+          {!loading ? task.map((el) => <p>el</p>) : "" }
           </Col>
 
           <Col span={7}>
