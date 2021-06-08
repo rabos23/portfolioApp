@@ -57,7 +57,7 @@ function Homepage(props) {
     console.log(values["details"])
     setTask(values)
     const cityRef = firestore.collection("users").doc(currentUser.uid);
-    await cityRef.update({tasks : taskid})
+    await cityRef.update({tasks : values})
    
   };
 
