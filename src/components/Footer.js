@@ -11,7 +11,7 @@ function Footer(props) {
           </Col>
           {props.isLogged ? <Logout/> : ""}
           <Col className="p-0 d-flex justify-content-center " md={2}>
-          © Radek Cihi
+          
           </Col>
         </Row>
       </Container>

@@ -36,7 +36,7 @@ import {
 function Homepage(props) {
   /* DODELAT FIRESTORE DATABAZI */
   const [taskNumber, setTaskNumber] = useState();
-  const [task, setTask] = useState();
+  const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const { userData, setData } = useData();
@@ -47,18 +47,24 @@ function Homepage(props) {
 
   async function onFinish (fieldsValue){
     // Should format date value before submit.
+   /* 
    
+   https://dev.to/andyrewlee/cheat-sheet-for-updating-objects-and-arrays-in-react-state-48np
+    
+   */
     const values = {
       ...fieldsValue,
       'duedate': fieldsValue['duedate'].format('YYYY-MM-DD HH:mm'),
       'status' : "todo" 
     };
-    console.log('Received values of form: ', values);
-    console.log(values["details"])
-    setTask(values)
-    const cityRef = firestore.collection("users").doc(currentUser.uid);
-    await cityRef.update({tasks : values})
+    const newTodos = [...todos];
+    newTodos.push(values);
+    setTodos(newTodos);
+      console.log(todos)
    
+   /*   const cityRef = firestore.collection("users").doc(currentUser.uid);
+    await cityRef.update({todos : values})
+  */  
   };
 
  function handleSubmit(e) {
@@ -156,7 +162,7 @@ function Homepage(props) {
         <Divider />
         <Row>
           <Col span={8}>TODO
-          {!loading ? task.map((el) => <p>el</p>) : "" }
+          {!loading ? todos.map((el) => <p>el</p>) : "" }
           </Col>
 
           <Col span={7}>
