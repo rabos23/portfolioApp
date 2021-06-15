@@ -9,7 +9,7 @@ import { useAuth } from "../contexts/AuthContext";
 import "../index.css";
 import { firestore } from "../firebase";
 import {
- Form,
+  Form,
   Select,
   InputNumber,
   Switch,
@@ -30,55 +30,80 @@ import {
 import {
 
   RightOutlined,
-  FileMarkdownFilled,
+  FileMarkdownFilled, EditTwoTone,
+  DeleteTwoTone,
+  CheckCircleTwoTone,ExclamationOutlined
 } from "@ant-design/icons";
 
 function Homepage(props) {
   /* DODELAT FIRESTORE DATABAZI */
   const [taskNumber, setTaskNumber] = useState();
   const [todos, setTodos] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
+  const [rateColor, setRateColor] = useState("#40a9ff");
   const { userData, setData } = useData();
   const { currentUser } = useAuth();
-  const rateColor = {
-    color: "#40a9ff"
-  };
 
-  async function onFinish (fieldsValue){
+function changeRateColor(value){
+ 
+console.log(value)
+if(value == 1)setRateColor("#40a9ff");
+if(value == 3)setRateColor("#610b00");
+if(value == 2)setRateColor("#ffc069");
+ } 
+
+
+  async function onFinish(fieldsValue) {
     // Should format date value before submit.
-   /* 
-   
-   https://dev.to/andyrewlee/cheat-sheet-for-updating-objects-and-arrays-in-react-state-48np
+    /* 
     
-   */
+    https://dev.to/andyrewlee/cheat-sheet-for-updating-objects-and-arrays-in-react-state-48np
+     
+    */
+
     const values = {
       ...fieldsValue,
       'duedate': fieldsValue['duedate'].format('YYYY-MM-DD HH:mm'),
-      'status' : "todo"  
+      'status': "todo",
+      'id': todos.length + 1
     };
     const newTodos = [...todos];
     newTodos.push(values);
     setTodos(newTodos);
-      console.log(todos)
-   
-   /*   const cityRef = firestore.collection("users").doc(currentUser.uid);
-    await cityRef.update({todos : values})
-  */  
- setLoading(false)
+    console.log(todos)
+
+    /*  const cityRef = firestore.collection("users").doc(currentUser.uid);
+     await cityRef.update({ todos: values }) */
+
+    setLoading(false)
   };
 
- function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
     console.log("ok")
 
-    
-   
+
+
   }
-    const onFinishFailed = (errorInfo) => {
-      console.log('Failed:', errorInfo);
-    };
   
+  const getUserStars = (points) => {
+    let i = 0;
+    let stars = [];
+    let exColor;
+    if(points == 1) exColor = "#40a9ff";
+    if(points == 3) exColor = "#610b00";
+    if(points == 2) exColor = "#ffc069";
+    while (i < points) {
+      i++;
+      stars.push(<ExclamationOutlined style={{marginLeft: "-10px", color: exColor}} />);
+    }
+    return stars;
+  }
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
+
   /*
   https://linguinecode.com/post/how-to-get-form-data-on-submit-in-reactjs 
   
@@ -89,15 +114,16 @@ function Homepage(props) {
   
   https://entry-cz.udemy.com/course/the-complete-web-development-bootcamp/learn/lecture/19655714#overview
   */
+  
   return (
     <div>
       <Jumbotron className="mt-5">TASK PLANNER
-     
+
       </Jumbotron>
       <Container className="justify-content mt-5">
         <Row>
-          <Form 
-      className="ant-form" onFinish={onFinish}   onFinishFailed={onFinishFailed} style={{ width: "100%" }}>
+          <Form
+            className="ant-form" onFinish={onFinish} onFinishFailed={onFinishFailed} style={{ width: "100%" }}>
             <Row>
               <Col span={12}>
                 {" "}
@@ -108,17 +134,17 @@ function Homepage(props) {
 
             </Row>
 
-           <Row>
+            <Row>
               <Col span={6}>
                 <Form.Item
                   name="subject"
-                 
+
                   rules={[
                     { required: true, message: "Please input your Username!" },
                   ]}
                 >
                   <Input
-                   
+
                     prefix={<RightOutlined className="site-form-item-icon" />}
                     placeholder=" Subject"
                   />
@@ -127,22 +153,22 @@ function Homepage(props) {
               <Col span={6} offset={12}>
                 {" "}
                 <Form.Item name="duedate">
-                  <DatePicker 
-                  
-                  placeholder="Due date" 
-                  format="YYYY-MM-DD HH:mm" />
+                  <DatePicker
+
+                    placeholder="Due date"
+                    format="YYYY-MM-DD HH:mm" />
                 </Form.Item>
               </Col>
-            </Row> 
+            </Row>
             <Row>
               <Col span={12}>
                 <Form.Item name="details" >
-                  <Input.TextArea  placeholder="Put details" />
+                  <Input.TextArea placeholder="Put details" />
                 </Form.Item>
               </Col>
               <Col span={6} offset={6}>
                 <Form.Item name="slider">
-                  <Rate defaultValue={2} style={rateColor} character={({ index }) => index + 1} />
+                  <Rate defaultValue={1} count={3} style={{color: rateColor}} onChange={(value) => changeRateColor(value)} character={({ index }) => index + 1} />
                 </Form.Item>
               </Col>
 
@@ -152,7 +178,7 @@ function Homepage(props) {
                 <Form.Item >
                   <Button type="primary" htmlType="submit" >
                     Submit
-        </Button>
+                  </Button>
                 </Form.Item>
               </Col>
 
@@ -162,30 +188,158 @@ function Homepage(props) {
         </Row>
         <Divider />
         <Row>
-          <Col span={8}>TODO
-         
+
+          <Col span={8}>
+          
+            <Row>TODO</Row>
+            <Row>
+              {
+
+                !loading ? todos.map(
+                  (el) => {
+                    /* if (el.status == "todo")  */return <Container key={el.id} style={{ width: "90%" }} className="ant-form m-1">
+                      <Row>
+                        <Col span={10} >
+                          Subject #{el.id}<p >{ el.slider ? getUserStars(el.slider) : ""} </p>
+                          
+                          
+                          
+                        </Col>
+                        <Col span={4} offset={10}>
+
+                          <EditTwoTone />
+                          <DeleteTwoTone />
+                          <CheckCircleTwoTone twoToneColor="#52c41a" />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col >
+
+                          {el.details}
+                        </Col>
+                        <Col >
+                        
+                          {el.subject,el.status,el.duedate}
+                        </Col>
+
+                      </Row>
+
+
+                    </Container>
+                  }
+
+
+
+                ) : "THERE IS NO TASK TO SEE. ADD ONE"
+
+              }
+
+            </Row>
           </Col>
 
-          <Col span={7}>
-            <Divider type="vertical" style={{ height: "100%" }} />
-            ONGOING</Col>
-          <Divider type="vertical" style={{ height: "100%" }} />
-          <Col span={7}>
-            <Divider type="vertical" style={{ height: "100%" }} />FINISHED</Col>
+          <Col span={8}>
+
+            <Row>ONGOING</Row>
+            <Row>
+              {
+
+                !loading ? todos.map(
+                  (el) => {
+                    if (el.status == "ongoing") return <Container style={{ width: "90%" }} className="ant-form m-1">
+                      <Row>
+                        <Col>
+                          Subject #2
+
+                        </Col>
+                        <Col >
+
+                          <EditTwoTone />
+                          <DeleteTwoTone />
+                          <CheckCircleTwoTone twoToneColor="#52c41a" />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col >
+                          Subject #2
+
+                        </Col>
+                        <Col >
+
+                          <EditTwoTone />
+                          <DeleteTwoTone />
+                          <CheckCircleTwoTone twoToneColor="#52c41a" />
+                        </Col>
+
+                      </Row>
+
+
+                    </Container>
+                  }
+
+
+
+                ) : "THERE IS NO TASK TO SEE. ADD ONE"
+
+              }
+
+            </Row>
+          </Col>
+
+          <Col span={8}>
+            <Row>FINISHED</Row>
+            <Row>
+              {
+
+                !loading ? todos.map(
+                  (el) => {
+                    if (el.status == "finished") return <Container style={{ width: "90%" }} className="ant-form m-1">
+                      <Row>
+                        <Col>
+                          Subject #2
+
+                        </Col>
+                        <Col >
+
+                          <EditTwoTone />
+                          <DeleteTwoTone />
+                          <CheckCircleTwoTone twoToneColor="#52c41a" />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col >
+                          Subject #2
+
+                        </Col>
+                        <Col >
+
+                          <EditTwoTone />
+                          <DeleteTwoTone />
+                          <CheckCircleTwoTone twoToneColor="#52c41a" />
+                        </Col>
+
+                      </Row>
+
+
+                    </Container>
+                  }
+
+
+
+                ) : "THERE IS NO TASK TO SEE. ADD ONE"
+
+              }
+
+            </Row>
+          </Col>
         </Row>
-        
         <Divider />
-        <Row>
-          <Col span={8}> {!loading ? todos.map((el) => <p >{el.subject} {el.details}</p>) : "" }</Col>
-          <Col span={7}>
-            <Divider type="vertical" style={{ height: "100%" }} />
-          TASK#2</Col>
-          <Divider type="vertical" style={{ height: "100%" }} />
-          <Col span={7}>
-            <Divider type="vertical" style={{ height: "100%" }} />TASK#3</Col>
-        </Row>
+
+
+
+
+
       </Container>
-      
+
     </div>
   );
 }
