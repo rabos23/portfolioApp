@@ -55,7 +55,7 @@ function Homepage(props) {
     const values = {
       ...fieldsValue,
       'duedate': fieldsValue['duedate'].format('YYYY-MM-DD HH:mm'),
-      'status' : "todo" 
+      'status' : "todo"  
     };
     const newTodos = [...todos];
     newTodos.push(values);
@@ -65,6 +65,7 @@ function Homepage(props) {
    /*   const cityRef = firestore.collection("users").doc(currentUser.uid);
     await cityRef.update({todos : values})
   */  
+ setLoading(false)
   };
 
  function handleSubmit(e) {
@@ -162,7 +163,7 @@ function Homepage(props) {
         <Divider />
         <Row>
           <Col span={8}>TODO
-          {!loading ? todos.map((el) => <p>el</p>) : "" }
+         
           </Col>
 
           <Col span={7}>
@@ -172,10 +173,10 @@ function Homepage(props) {
           <Col span={7}>
             <Divider type="vertical" style={{ height: "100%" }} />FINISHED</Col>
         </Row>
-
+        
         <Divider />
         <Row>
-          <Col span={8}>TASK#1 ></Col>
+          <Col span={8}> {!loading ? todos.map((el) => <p >{el.subject} {el.details}</p>) : "" }</Col>
           <Col span={7}>
             <Divider type="vertical" style={{ height: "100%" }} />
           TASK#2</Col>
