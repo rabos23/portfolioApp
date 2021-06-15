@@ -59,7 +59,22 @@ if(value == 2)setRateColor("#ffc069");
     /* 
     
     https://dev.to/andyrewlee/cheat-sheet-for-updating-objects-and-arrays-in-react-state-48np
-     
+     –––––––––––––––-
+    Just to clarify, the solution was simpler than expected.
+
+In
+
+const showTasks = () =>  taskList.map((item, index) => (
+        <SingleTask
+            taskObj={item}
+            removeTask ={removeTask}
+            key = {item.id}
+        />
+        )
+    )
+I was passing map index as a key, when I changed it to {item.id} everything works as expected.
+    ––––
+    https://stackoverflow.com/questions/55197957/update-list-of-displayed-components-on-deletion-in-react/55198360
     */
 
     const values = {
