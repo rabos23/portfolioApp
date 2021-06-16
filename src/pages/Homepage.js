@@ -70,8 +70,8 @@ function Homepage(props) {
       status: "todo",
       id: todos.length + 1,
     };
-    const newTodos = [...todos];
-    newTodos.push(values);
+    const newTodos = {...todos};
+    newTodos[values.id] = values;
     setTodos(newTodos);
     console.log(todos);
 
@@ -109,6 +109,7 @@ function Homepage(props) {
     setTodos(newTodos);
     console.log(todos)
     setLoading(true)
+    console.log(todo)
   }
   /*
   https://linguinecode.com/post/how-to-get-form-data-on-submit-in-reactjs 
@@ -240,7 +241,7 @@ I was passing map index as a key, when I changed it to {item.id} everything work
                           </Col>
                           <Col span={4} offset={10}>
                             
-                            <DeleteTwoTone onClick={() => removeTask(el.id)}/>
+                            <DeleteTwoTone onClick={(el) => removeTask(el.id)}/>
                             <CheckCircleTwoTone twoToneColor="#52c41a" />
                           </Col>
                         </Row>
