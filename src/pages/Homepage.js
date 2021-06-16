@@ -40,16 +40,16 @@ function Homepage(props) {
   /* DODELAT FIRESTORE DATABAZI */
   const [taskNumber, setTaskNumber] = useState();
   const [todos, setTodos] = useState([
-    {
+     {
       subject: "Subject",
       details: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Pellentesque arcu. Nullam dapibus fermentum ipsum. Nunc auctor. ",
       duedate: "2021-06-16 07:41",
       id: "1",
       slider: "3",
       status: "todo",
-    },
+    }, 
   ]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [rateColor, setRateColor] = useState("#40a9ff");
   const { userData, setData } = useData();
@@ -70,9 +70,9 @@ function Homepage(props) {
       status: "todo",
       id: todos.length + 1,
     };
-    const newTodos = {...todos};
-    newTodos[values.id] = values;
-    setTodos(newTodos);
+    const newTodos = todos.slice();
+  newTodos.push(values);
+  setTodos(newTodos);
     console.log(todos);
 
     /*  const cityRef = firestore.collection("users").doc(currentUser.uid);
@@ -104,12 +104,11 @@ function Homepage(props) {
   };
 
   function removeTask(todo){
+   
+   
+    
     console.log(todo)
-    const newTodos = todos.filter((t) => t !== todo);
-    setTodos(newTodos);
-    console.log(todos)
-    setLoading(true)
-    console.log(todo)
+   
   }
   /*
   https://linguinecode.com/post/how-to-get-form-data-on-submit-in-reactjs 
@@ -222,9 +221,9 @@ I was passing map index as a key, when I changed it to {item.id} everything work
           <Col span={8}>
             <Row>TODO</Row>
             <Row>
-              {!loading
+             { !loading
                 ? todos.map((el) => {
-                    /* if (el.status == "todo")  */ return (
+                    if (el.status == "todo")  return (
                       <Container
                         key={el.id}
                         style={{ width: "90%" }}
@@ -241,7 +240,7 @@ I was passing map index as a key, when I changed it to {item.id} everything work
                           </Col>
                           <Col span={4} offset={10}>
                             
-                            <DeleteTwoTone onClick={(el) => removeTask(el.id)}/>
+                            <DeleteTwoTone onClick={() => removeTask(el.id)}/>
                             <CheckCircleTwoTone twoToneColor="#52c41a" />
                           </Col>
                         </Row>
@@ -257,74 +256,21 @@ I was passing map index as a key, when I changed it to {item.id} everything work
                     );
                   })
                 : "THERE IS NO TASK TO SEE. ADD ONE"}
+                
             </Row>
           </Col>
 
           <Col span={8}>
             <Row>ONGOING</Row>
             <Row>
-              {!loading
-                ? todos.map((el) => {
-                    if (el.status == "ongoing")
-                      return (
-                        <Container
-                          style={{ width: "90%" }}
-                          className="ant-form m-1"
-                        >
-                          <Row>
-                            <Col>Subject #2</Col>
-                            <Col>
-                              <EditTwoTone />
-                              <DeleteTwoTone />
-                              <CheckCircleTwoTone twoToneColor="#52c41a" />
-                            </Col>
-                          </Row>
-                          <Row>
-                            <Col>Subject #2</Col>
-                            <Col>
-                              <EditTwoTone />
-                              <DeleteTwoTone />
-                              <CheckCircleTwoTone twoToneColor="#52c41a" />
-                            </Col>
-                          </Row>
-                        </Container>
-                      );
-                  })
-                : "THERE IS NO TASK TO SEE. ADD ONE"}
+              
             </Row>
           </Col>
 
           <Col span={8}>
             <Row>FINISHED</Row>
             <Row>
-              {!loading
-                ? todos.map((el) => {
-                    if (el.status == "finished")
-                      return (
-                        <Container
-                          style={{ width: "90%" }}
-                          className="ant-form m-1"
-                        >
-                          <Row>
-                            <Col>Subject #2</Col>
-                            <Col>
-                              <EditTwoTone />
-                              <DeleteTwoTone />
-                              <CheckCircleTwoTone twoToneColor="#52c41a" />
-                            </Col>
-                          </Row>
-                          <Row>
-                            <Col>Subject #2</Col>
-                            <Col>
-                              <EditTwoTone />
-                              <DeleteTwoTone />
-                              <CheckCircleTwoTone twoToneColor="#52c41a" />
-                            </Col>
-                          </Row>
-                        </Container>
-                      );
-                  })
-                : "THERE IS NO TASK TO SEE. ADD ONE"}
+      {/* LOADING MAP */}
             </Row>
           </Col>
         </Row>
