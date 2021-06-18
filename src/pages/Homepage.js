@@ -108,35 +108,30 @@ function Homepage(props) {
     console.log("Failed:", errorInfo);
   };
 
-  function removeTask(todo) {
-   
-    setTodos((prevState) => ({
-      todos: prevState.todos.filter(el => el.id !=)
-    })
-    
-    
-    
-    )
-  }
+  const removeTask = (todo) => {};
+
   const statusUpdate = (status, taskid) => {
-    if (status === "todo") {
-      let newTodos = [...todos];
-      newTodos[taskid] = { ...newTodos[taskid], status: "ongoing" };
-      setTodos(newTodos);
-      console.log(todos);
+    let newTodos = [...todos];
+
+    switch (status) {
+      case "todo":
+        newTodos[taskid] = { ...newTodos[taskid], status: "ongoing" };
+        setTodos(newTodos);
+        break;
+      case "ongoing":
+        newTodos[taskid] = { ...newTodos[taskid], status: "finished" };
+        setTodos(newTodos);
+        break;
+      case "finished":
+        newTodos[taskid] = { ...newTodos[taskid], status: "ongoing" };
+        setTodos(newTodos);
+
+        break;
+      default:
+        break;
     }
-    if (status === "ongoing") {
-      let newTodos = [...todos];
-      newTodos[taskid] = { ...newTodos[taskid], status: "finished" };
-      setTodos(newTodos);
-      console.log(todos);
-    }
-    if (status === "finished") {
-      let newTodos = [...todos];
-      newTodos[taskid] = { ...newTodos[taskid], status: "ongoing" };
-      setTodos(newTodos);
-      console.log(todos);
-    }
+    console.log(todos);
+
   };
   /*
   https://linguinecode.com/post/how-to-get-form-data-on-submit-in-reactjs 
