@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/portfolioapp/static/css/main.204658ef.chunk.css",
-    "main.js": "/portfolioapp/static/js/main.f059f107.chunk.js",
-    "main.js.map": "/portfolioapp/static/js/main.f059f107.chunk.js.map",
-    "runtime-main.js": "/portfolioapp/static/js/runtime-main.fd7956b1.js",
-    "runtime-main.js.map": "/portfolioapp/static/js/runtime-main.fd7956b1.js.map",
-    "static/css/2.0c319aeb.chunk.css": "/portfolioapp/static/css/2.0c319aeb.chunk.css",
-    "static/js/2.24f39513.chunk.js": "/portfolioapp/static/js/2.24f39513.chunk.js",
-    "static/js/2.24f39513.chunk.js.map": "/portfolioapp/static/js/2.24f39513.chunk.js.map",
-    "index.html": "/portfolioapp/index.html",
-    "precache-manifest.570c4483a4994eaefd934409ec9cc250.js": "/portfolioapp/precache-manifest.570c4483a4994eaefd934409ec9cc250.js",
-    "service-worker.js": "/portfolioapp/service-worker.js",
-    "static/css/2.0c319aeb.chunk.css.map": "/portfolioapp/static/css/2.0c319aeb.chunk.css.map",
-    "static/css/main.204658ef.chunk.css.map": "/portfolioapp/static/css/main.204658ef.chunk.css.map",
-    "static/js/2.24f39513.chunk.js.LICENSE.txt": "/portfolioapp/static/js/2.24f39513.chunk.js.LICENSE.txt"
+    "main.css": "/portfolioApp/static/css/main.204658ef.chunk.css",
+    "main.js": "/portfolioApp/static/js/main.63a0bc5a.chunk.js",
+    "main.js.map": "/portfolioApp/static/js/main.63a0bc5a.chunk.js.map",
+    "runtime-main.js": "/portfolioApp/static/js/runtime-main.9962e816.js",
+    "runtime-main.js.map": "/portfolioApp/static/js/runtime-main.9962e816.js.map",
+    "static/css/2.0c319aeb.chunk.css": "/portfolioApp/static/css/2.0c319aeb.chunk.css",
+    "static/js/2.cd7924b2.chunk.js": "/portfolioApp/static/js/2.cd7924b2.chunk.js",
+    "static/js/2.cd7924b2.chunk.js.map": "/portfolioApp/static/js/2.cd7924b2.chunk.js.map",
+    "index.html": "/portfolioApp/index.html",
+    "precache-manifest.b180b82545599e6a4c16dbd5f2cf5db4.js": "/portfolioApp/precache-manifest.b180b82545599e6a4c16dbd5f2cf5db4.js",
+    "service-worker.js": "/portfolioApp/service-worker.js",
+    "static/css/2.0c319aeb.chunk.css.map": "/portfolioApp/static/css/2.0c319aeb.chunk.css.map",
+    "static/css/main.204658ef.chunk.css.map": "/portfolioApp/static/css/main.204658ef.chunk.css.map",
+    "static/js/2.cd7924b2.chunk.js.LICENSE.txt": "/portfolioApp/static/js/2.cd7924b2.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.fd7956b1.js",
+    "static/js/runtime-main.9962e816.js",
     "static/css/2.0c319aeb.chunk.css",
-    "static/js/2.24f39513.chunk.js",
+    "static/js/2.cd7924b2.chunk.js",
     "static/css/main.204658ef.chunk.css",
-    "static/js/main.f059f107.chunk.js"
+    "static/js/main.63a0bc5a.chunk.js"
   ]
 }
