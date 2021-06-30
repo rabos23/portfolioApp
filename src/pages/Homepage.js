@@ -109,8 +109,17 @@ function Homepage(props) {
     console.log("Failed:", errorInfo);
   };
 
+<<<<<<< HEAD
+  function removeTask(todo) {
+   
+/*     setTodos((prevState) => ({
+      todos: prevState.todos.filter(el => el.id !=) */
+    }
+  
+=======
   const removeTask = (todo) => {};
 
+>>>>>>> be5aef557778de1d518d4a64c3dd5d3cdad37b3a
   const statusUpdate = (status, taskid) => {
     let newTodos = [...todos];
 
@@ -275,7 +284,7 @@ I was passing map index as a key, when I changed it to {item.id} everything work
                           <Row>
                             <Col span={10}>
                               <Row>
-                                {" "}
+                                { }
                                 {el.subject} #{el.id} &nbsp;
                                 {el.slider ? getUserStars(el.slider) : ""}{" "}
                               </Row>
@@ -316,9 +325,10 @@ I was passing map index as a key, when I changed it to {item.id} everything work
                         >
                           <Row>
                             <Col span={10}>
+                              <Row>{el.status === "ongoing" ? <LeftOutlined style={{marginTop:"5%"}}onClick={() => statusUpdate("ongoing", el.id)}  /> : ""}</Row>
                               <Row>
-                                {" "}
-                                {el.subject} #{el.id} &nbsp;
+                              
+ {el.subject} #{el.id} &nbsp;
                                 {el.slider ? getUserStars(el.slider) : ""}{" "}
                               </Row>
                             </Col>
