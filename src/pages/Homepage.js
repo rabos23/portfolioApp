@@ -87,6 +87,7 @@ function Homepage(props) {
     setLoading(false);
   }
 
+
   const getUserStars = (points) => {
     let i = 0;
     let stars = [];
@@ -131,7 +132,6 @@ function Homepage(props) {
         break;
     }
     console.log(todos);
-
   };
   /*
   https://linguinecode.com/post/how-to-get-form-data-on-submit-in-reactjs 
