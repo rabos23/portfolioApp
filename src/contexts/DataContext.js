@@ -46,6 +46,17 @@ export function UserProvider({ children }) {
         await cityRef.update({ showMsg: data });
         console.log("Data:" + data + " was succesful");
         break;
+        case "todo":
+          const cityRef = firestore.collection("users").doc(currentUser.uid);
+         const { id, details, duiedate, slider, status, subject } = data;
+          await cityRef.update({ 
+            "tasks":{
+              task: {
+                id, details, duiedate, slider, status, subject
+              }
+            } });
+          console.log("Data:" + data + " was succesful");
+          break;
       default:
         console.log("default");
     }

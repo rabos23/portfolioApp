@@ -57,6 +57,24 @@ function Homepage(props) {
   const { userData, setData } = useData();
   const { currentUser } = useAuth();
 
+const getUserStars = (points) => {
+    let i = 0;
+    let stars = [];
+    let exColor;
+    if (points == 1) exColor = "#40a9ff";
+    if (points == 3) exColor = "#610b00";
+    if (points == 2) exColor = "#ffc069";
+    while (i < points) {
+      i++;
+      stars.push(
+        <ExclamationOutlined
+          style={{ marginTop: "5%", marginLeft: "-7%", color: exColor }}
+        />
+      );
+    }
+    return stars;
+  };
+
   function changeRateColor(value) {
     console.log(value);
     if (value == 1) setRateColor("#40a9ff");
@@ -80,7 +98,7 @@ function Homepage(props) {
     newTodos.push(values);
     setTodos(newTodos);
     console.log(todos);
-
+setData(values,"todo")
     /*  const cityRef = firestore.collection("users").doc(currentUser.uid);
      await cityRef.update({ todos: values }) */
 
@@ -88,38 +106,17 @@ function Homepage(props) {
   }
 
 
-  const getUserStars = (points) => {
-    let i = 0;
-    let stars = [];
-    let exColor;
-    if (points == 1) exColor = "#40a9ff";
-    if (points == 3) exColor = "#610b00";
-    if (points == 2) exColor = "#ffc069";
-    while (i < points) {
-      i++;
-      stars.push(
-        <ExclamationOutlined
-          style={{ marginTop: "5%", marginLeft: "-7%", color: exColor }}
-        />
-      );
-    }
-    return stars;
-  };
+  
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
-<<<<<<< HEAD
   function removeTask(todo) {
    
 /*     setTodos((prevState) => ({
       todos: prevState.todos.filter(el => el.id !=) */
     }
   
-=======
-  const removeTask = (todo) => {};
-
->>>>>>> be5aef557778de1d518d4a64c3dd5d3cdad37b3a
   const statusUpdate = (status, taskid) => {
     let newTodos = [...todos];
 
