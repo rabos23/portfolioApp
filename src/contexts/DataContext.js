@@ -47,21 +47,24 @@ export function UserProvider({ children }) {
         console.log("Data:" + data + " was succesful");
         break;
         case "todo":
-          const cityRef = firestore.collection("users").doc(currentUser.uid);
-         const { id, details, duiedate, slider, status, subject } = data;
-          await cityRef.update({ 
-            "tasks":{
-              task: {
-                id, details, duiedate, slider, status, subject
-              }
-            } });
+           const url = firestore.collection("users").doc(currentUser.uid).collection("tasks");
+          const { details, duedate, slider, status, subject } = data;
+       
+            await url.add({
+              details, duedate, slider, status, subject
+            })
           console.log("Data:" + data + " was succesful");
           break;
       default:
         console.log("default");
     }
   };
-
+   /* await cityRef.add({ 
+            "tasks":{
+              task: {
+                id, details, duiedate, slider, status, subject
+              }
+            } }); */
   useEffect(() => {
     if (currentUser) {
       setLoading(true);
@@ -74,6 +77,7 @@ export function UserProvider({ children }) {
             setUserData(snapshot.data());
 
             setLoading(false);
+            console.log(userData)
           }
         });
     } else {

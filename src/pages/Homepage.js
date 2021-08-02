@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Hero from "../components/Hero";
 import { Container, Image } from "react-bootstrap";
 import { useData } from "../contexts/DataContext";
@@ -40,24 +40,14 @@ import {
 function Homepage(props) {
   /* DODELAT FIRESTORE DATABAZI */
   const [taskNumber, setTaskNumber] = useState();
-  const [todos, setTodos] = useState([
-    /*   {
-      subject: "Subject",
-      details:
-        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Pellentesque arcu. Nullam dapibus fermentum ipsum. Nunc auctor. ",
-      duedate: "2021-06-16 07:41",
-      id: "1",
-      slider: "3",
-      status: "todo",
-    }, */
-  ]);
+  const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [rateColor, setRateColor] = useState("#40a9ff");
   const { userData, setData } = useData();
   const { currentUser } = useAuth();
 
-const getUserStars = (points) => {
+  const getUserStars = (points) => {
     let i = 0;
     let stars = [];
     let exColor;
@@ -91,14 +81,11 @@ const getUserStars = (points) => {
       values.duedate = fieldsValue["duedate"].format("DD-MM-YYYY HH:mm");
     }
 
-    if (todos) {
-      values.id = todos.length;
-    }
     const newTodos = todos.slice();
-    newTodos.push(values);
-    setTodos(newTodos);
-    console.log(todos);
-setData(values,"todo")
+    /*  newTodos.push(values);
+     setTodos(newTodos);
+     console.log(todos); */
+    setData(values, "todo")
     /*  const cityRef = firestore.collection("users").doc(currentUser.uid);
      await cityRef.update({ todos: values }) */
 
@@ -106,38 +93,36 @@ setData(values,"todo")
   }
 
 
-  
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
-  function removeTask(todo) {
-   
-/*     setTodos((prevState) => ({
-      todos: prevState.todos.filter(el => el.id !=) */
-    }
-  
-  const statusUpdate = (status, taskid) => {
-    let newTodos = [...todos];
+  async function removeTask(id) {
+    const cityRef = await firestore.collection("users").doc(currentUser.uid).collection("tasks").doc(id).delete()
+      .then(() => { console.log("successfully deleted! ") })
+      .catch((error) => { console.log("Error removing document:", error) })
+      console.log(todos)
 
-    switch (status) {
-      case "todo":
-        newTodos[taskid] = { ...newTodos[taskid], status: "ongoing" };
-        setTodos(newTodos);
-        break;
-      case "ongoing":
-        newTodos[taskid] = { ...newTodos[taskid], status: "finished" };
-        setTodos(newTodos);
-        break;
-      case "finished":
-        newTodos[taskid] = { ...newTodos[taskid], status: "ongoing" };
-        setTodos(newTodos);
+ 
+  }
 
-        break;
-      default:
-        break;
-    }
-    console.log(todos);
+  async function statusUpdate(status, taskid) {
+    switch(status){
+      case "todo" :
+        await firestore.collection("users").doc(currentUser.uid).collection("tasks").doc(taskid).update({status: "ongoing"})
+          break;
+          case "ongoing1" :
+        await firestore.collection("users").doc(currentUser.uid).collection("tasks").doc(taskid).update({status: "todo"})
+          break;
+          case "ongoing2" :
+            await firestore.collection("users").doc(currentUser.uid).collection("tasks").doc(taskid).update({status: "finished"})
+              break;
+          case "finished" :
+        await firestore.collection("users").doc(currentUser.uid).collection("tasks").doc(taskid).update({status: "ongoing"})
+          break;
+
+      }
   };
   /*
   https://linguinecode.com/post/how-to-get-form-data-on-submit-in-reactjs 
@@ -170,6 +155,35 @@ I was passing map index as a key, when I changed it to {item.id} everything work
     ––––
     https://stackoverflow.com/questions/55197957/update-list-of-displayed-components-on-deletion-in-react/55198360
     */
+  useEffect(() => {
+
+    if (currentUser) {
+      const unsubscribe = firestore
+        .collection(`users`)
+        .doc(`${currentUser.uid}`)
+        .collection(`tasks`)
+        .onSnapshot((snapshot) => {
+          if (snapshot.size) {
+            console.log("we got smth");
+
+            let myData = [];
+
+            snapshot.forEach((doc) => myData.push({ id: doc.id, ...doc.data() }));
+
+            setTodos(myData);
+            console.log(myData)
+            setLoading(false);
+          } else {
+
+            setLoading(false);
+          }
+        });
+
+      return () => {
+        unsubscribe();
+      };
+    }
+  }, [currentUser, firestore]);
 
   return (
     <div>
@@ -265,45 +279,45 @@ I was passing map index as a key, when I changed it to {item.id} everything work
           </Form>
         </Row>
         <Divider />
-        <Row>
+        {<Row>
           <Col span={8}>
             <Row>TODO</Row>
             <Row>
               {todos
                 ? todos.map((el) => {
-                    if (el.status == "todo")
-                      return (
-                        <Container
-                          key={el.id}
-                          style={{ width: "90%" }}
-                          className="ant-form m-1"
-                        >
-                          <Row>
-                            <Col span={10}>
-                              <Row>
-                                { }
-                                {el.subject} #{el.id} &nbsp;
-                                {el.slider ? getUserStars(el.slider) : ""}{" "}
-                              </Row>
-                            </Col>
-                            <Col span={4} offset={10}>
-                              <DeleteTwoTone
-                                onClick={() => removeTask(el.id)}
-                              />
+                  if (el.status == "todo")
+                    return (
+                      <Container
+                        key={el.id}
+                        style={{ width: "90%" }}
+                        className="ant-form m-1"
+                      >
+                        <Row>
+                          <Col span={10}>
+                            <Row>
+                              { }
+                              {el.subject} #{el.id} &nbsp;
+                              {el.slider ? getUserStars(el.slider) : ""}{" "}
+                            </Row>
+                          </Col>
+                          <Col span={4} offset={10}>
+                            <DeleteTwoTone
+                              onClick={() => removeTask(el.id)}
+                            />
 
-                              <RightOutlined
-                                onClick={() => statusUpdate("todo", el.id)}
-                              />
-                            </Col>
-                          </Row>
-                          <Row>{el.details}</Row>
+                            <RightOutlined
+                              onClick={() => statusUpdate("todo", el.id)}
+                            />
+                          </Col>
+                        </Row>
+                        <Row>{el.details}</Row>
 
-                          <Row style={{ color: "#DDDDDD" }}>
-                            {!el.duedate ? "no duedate" : el.duedate}
-                          </Row>
-                        </Container>
-                      );
-                  })
+                        <Row style={{ color: "#DDDDDD" }}>
+                          {!el.duedate ? "no duedate" : el.duedate}
+                        </Row>
+                      </Container>
+                    );
+                })
                 : "THERE IS NO TASK TO SEE. ADD ONE"}
             </Row>
           </Col>
@@ -313,40 +327,40 @@ I was passing map index as a key, when I changed it to {item.id} everything work
             <Row>
               {todos
                 ? todos.map((el) => {
-                    if (el.status == "ongoing")
-                      return (
-                        <Container
-                          key={el.id}
-                          style={{ width: "90%" }}
-                          className="ant-form m-1"
-                        >
-                          <Row>
-                            <Col span={10}>
-                              <Row>{el.status === "ongoing" ? <LeftOutlined style={{marginTop:"5%"}}onClick={() => statusUpdate("ongoing", el.id)}  /> : ""}</Row>
-                              <Row>
-                              
- {el.subject} #{el.id} &nbsp;
-                                {el.slider ? getUserStars(el.slider) : ""}{" "}
-                              </Row>
-                            </Col>
-                            <Col span={4} offset={10}>
-                              <DeleteTwoTone
-                                onClick={() => removeTask(el.id)}
-                              />
-                              <CheckCircleTwoTone
-                                onClick={() => statusUpdate("ongoing", el.id)}
-                                twoToneColor="#52c41a"
-                              />
-                            </Col>
-                          </Row>
-                          <Row>{el.details}</Row>
+                  if (el.status == "ongoing")
+                    return (
+                      <Container
+                        key={el.id}
+                        style={{ width: "90%" }}
+                        className="ant-form m-1"
+                      >
+                        <Row>
+                          <Col span={10}>
+                            <Row>{el.status === "ongoing" ? <LeftOutlined style={{ marginTop: "5%" }} onClick={() => statusUpdate("ongoing1", el.id)} /> : ""}</Row>
+                            <Row>
 
-                          <Row style={{ color: "#DDDDDD" }}>
-                            {!el.duedate ? "no duedate" : el.duedate}
-                          </Row>
-                        </Container>
-                      );
-                  })
+                              {el.subject} #{el.id} &nbsp;
+                              {el.slider ? getUserStars(el.slider) : ""}{" "}
+                            </Row>
+                          </Col>
+                          <Col span={4} offset={10}>
+                            <DeleteTwoTone
+                              onClick={() => removeTask(el.id)}
+                            />
+                            <CheckCircleTwoTone
+                              onClick={() => statusUpdate("ongoing2", el.id)}
+                              twoToneColor="#52c41a"
+                            />
+                          </Col>
+                        </Row>
+                        <Row>{el.details}</Row>
+
+                        <Row style={{ color: "#DDDDDD" }}>
+                          {!el.duedate ? "no duedate" : el.duedate}
+                        </Row>
+                      </Container>
+                    );
+                })
                 : "THERE IS NO TASK TO SEE. ADD ONE"}
             </Row>
           </Col>
@@ -356,42 +370,42 @@ I was passing map index as a key, when I changed it to {item.id} everything work
             <Row>
               {todos
                 ? todos.map((el) => {
-                    if (el.status == "finished")
-                      return (
-                        <Container
-                          key={el.id}
-                          style={{ width: "90%" }}
-                          className="ant-form m-1"
-                        >
-                          <Row>
-                            <Col span={10}>
-                              <Row>
-                                {" "}
-                                {el.subject} #{el.id} &nbsp;
-                                {el.slider ? getUserStars(el.slider) : ""}{" "}
-                              </Row>
-                            </Col>
-                            <Col span={4} offset={10}>
-                              <DeleteTwoTone
-                                onClick={() => removeTask(el.id)}
-                              />
-                              <LeftOutlined
-                                onClick={() => statusUpdate("finished", el.id)}
-                              />
-                            </Col>
-                          </Row>
-                          <Row>{el.details}</Row>
+                  if (el.status == "finished")
+                    return (
+                      <Container
+                        key={el.id}
+                        style={{ width: "90%" }}
+                        className="ant-form m-1"
+                      >
+                        <Row>
+                          <Col span={10}>
+                            <Row>
+                              {" "}
+                              {el.subject} #{el.id} &nbsp;
+                              {el.slider ? getUserStars(el.slider) : ""}{" "}
+                            </Row>
+                          </Col>
+                          <Col span={4} offset={10}>
+                            <DeleteTwoTone
+                              onClick={() => removeTask(el.id)}
+                            />
+                            <LeftOutlined
+                              onClick={() => statusUpdate("finished", el.id)}
+                            />
+                          </Col>
+                        </Row>
+                        <Row>{el.details}</Row>
 
-                          <Row style={{ color: "#DDDDDD" }}>
-                            {!el.duedate ? "no duedate" : el.duedate}
-                          </Row>
-                        </Container>
-                      );
-                  })
+                        <Row style={{ color: "#DDDDDD" }}>
+                          {!el.duedate ? "no duedate" : el.duedate}
+                        </Row>
+                      </Container>
+                    );
+                })
                 : "THERE IS NO TASK TO SEE. ADD ONE"}
             </Row>
           </Col>
-        </Row>
+        </Row>}
         <Divider />
       </Container>
     </div>
