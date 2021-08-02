@@ -22,7 +22,7 @@ export function UserProvider({ children }) {
   https://github.com/miscavage/CoinGecko-API
   
   */
-  
+
 
   const setData = async (data, type) => {
     const cityRef = firestore.collection("users").doc(currentUser.uid);
@@ -46,25 +46,28 @@ export function UserProvider({ children }) {
         await cityRef.update({ showMsg: data });
         console.log("Data:" + data + " was succesful");
         break;
-        case "todo":
-           const url = firestore.collection("users").doc(currentUser.uid).collection("tasks");
-          const { details, duedate, slider, status, subject } = data;
-       
-            await url.add({
-              details, duedate, slider, status, subject
-            })
-          console.log("Data:" + data + " was succesful");
-          break;
+      case "todo":
+        const url = firestore.collection("users").doc(currentUser.uid).collection("tasks")
+        if (data.duedate == undefined) {
+          data.duedate = new Date().toLocaleString("cs-CZ").slice(0, 16);
+        }
+        const { details, duedate, slider, status, subject } = data;
+
+        await url.add({
+          details, duedate, slider, status, subject
+        })
+        console.log("Data:" + data + " was succesful");
+        break;
       default:
         console.log("default");
     }
   };
-   /* await cityRef.add({ 
-            "tasks":{
-              task: {
-                id, details, duiedate, slider, status, subject
-              }
-            } }); */
+  /* await cityRef.add({ 
+           "tasks":{
+             task: {
+               id, details, duiedate, slider, status, subject
+             }
+           } }); */
   useEffect(() => {
     if (currentUser) {
       setLoading(true);

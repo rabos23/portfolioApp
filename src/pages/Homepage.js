@@ -40,7 +40,7 @@ import {
 function Homepage(props) {
   /* DODELAT FIRESTORE DATABAZI */
   const [taskNumber, setTaskNumber] = useState();
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [rateColor, setRateColor] = useState("#40a9ff");
@@ -163,7 +163,7 @@ I was passing map index as a key, when I changed it to {item.id} everything work
         .doc(`${currentUser.uid}`)
         .collection(`tasks`)
         .onSnapshot((snapshot) => {
-          if (snapshot.size) {
+          if (snapshot) {
             console.log("we got smth");
 
             let myData = [];
@@ -174,12 +174,13 @@ I was passing map index as a key, when I changed it to {item.id} everything work
             console.log(myData)
             setLoading(false);
           } else {
-
+            setTodos("big fat nothing")
             setLoading(false);
           }
         });
 
       return () => {
+        setTodos("big fat nothing")
         unsubscribe();
       };
     }
@@ -235,7 +236,12 @@ I was passing map index as a key, when I changed it to {item.id} everything work
             </Row>
             <Row>
               <Col span={12}>
-                <Form.Item name="details">
+                <Form.Item name="details"
+                rules={[
+                  {required:true,
+                    message: "Please pick an details!",
+                  },
+                ]}>
                   <Input.TextArea placeholder="Put details" />
                 </Form.Item>
               </Col>
@@ -253,11 +259,7 @@ I was passing map index as a key, when I changed it to {item.id} everything work
               <Col>
                 <Form.Item
                   name="status"
-                  rules={[
-                    {
-                      message: "Please pick an item!",
-                    },
-                  ]}
+                  
                 >
                   <Radio.Group>
                     <Radio.Button value="todo">TODO</Radio.Button>
@@ -296,7 +298,7 @@ I was passing map index as a key, when I changed it to {item.id} everything work
                           <Col span={10}>
                             <Row>
                               { }
-                              {el.subject} #{el.id} &nbsp;
+                              {el.subject} # &nbsp;
                               {el.slider ? getUserStars(el.slider) : ""}{" "}
                             </Row>
                           </Col>
@@ -318,7 +320,7 @@ I was passing map index as a key, when I changed it to {item.id} everything work
                       </Container>
                     );
                 })
-                : "THERE IS NO TASK TO SEE. ADD ONE"}
+                : todos}
             </Row>
           </Col>
 
@@ -339,7 +341,7 @@ I was passing map index as a key, when I changed it to {item.id} everything work
                             <Row>{el.status === "ongoing" ? <LeftOutlined style={{ marginTop: "5%" }} onClick={() => statusUpdate("ongoing1", el.id)} /> : ""}</Row>
                             <Row>
 
-                              {el.subject} #{el.id} &nbsp;
+                              {el.subject} # &nbsp;
                               {el.slider ? getUserStars(el.slider) : ""}{" "}
                             </Row>
                           </Col>
@@ -361,7 +363,7 @@ I was passing map index as a key, when I changed it to {item.id} everything work
                       </Container>
                     );
                 })
-                : "THERE IS NO TASK TO SEE. ADD ONE"}
+                : todos}
             </Row>
           </Col>
 
@@ -381,7 +383,7 @@ I was passing map index as a key, when I changed it to {item.id} everything work
                           <Col span={10}>
                             <Row>
                               {" "}
-                              {el.subject} #{el.id} &nbsp;
+                              {el.subject} # &nbsp;
                               {el.slider ? getUserStars(el.slider) : ""}{" "}
                             </Row>
                           </Col>
@@ -402,7 +404,7 @@ I was passing map index as a key, when I changed it to {item.id} everything work
                       </Container>
                     );
                 })
-                : "THERE IS NO TASK TO SEE. ADD ONE"}
+                : todos}
             </Row>
           </Col>
         </Row>}
