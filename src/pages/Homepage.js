@@ -40,7 +40,7 @@ import {
 function Homepage(props) {
   /* DODELAT FIRESTORE DATABAZI */
   const [taskNumber, setTaskNumber] = useState();
-  const [todos, setTodos] = useState();
+  const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [rateColor, setRateColor] = useState("#40a9ff");
@@ -82,13 +82,13 @@ function Homepage(props) {
     }
 
     const newTodos = todos.slice();
-    /*  newTodos.push(values);
+    newTodos.push(values);
      setTodos(newTodos);
-     console.log(todos); */
-    setData(values, "todo")
-    /*  const cityRef = firestore.collection("users").doc(currentUser.uid);
-     await cityRef.update({ todos: values }) */
-
+     console.log(todos); 
+     setData(values, "todo")
+       const cityRef = firestore.collection("users").doc(currentUser.uid);
+      await cityRef.update({ todos: values }) 
+ 
     setLoading(false);
   }
 
