@@ -74,14 +74,14 @@ min-height: 100px;
 
 /* The animation code */
 
-@keyframes example2 {
+@keyframes introanim {
   0%   {opacity:0;}
   100%  {opcaity:1;}
  
 }
 #root {
-animation-duration: 1s;
-animation-name: example2;
+animation-duration: 5s;
+animation-name: examintroanim;
 }
 /* The element to apply the animation to */
 .line {
